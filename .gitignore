@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+
+# Claude Code local settings (machine-specific permissions)
+**/.claude/settings.local.json
+
+# Temp directories
+tmp/
+F2Modding/temp_extract/
+
+# Windows shortcuts (machine-specific)
+*.lnk
+
+# Logs
+*.log
+sfall-log.txt
+goglog.ini
+
+# Fallout 2 game installation files (copyrighted — install from GOG/retail)
+F2Modding/Fallout 2/master.dat
+F2Modding/Fallout 2/critter.dat
+F2Modding/Fallout 2/patch000.dat
+F2Modding/Fallout 2/f2_res.dat
+F2Modding/Fallout 2/sfall.dat
+F2Modding/Fallout 2/unins000.dat
+F2Modding/Fallout 2/webcache.zip
+F2Modding/Fallout 2/*.exe
+F2Modding/Fallout 2/*.dll
+F2Modding/Fallout 2/sound/
+F2Modding/Fallout 2/__support/
+F2Modding/Fallout 2/Extras/
+F2Modding/Fallout 2/translations/
+F2Modding/Fallout 2/data/SAVEGAME/
+F2Modding/Fallout 2/data/critter.dat/

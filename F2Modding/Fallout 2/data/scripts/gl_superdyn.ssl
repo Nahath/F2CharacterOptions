@@ -1,0 +1,15 @@
+#include "sfall.h"
+#include "define_extra.h"
+
+// dynon.frm = INVEN.LST index 122 (0-based), type 7 = inventory art
+#define DYNMK2ON_INVEN_FID  ((ART_TYPE_INVENT * 0x1000000) + 122)
+
+procedure start;
+
+procedure start
+begin
+  if game_loaded then begin
+    item_make_explosive(534, 535, 120, 240);
+    set_proto_data(535, PROTO_IT_INV_FID, DYNMK2ON_INVEN_FID);
+  end
+end

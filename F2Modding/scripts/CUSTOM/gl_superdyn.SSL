@@ -1,0 +1,21 @@
+/*
+  gl_superdyn.ssl
+  Global script: registers Super Dynamite as an explosive item.
+
+  sfall's item_make_explosive makes the engine treat PID 534 (Super Dynamite)
+  and PID 535 (Active Super Dynamite) exactly like vanilla dynamite — same
+  timer UI, same fuse mechanics, same on-ground placement — but with triple
+  the damage (90-180 vs. vanilla 30-60).
+
+  The item protos must be Misc Item type with the Use action flag set.
+  Do NOT assign an item script to protos 534 or 535; it would conflict.
+*/
+
+procedure start;
+
+procedure start
+begin
+  if game_loaded then begin
+    sfall_func4("item_make_explosive", 534, 535, 90, 180);
+  end
+end

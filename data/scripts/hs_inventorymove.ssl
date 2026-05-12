@@ -1,0 +1,47 @@
+/**
+ * hs_inventorymove.ssl
+ * Hook: power armor Strength cap (Change 1, reactive part).
+ * Requires: Sfall 4.x+ with -p preprocessor flag.
+ *
+ * Hook args:
+ *   arg0 (int) - destination slot: 3 = armor slot (hook numbering)
+ *   arg1 (obj) - item being moved
+ *   arg2 (obj) - item being replaced (ignored here)
+ */
+
+#include "DEFINE.H"
+#include "SFALL.H"
+
+#define PID_POWER_ARMOR              3
+#define PID_HARDENED_POWER_ARMOR     232
+#define PID_ADVANCED_POWER_ARMOR     348
+#define PID_ADVANCED_POWER_ARMOR_MK2 349
+
+#define HOOK_SLOT_ARMOR  3
+#define ST_CAP_NORMAL   10
+#define ST_CAP_PA       12
+
+#define is_pa_pid(p) ((p) == PID_POWER_ARMOR or (p) == PID_HARDENED_POWER_ARMOR or (p) == PID_ADVANCED_POWER_ARMOR or (p) == PID_ADVANCED_POWER_ARMOR_MK2)
+
+procedure start;
+
+procedure start begin
+    if game_loaded then return;
+
+    variable dest := get_sfall_arg;
+    variable item := get_sfall_arg;
+    if (item == 0) then return;
+
+    if (dest == HOOK_SLOT_ARMOR) then begin
+        if (is_pa_pid(obj_pid(item))) then begin
+            set_pc_stat_max(STAT_st, ST_CAP_PA);
+        end else begin
+            set_pc_stat_max(STAT_st, ST_CAP_NORMAL);
+        end
+    end else begin
+        variable worn := critter_inven_obj(dude_obj, INVEN_TYPE_WORN);
+        if (worn == item and is_pa_pid(obj_pid(item))) then begin
+            set_pc_stat_max(STAT_st, ST_CAP_NORMAL);
+        end
+    end
+end

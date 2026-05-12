@@ -1,0 +1,116 @@
+/**
+ * gl_goris_armor.ssl
+ * Global script: enforces that Goris (the intelligent deathclaw companion)
+ * wears only the Bridgekeeper's Robes and no other armor.
+ *
+ * Change 4: Goris can wear the Bridgekeeper's Robes but no other armor.
+ *
+ * How it works
+ * ────────────
+ * On game load, set_proto_data() patches all Goris proto variants in the
+ * engine's in-memory proto cache to body type 0 (Biped), allowing the
+ * engine to use the armor slot.  No .pro file is written to disk.
+ *
+ * Every REPEAT_FRAMES game frames the script then:
+ *   1. Searches the player's party for any Goris variant.
+ *   2. If Goris is wearing armor that is NOT the Bridgekeeper's Robes,
+ *      it is unequipped via Sfall's unwield_slot().
+ *   3. If Goris is wearing nothing and has the Bridgekeeper's Robes in
+ *      his inventory, wield_obj_critter() is called to equip them.
+ *
+ * Registration: add to sfall.cfg [Scripts] → GlobalScriptPaths.
+ * Requires: Sfall 4.x or newer (set_proto_data, unwield_slot,
+ *           party_member_list, len_array).
+ */
+
+#include "DEFINE.H"
+#include "SFALL.H"
+#include "define_extra.h"
+
+/* Goris critter proto IDs: base + all levelled stages.
+ * obj_pid() returns (type << 24) | proto_id; critters have type 1 = 16777216. */
+#define PID_GORIS_BASE    (16777216 + 152)
+#define PID_GORIS_STAGE1  (16777216 + 319)
+#define PID_GORIS_STAGE2  (16777216 + 320)
+#define PID_GORIS_STAGE3  (16777216 + 321)
+#define PID_GORIS_STAGE4  (16777216 + 322)
+#define PID_GORIS_STAGE5  (16777216 + 323)
+#define PID_GORIS_STAGE6  (16777216 + 324)
+
+#define PID_BRIDGEKEEPERS_ROBES  524
+
+/* Run every 300 frames (~10 s at 30 fps). */
+#define REPEAT_FRAMES  300
+
+/* is_goris_pid: true for any Goris critter proto ID. */
+#define is_goris_pid(p) ((p) == PID_GORIS_BASE or (p) == PID_GORIS_STAGE1 or (p) == PID_GORIS_STAGE2 or (p) == PID_GORIS_STAGE3 or (p) == PID_GORIS_STAGE4 or (p) == PID_GORIS_STAGE5 or (p) == PID_GORIS_STAGE6)
+
+procedure start;
+procedure find_goris;
+procedure manage_goris_armor;
+
+procedure start begin
+    if game_loaded then begin
+        set_global_script_repeat(REPEAT_FRAMES);
+        debug_msg("[f2mod] gl_goris_armor: game_loaded");
+        return;
+    end
+    debug_msg("[f2mod] gl_goris_armor: tick");
+    call manage_goris_armor;
+    debug_msg("[f2mod] gl_goris_armor: tick done");
+end
+
+/*
+ * Search the player's party for a Goris critter.
+ * party_member_list_critters returns a temporary Sfall array of critter objects.
+ * Returns Goris's object reference, or 0 if not in party.
+ */
+procedure find_goris begin
+    variable pm_list := party_member_list_critters;
+    variable n := len_array(pm_list);
+    variable i, member;
+    for (i := 0; i < n; i := i + 1) begin
+        member := get_array(pm_list, i);
+        if (member != 0) then begin
+            if (is_goris_pid(obj_pid(member))) then begin
+                return member;
+            end
+        end
+    end
+    return 0;
+end
+
+procedure manage_goris_armor begin
+    variable goris := find_goris();
+    if (goris == 0) then begin
+        return;
+    end
+
+    /* INVEN_TYPE_WORN = 0 (per DEFINE.H). */
+    variable worn := critter_inven_obj(goris, INVEN_TYPE_WORN);
+
+    /* Remove any armor that is not the Bridgekeeper's Robes. */
+    if (worn != 0) then begin
+        if (obj_pid(worn) != PID_BRIDGEKEEPERS_ROBES) then begin
+            /*
+             * unwield_slot(critter, slot) is provided by Sfall.
+             * INVEN_TYPE_WORN (0) is the armor slot.
+             */
+            unwield_slot(goris, INVEN_TYPE_WORN);
+            worn := 0;
+        end
+    end
+
+    /* If slot is empty and Goris has the Robes, try to equip them. */
+    if (worn == 0) then begin
+        variable robes := obj_carrying_pid_obj(goris, PID_BRIDGEKEEPERS_ROBES);
+        if (robes != 0) then begin
+            /*
+             * wield_obj_critter(critter, item) — vanilla function.
+             * Normally equips weapons; may also work for armor when the
+             * critter's body type has been patched to Biped (see README).
+             */
+            wield_obj_critter(goris, robes);
+        end
+    end
+end

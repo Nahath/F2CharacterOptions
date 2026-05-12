@@ -1,0 +1,27 @@
+/*
+  Super Dynamite (inactive)
+  PID: 534
+  Script ID: 1304
+
+  When used, replaces itself in the player's inventory with the active/timed
+  version (PID 535), same as how vanilla dynamite works.
+  The player then carries and drops it where they want.
+*/
+
+procedure start;
+procedure use_p_proc;
+
+procedure start
+begin
+end
+
+procedure use_p_proc
+begin
+  variable obj;
+  script_overrides;
+  obj := create_object_sid(535, 0, 0, -1);
+  add_obj_to_inven(dude_obj, obj);
+  rm_obj_from_inven(dude_obj, self_obj);
+  destroy_object(self_obj);
+  display_msg("You set the fuse on the super dynamite.");
+end

@@ -1,0 +1,61 @@
+/**
+ * gl_powerarmor.ssl
+ * Global script: re-applies the correct Strength cap after save/load and
+ * map transitions, since hs_inventorymove only fires on active equip events.
+ *
+ * Change 1 (companion to hs_inventorymove): Ensures the correct PA ST cap
+ * is active whenever a map is entered or a save is loaded.
+ *
+ * Registration: add to sfall.cfg [Scripts] → GlobalScriptPaths.
+ * Requires: Sfall 4.x or newer.
+ */
+
+#include "DEFINE.H"
+#include "SFALL.H"
+
+#define PID_POWER_ARMOR              3
+#define PID_HARDENED_POWER_ARMOR     232
+#define PID_ADVANCED_POWER_ARMOR     348
+#define PID_ADVANCED_POWER_ARMOR_MK2 349
+
+#define ST_CAP_NORMAL  10
+#define ST_CAP_PA      12
+
+/* Run every 300 frames (~10 s at 30 fps) as a safety net. */
+#define REPEAT_FRAMES  300
+
+#define is_pa_pid(p) ((p) == PID_POWER_ARMOR or (p) == PID_HARDENED_POWER_ARMOR or (p) == PID_ADVANCED_POWER_ARMOR or (p) == PID_ADVANCED_POWER_ARMOR_MK2)
+
+procedure start;
+procedure apply_pa_st_cap;
+
+procedure start begin
+    if game_loaded then begin
+        set_global_script_repeat(REPEAT_FRAMES);
+        debug_msg("[f2mod] gl_powerarmor: game_loaded");
+        call apply_pa_st_cap;
+        return;
+    end
+    debug_msg("[f2mod] gl_powerarmor: tick");
+    call apply_pa_st_cap;
+    debug_msg("[f2mod] gl_powerarmor: tick done");
+end
+
+procedure apply_pa_st_cap begin
+    debug_msg("[f2mod] apply_pa_st_cap: enter");
+    variable worn := critter_inven_obj(dude_obj, INVEN_TYPE_WORN);
+    debug_msg("[f2mod] apply_pa_st_cap: got worn item");
+    if (worn != 0) then begin
+        if (is_pa_pid(obj_pid(worn))) then begin
+            debug_msg("[f2mod] apply_pa_st_cap: setting PA cap");
+            set_pc_stat_max(STAT_st, ST_CAP_PA);
+        end else begin
+            debug_msg("[f2mod] apply_pa_st_cap: setting normal cap (worn)");
+            set_pc_stat_max(STAT_st, ST_CAP_NORMAL);
+        end
+    end else begin
+        debug_msg("[f2mod] apply_pa_st_cap: setting normal cap (bare)");
+        set_pc_stat_max(STAT_st, ST_CAP_NORMAL);
+    end
+    debug_msg("[f2mod] apply_pa_st_cap: done");
+end

@@ -1,0 +1,42 @@
+/**
+ * gl_powerarmor.ssl
+ * Global script: applies the correct Strength cap when a save is loaded.
+ *
+ * Change 1 (load-time companion to hs_inventorymove): ensures the PA ST
+ * cap is active when a save game is loaded with power armor equipped.
+ * hs_inventorymove.ssl handles all real-time equip/unequip events.
+ *
+ * Registration: add to sfall.cfg [Scripts] → GlobalScriptPaths.
+ * Requires: Sfall 4.x or newer.
+ */
+
+#include "DEFINE.H"
+#include "SFALL.H"
+
+#define PID_POWER_ARMOR              3
+#define PID_HARDENED_POWER_ARMOR     232
+#define PID_ADVANCED_POWER_ARMOR     348
+#define PID_ADVANCED_POWER_ARMOR_MK2 349
+
+#define ST_CAP_NORMAL  10
+#define ST_CAP_PA      12
+
+#define is_pa_pid(p) ((p) == PID_POWER_ARMOR or (p) == PID_HARDENED_POWER_ARMOR or (p) == PID_ADVANCED_POWER_ARMOR or (p) == PID_ADVANCED_POWER_ARMOR_MK2)
+
+procedure start;
+procedure apply_pa_st_cap;
+
+procedure start begin
+    if game_loaded then begin
+        call apply_pa_st_cap;
+    end
+end
+
+procedure apply_pa_st_cap begin
+    variable worn := critter_inven_obj(dude_obj, INVEN_TYPE_WORN);
+    if (worn != 0 and is_pa_pid(obj_pid(worn))) then begin
+        set_pc_stat_max(STAT_st, ST_CAP_PA);
+    end else begin
+        set_pc_stat_max(STAT_st, ST_CAP_NORMAL);
+    end
+end

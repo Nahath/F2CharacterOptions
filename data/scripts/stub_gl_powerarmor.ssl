@@ -1,0 +1,5 @@
+#include "DEFINE.H"
+procedure start;
+procedure start begin
+    return;
+end

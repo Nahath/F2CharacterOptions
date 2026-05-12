@@ -1,0 +1,26 @@
+/*
+  Super Active Dynamite (timed)
+  PID: 535
+  Script ID: 1305
+
+  Fuse starts as soon as the item is created (i.e. when the player arms it).
+  Explodes for triple vanilla dynamite damage (90-180 vs. vanilla 30-60).
+  Explosion is centred on whatever tile the item is at when the fuse runs out,
+  whether it has been dropped on the ground or is still in the player's inventory.
+*/
+
+procedure start;
+procedure timed_event_p_proc;
+
+procedure start
+begin
+  add_timer_event(self_obj, 10, 1);
+end
+
+procedure timed_event_p_proc
+begin
+  if (fixed_param == 1) then begin
+    explosion(tile_num(self_obj), elevation(self_obj), random(90, 180));
+    destroy_object(self_obj);
+  end
+end

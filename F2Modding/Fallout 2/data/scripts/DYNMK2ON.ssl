@@ -1,0 +1,23 @@
+procedure start;
+procedure timed_event_p_proc;
+
+procedure start
+begin
+end
+
+procedure timed_event_p_proc
+begin
+  variable item_tile;
+  variable item_elev;
+
+  item_tile := tile_num(self_obj);
+  item_elev := elevation(self_obj);
+
+  if (item_tile <= 0) then begin
+    item_tile := tile_num(dude_obj);
+    item_elev := elevation(dude_obj);
+  end
+
+  explosion(item_tile, item_elev, random(120, 240));
+  destroy_object(self_obj);
+end

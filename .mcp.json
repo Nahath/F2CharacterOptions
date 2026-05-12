@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "f2-modding-tools": {
+      "type": "stdio",
+      "command": "py",
+      "args": [
+        "-3",
+        "mcp/server.py"
+      ],
+      "env": {}
+    }
+  }
+}

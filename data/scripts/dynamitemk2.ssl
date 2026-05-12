@@ -1,0 +1,48 @@
+/**
+ * dynamitemk2.ssl
+ * Item script for Dynamite MKII (proto 600).
+ *
+ * Change 3 (item behaviour): Works identically to normal dynamite but deals
+ * double damage (60-120 instead of 30-60).  set_dynamite_damage() (Sfall)
+ * overrides the engine's damage range at detonation time.
+ */
+
+#include "DEFINE.H"
+#include "SFALL.H"
+
+procedure start;
+procedure use_p_proc;
+procedure timed_event_p_proc;
+
+procedure start begin
+end
+
+procedure use_p_proc begin
+    /*
+     * Arm the Dynamite MKII with a 10-second fuse.
+     * game_ticks(n) converts n game seconds to internal ticks.
+     * Fixed param 0 identifies this as the "detonate" event.
+     */
+    add_timer_event(self_obj, game_ticks(10), 0);
+    display_msg("You set the fuse on the Dynamite MKII.");
+    script_overrides;
+end
+
+procedure timed_event_p_proc begin
+    if (fixed_param == 0) then begin
+        /*
+         * Override the engine's dynamite damage range to the MKII values
+         * (double vanilla: 60-120 instead of 30-60).
+         * set_dynamite_damage is a Sfall metarule (SFALL.H).
+         */
+        set_dynamite_damage(60, 120);
+        /*
+         * Save position before destroying self_obj (the handle becomes
+         * invalid after destroy_object).
+         */
+        variable det_tile := tile_num(self_obj);
+        variable det_elev := elevation(self_obj);
+        destroy_object(self_obj);
+        explosion(det_tile, det_elev, 0);
+    end
+end

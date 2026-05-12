@@ -1,0 +1,49 @@
+
+{
+	"version" : 1,
+	"gameId" : "2",
+	"rootGameId" : "2",
+	"standalone" : true,
+	"dependencyGameId" : "",
+	"language"         : "english",
+	"name"             : "Fallout 2",
+	"playTasks"        : [
+		{
+			"isPrimary" : true,
+			"type"      : "FileTask",
+			"path"      : "Fallout2Launcher.exe",
+			"workingDir" : ""
+		},
+		{
+			"name" : "Reference Card",
+			"type" : "FileTask",
+			"path" : "RefCard.pdf",
+			"workingDir" : ""
+		},
+		{
+			"name" : "HI-Res Config",
+			"type" : "FileTask",
+			"path" : "f2_res_Config.exe",
+			"workingDir" : ""
+		},
+		{
+			"name" : "Fallout 2 (Classic)",
+			"type" : "FileTask",
+			"path" : "fallout2.exe",
+			"workingDir" : ""
+		}
+	],
+	"supportTasks"     : [
+		{
+			"name" : "Support",
+			"type" : "URLTask",
+			"link" : "http://www.gog.com/en/support/fallout_2"
+		},
+		{
+			"name" : "Manual",
+			"type" : "FileTask",
+			"path" : "manual.pdf",
+			"workingDir" : ""
+		}
+	]
+}

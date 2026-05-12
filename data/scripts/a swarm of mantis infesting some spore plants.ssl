@@ -1,0 +1,7 @@
+/* Stub spatial script — Arroyo mantis/spore-plant area.
+ * The original .int is absent from the installation.
+ * This stub prevents the "Couldn't open ... for read" crash on Arroyo load. */
+#include "DEFINE.H"
+procedure start;
+procedure start begin
+end

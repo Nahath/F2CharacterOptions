@@ -1,0 +1,2728 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fallout 2 Modding Guide</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div class="item-sidebar">
+		<ol>
+			<li class="intro-item"><a href="index.html#intro">Introduction</a></li>
+			<details open>
+				<summary><li><a href="index.html#prep">Preparations</a></li></summary>
+				<ol>
+					<li><a href="index.html#Fallout2_Installation">Installation - Fallout 2</a></li>
+					<li><a href="index.html#Fallout2_.dat_files">File handling - .dat files</a></li>
+					<li><a href="index.html#Tools_Data_Exploring">Tools - .dat Extractor</a></li>
+					<li><a href="index.html#Extracting_.dat_files">Extracting - .dat files</a></li>
+					<li><a href="index.html#Tools_Scripting">Tools - Scripting</a></li>
+					<li><a href="index.html#Config_sFall_Script_Editor">Config - sFall Script Editor</a></li>
+					<li><a href="index.html#Tools_Mapping">Tools - Mapping</a></li>
+					<li><a href="index.html#Config_BIS_Mapper">Config - BIS Mapper</a></li>
+				</ol>
+			</details>
+			<details open>
+				<summary><li><a href="index.html#mapping">Mapping</a></li></summary>
+				<ol>
+					<details open>
+					<summary><li><a href="index.html#BIS_Mapper_explained">BIS Mapper explained</a></li></summary>
+					<ol>
+						<li><a href="index.html#BIS_GUI">Graphical interface</a></li>
+						<li><a href="index.html#hotkeys">Hotkeys</a></li>
+					</ol>
+					</details>
+					<details>
+						<summary><li><a href="index.html#BuildMap">How to build a map</a></li></summary>
+						<ol>
+							<li><a href="index.html#FloorWall">Floors and walls</a></li>
+							<li><a href="index.html#SceneryCritter">Scenery and critters</a></li>
+							<li><a href="index.html#ScrollBlocker">Scroll blocker</a></li>
+							<li><a href="index.html#MapExit">Map exits</a></li>
+							<li><a href="index.html#LadderStair">Ladders and stairs</a></li>
+							<li><a href="index.html#Worldmap">Worldmap</a></li>
+						</ol>
+					</details>
+					<li><a href="index.html#New_Critter">Make new prototype</a></li>
+				</ol>
+			</details>
+			<details open>
+				<summary><li><a href="index.html#basic">Scripting (Basics)</a></li></summary>
+				<ol>
+					<li><a href="index.html#ssl">Scripting language</a></li>
+					<li><a href="index.html#script">Script</a></li>
+					<li><a href="index.html#header">Header File</a></li>
+					<li><a href="index.html#define">Define</a></li>
+					<li><a href="index.html#procedure">Procedure</a></li>
+					<li><a href="index.html#function">Function</a></li>
+					<li><a href="index.html#argument">Argument</a></li>
+					<li><a href="index.html#variable">Variable</a></li>
+					<li><a href="index.html#constant">Constant</a></li>
+					<li><a href="index.html#macro">Macro</a></li>
+					<li><a href="index.html#operator">Operator</a></li>
+					<li><a href="index.html#statement">Statement</a></li>
+					<li><a href="index.html#semicolon">Semicolon</a></li>
+				</ol>
+			</details>
+			<details open>
+				<summary><li><a href="index.html#advanced">Scripting (Advanced)</a></li></summary>
+				<ol>
+					<li><a href="index.html#compiling">Compiling</a>
+						<ol>
+							<li><a href="index.html#Scripts.h">SCRIPTS.H</a></li>
+						</ol>
+					</li>
+					<li><a href="index.html#TestScript">Test your script</a>
+						<ol>
+							<li><a href="index.html#Scripts.lst">SCRIPTS.LST</a></li>
+							<li><a href="index.html#AssignScript">Assign script to object</a></li>
+							<li><a href="index.html#dialog">Dialog</a></li>
+							<li><a href="index.html#pipboy">Add quest to pipboy</a></li>
+							<li><a href="index.html#MakeTrader">Make trader</a></li>
+						</ol>
+					</li>
+					<li><a href="index.html#StoreRestock">Store restock</a></li>
+				</ol>
+			</details>
+			
+			<details>
+				<summary><li><a href="index.html#complex">Scripting (Complex)</a></li></summary>
+				<ol>
+				</ol>
+			</details>
+			<details>
+				<summary><li><a href="index.html#sFall">Scripting (SFall) (Optional)</a></li></summary>
+				<ol>
+				</ol>
+			</details>
+			<details>
+				<summary><li><a href="index.html#Make_DAT_file">Make your own DAT-file</a></li></summary>
+				<ol>
+				</ol>
+			</details>
+			<details>
+				<summary><li><a href="index.html#Make_Installer">Make your own installer</a></li></summary>
+				<ol>
+				</ol>
+			</details>
+			<details>
+				<summary><li><a href="index.html#art">Art (Optional)</a></li></summary>
+				<ol>
+					<li><a href="index.html#talkhead">Talking Heads</a></li>
+				</ol>
+			</details>
+			<details>
+				<summary><li><a href="index.html#addendum">Addendum</a></li></summary>
+			</details>
+			<details>
+				<summary><li><a href="index.html#source">Sources</a></li></summary>
+			</details>
+		</ol>
+	</div>
+
+	<div class="item-main">
+		<header>
+			<h1>Fallout 2 modding guide</h1>
+			<br>
+			<p>Written by Femic et al.</p>
+			<h1 style="color: red;"><b>This guide is still work in progress!</b></h1>
+			<img src="images\Header\Please_stand_by_Fallout.jpg" alt="Please stand by">
+			<p><em>Shot a child in the face after he pickpocketed me. Turned the whole town hostile. Ran away to New Reno. Became a Pornstar.
+			<br>
+			Fallout 2 in a nutshell.
+			<br>		
+			11/10</em></p>--Rat Prik (Steam review)
+		</header>
+		<br>
+		<hr>
+		<hr>
+
+	<div id="intro"><h2>Introduction</h2></div>
+		<p>Welcome to my <em>Fallout 2</em> modding guide.</p> 
+		<p>You might ask why I created this guide and still work on it because there already are tutorials out there. I just could go and play Fallout instead of wasting my time.</p>
+		<p>Your question is absolutely justified.</p>
+		<p>This guide exists because I realized that if I want the kind of complete <em>Fallout 2</em> modding guide that I envisioned, it pretty much meant writing it myself. There are already some tutorials and knowledge all over the internet regarding Fallout 2 modding but these tutorials are almost ancient and the knowledge is fragmented.  I'm not going to ignore the older tutorials or knowledge instead I'll incorporate them into this guide. My goal is to create a coherent modding guide that covers every corner of Fallout 2 modding.</p>
+		<p>The first part of this guide is meant to be read from top to bottom. You'll learn what and how to touch and modify every file necessary to create a simple mod.</p>
+		<p>The second part covers mostly art. Since art is not necessary to create a mod, it is optional.</p>
+		<p>The third part serves as glossary and reference book. There you'll find deeper knowledge and stuff that didn't fit inside the other parts.</p>
+		<p>I presume that basic PC affinity is present. Otherwise, just ask.</p>
+	<hr>
+	<hr>
+			
+	<div id="prep"><h2>Preparations</h2></div>
+		<div id="Fallout2_Installation"><h3>Installation - Fallout 2</h3></div>
+			<p>I think I don't need to explain how to install Fallout 2. If you don't know how to install it, just ask someone of the community. It doesn't matter where you bought Fallout 2 you can just use any version for modding. However, I'd recommend to have an English Fallout 2 installation.</p> 
+			<p>So please go on and do a freshly installation of Fallout 2 in English.</p>
+			<p>My fresh installation of Fallout 2 looks like this...</p>
+			<code>C:\Program Files (x86)\GOG Galaxy\Games\Fallout2</code>
+			<p>After the installation is done, create a copy of the FO2 folder and paste it somewhere else.</p>
+			<p>My backup of Fallout 2 looks like this...</p>
+			<code>E:\Fallout2</code>
+			<p>Now that we have a backup of our newly installed FO2 we can happily mod our backuped FO2 installation without being afraid of breaking something. And if we break something we can steal if from our original FO2 installation :P</p>
+		<hr>
+
+	<div id="Fallout2_.dat_files"><h3>File handling - .dat files</h3></div>
+		<p>Inside the games folder you'll find .dat files. We need three of them.</p>
+		<p>These are:</p> 
+			<code>
+				master.dat
+				<br>
+				critter.dat
+			</code>
+		<p>and if your version of FO2 is patched, then it should also contain following...</p>
+		<code>patch000.dat</code>
+		<p>These three files contain all the various audio, graphic, dialogue, script, font, map, etc. files used in FO2.</p>
+		<p>To be able to edit any of the files inside the .dat files you need to unpack the .dat files first. It's like having a .zip file that needs to be unzipped first. It's obligatory to do this before you do any sort of modding of FO2.</p>
+		<p>Just save them at a place of your choice.</p>
+		<p>Mine looks like this...</p>
+			<code>
+				E:\dev\Ressources
+				<div style="text-indent: 8em;">|</div>
+				<div style="text-indent: 8em;">|->master.dat</div>
+				<div style="text-indent: 8em;">|->critter.dat</div>
+				<div style="text-indent: 8em;">|->patch000.dat</div>
+			</code>
+	<br>
+	<hr>
+
+	<div id="Tools_Data_Exploring"><h3>Tools - .dat Extractor</h3></div>
+		<p>Download <a href="https://www.nma-fallout.com/resources/dat-explorer-by-dims.56/"><code class="codeinline">Dat Explorer by Dims 1.43</code></a> from NMA.</p>
+		<p>Unpack the file inside it wherever you like. Should look like this.</p> 
+		<img src="images\Preparations\ToolsDATExplorer\2022-04-20 20_47_40-Fallout 2 Dat Explorer 1.43 by Dims.png" alt="">
+		<p>Luckily, it doesn't require installation on your computer as such, so it can be run straight out of the box.</p>
+		<p>Start <code class="codeinline">Dat Explorer 1.43.exe</code>.</p>
+		<img src="images\Preparations\ToolsDATExplorer\2022-04-20 20_53-Dat Explorer_1.43.exe.png" alt="">
+		<p>If you're tired of reading and rather want to listen to someone executing the task, our friend QuantumApprentice has made a video especially for this case :)</p>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/vCPc1gxPtKk?start=380" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	<br>
+	<hr>
+
+	<div id="Extracting_.dat_files"><h3>Extracting - .dat files</h3></div>
+		<p>In the 'Startup form' box, double-click on the folder saying <code class="codeinline">DAT file</code> with the vault boy's grinning face on it.</p> 
+		<p>In the 'Open' box that comes up next, find and open the folder where you saved the .dat files. </p>	
+		<img src="images\Preparations\ToolsDATExplorer\2022-04-20 20_57_56-DAT explorer.png" alt="">
+		<p>Select <code class="codeinline">master.dat</code> and click open or just double-click it. This will open up the .dat file within DatExplorer, allowing you to browse its contents before extracting them, WinZip style. So now we extract all these files.</p>
+		<img src="images\Preparations\ToolsDATExplorer\2022-04-20-Opened_master.dat.png" alt="">
+		<p>Minimise DatExplorer for a moment and create a folder called <code class="codeinline">data</code> somewhere where you can easily find it.</p>
+		<p>I suggest doing it like this...</p>
+		<code>E:\dev\Ressources\data</code>
+		<p>Bring up DatExplorer again. On the menu bar, select <code class="codeinline">Extract</code> ==> <code class="codeinline">Extract all files to (or Shift+E)</code> and point it to your freshly-made data folder. 'OK' it, and DatExplorer will unpack the files. This takes a while.</p>
+		<img src="images\Preparations\ToolsDATExplorer\2022-04-20-Extract.png" alt="">
+		<p>That's <code class="codeinline">master.dat</code> done. Now do the same with <code class="codeinline">critter.dat</code>. Finally - and make sure you do this last - unpack <code class="codeinline">patch000.dat</code>. It is vital that <code class="codeinline">patch000.dat</code> is unpacked last, since it updates many of the files within the other two, big .dat files.</p>
+		<p>When DatExplorer is finished, minimise it, cut the <code class="codeinline">data</code> folder and paste it into the root of your backuped <code class="codeinline">\Fallout2</code> directory. Hit <code class="codeinline">Yes To All</code> in the window that comes up, to replace any old files in the directory with the new, extracted ones.</p>
+		<p>If you're tired of reading and rather want to listen to someone executing the task, our friend QuantumApprentice has made a video especially for this case :)</p>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/vCPc1gxPtKk?start=438" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		<hr class="dottedline">
+		<h5>Note</h5>
+		<p>Why the extracted files go into <code class="codeinline">...\Fallout2\data</code> instead of the Fallout 2 root directory?</p>
+		<p>The engine is actually built to read the data files from <code class="codeinline">...\Fallout2\data</code> first (Well, that's how fallout2.cfg sets it by default...) and failing that, will read the <code class="codeinline">...\Fallout2\</code> root directory.</p>
+		<p>Of course, this causes problems since you put the extracted files in <code class="codeinline">...\Fallout2\data</code>, Fallout2 likes to delete most if not all the files inside <code class="codeinline">...\Fallout2\data\proto</code>, so you need to make them read-only. Yet if you want to be able to edit them, they should NOT be read-only... Quite a pain in the ass huh?</p>
+		<p>There hasn't been found any clever workarounds...The danger in putting the extracted files in the root instead of in <code class="codeinline">...\Fallout2\data</code> is that I think the original .dat files would actually have priority over them. While the extracted files in <code class="codeinline">...\Fallout2\data</code> have priority over the .dat files.</p>
+	<hr>
+
+	<div id="Tools_Scripting"><h3>Tools - Scripting</h3></div>
+		<p>You can take a simple text editor like notepad or notepad++ with or without <a href="https://nma-fallout.com/threads/vscode-ssl-support.217033/"><code class="codeinline">Burns VScode SSL support</code></a> to write scripts. But we take a more dedicated tool for this task. The tool we're going to use is called 
+		<a href="https://github.com/F3mic/F3mic.github.io/blob/main/Fallout%20sFall%20Script%20Editor%20v4.1.7.RC1.rar"><code class="codeinline">SFall Script Editor</code></a> by Mr. Stalin. This tool is gold and will save us a lot of work.</p>
+		<p>Download and extract the file <code class="codeinline">Fallout sFall Script Editor v4.1.7.RC1.rar</code>. Execute the installer. Install it wherever you want.</p>
+		<p>My installed sFall Script Editor folder looks like this...</p>
+		<pre><code>E:\dev\Tools\Fallout sFall Script Editor v4.1.7.RC1</code></pre>
+		<img src="images\Preparations\ToolsScripting\2022-04-21 08_29_43-Fallout sFall Script Editor v4.1.7.RC1.png" alt="">
+		<p>If you're tired of reading and rather want to listen to someone executing the task, our friend QuantumApprentice has made a video especially for this case :)</p>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/vCPc1gxPtKk?start=534" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		<p>We need one more tool and some files that come with it. It's the good old <a href="https://www.nma-fallout.com/resources/bis-mapper.55/"><code class="codeinline">Black Isle Studio (BIS) Mapper</code></a>.</p>
+		<p>Download and extract the BIS Mapper wherever you want.</p> 
+		<p>Mine looks like this...</p>
+		<pre><code>E:\dev\Tools\BIS mapper patched (+complementary ressources)</code></pre>
+		<img src="images\Preparations\ToolsScripting\2022-04-21 08_08_31-BIS mapper patched (+complementary ressources).png" alt="">
+		<p>Inside the BIS Mappers folder you'll find decompiled (human readable) scripts from Fallout 2. </p>
+		<code>E:\dev\Tools\BIS mapper patched (+complementary ressources)\BIS mapper\scripts</code>
+		<p>Copy everything inside the <code class="codeinline">scripts</code> folder to the <code class="codeinline">data</code> folder you created and pasted recently into the FO2 backup directory.</p>
+		<pre><code>E:\Fallout2\data\decompiled</code></pre>
+		<p>Keep the original of these BIS Mapper decompiled scripts save and untouched.</p>
+	<hr>
+
+	<div id="Config_sFall_Script_Editor"><h3>Config - sFall Script Editor</h3></div>
+		<p>Run <code class="codeinline">SfallScriptEditor.exe</code>. It'd look like this...</p>
+		<img src="images\Preparations\ToolsScripting\2022-04-21-sFall_Script_Editor_first_run.png" alt="">
+		<p>Uncheck <code class="codeinline">Don't use compiling path</code>. The first field <code class="codeinline">unset</code> should change its color.</p>
+		<img src="images\Preparations\ToolsScripting\2022-04-21 08_36_20-Sfall Script Editor v.4.1.7.0.RC1.png" alt="">
+		<p>Select the folder-symbol on the right side at <code class="codeinline">Compiled/Output scripts folder:</code> and navigate to the <code class="codeinline">scripts</code> folder inside <code class="codeinline">data</code> and choose it.</p>
+		<img src="images\Preparations\ToolsScripting\2022-04-21 09_03_39-Sfall Script Editor v.4.1.7.0.RC1.png" alt="">
+		<p>Now select the next folder-symbol at 'Location folder of headers files:' and again navigate to <code class="codeinline">scripts</code> inside <code class="codeinline">data</code> and this time choose the <code class="codeinline">HEADERS</code> folder.</p>
+		<img src="images\Preparations\ToolsScripting\2022-04-21 08_37_12-Sfall Script Editor v.4.1.7.0.RC1.png" alt="">
+		<p>The last field <code class="codeinline">Location of Scripts.H file</code> is filled automatically when choosing the path to the <code class="codeinline">HEADERS</code> folder.</p>
+		<p>Now you're ready for scripting :)</p>
+	<hr>
+
+	<div id="Tools_Mapping"><h3>Tools - Mapping</h3></div>
+		<p>If you want to map you'd use the before mentioned BIS Mapper. You can also use 
+		<a href="https://www.mediafire.com/folder/2aheaguwymint/Welcome_to_Fallout_Database#jhjy1cz6dbklg"><code class="codeinline">Dims Mapper (Fallout Database by Dobrovik)</code></a> or
+		<a href="https://www.nuclear-city.com/index.php/topic/1054-%D1%80%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%BE%D1%80-%D0%BA%D0%B0%D1%80%D1%82-bis-%D0%B8-dims-fallout-1-2/"> <code class="codeinline">Dims Mapper (Nuclear-city.com russian speaking site)</code></a> as complentary. You'll also find a modified version of BIS Mapper under the russian link.</p>
+	<hr>
+
+	<div id="Config_BIS_Mapper"><h3>Config - BIS Mapper</h3></div>
+		<p>The first time you run <code class="codeinline">mapper2.exe</code> you should encounter this error...</p>
+		<img src="images\Preparations\ToolsMapping\2022-04-21 14_09_35-Fehler.png" alt="">
+		<p>Open <code class="codeinline">mapper2.cfg</code> with a text-editor of your choice.</p>
+		<p>Let's take a look at lines 58 to 74 looking like this...</p>
+			<code>
+				<div>[...]</div>
+				<div>[system]</div>
+				<div>art_cache_size=261</div>
+				<div>cdlock=</div>
+				<div>color_cycling=1</div>
+				<div>critter_dat=</div>
+				<div>critter_patches=</div>
+				<div>cycle_speed_factor=1</div>
+				<div>executable=mapper</div>
+				<div>free_space=0</div>
+				<div>hashing=1</div>
+				<div>interrupt_walk=1</div>
+				<div>language=english</div>
+				<div>master_dat=</div>
+				<div>master_patches=</div>
+				<div>scroll_lock=0</div>
+				<div>splash=1</div>
+				<div>times_run=1</div>
+			</code>
+		<p>We need to take a closer look at these files...</p>	
+			<code>
+				<div><span>[...]</div>
+				<div><span>critter_dat=</div>
+				<div><span>critter_patches=</div>
+				<div><span>[...]</div>
+				<div><span>master_dat=</div>
+				<div><span>master_dat=</div>
+				<div><span>master_patches=</div>
+				<div><span>[...]</div>
+			</code>
+		<p>The mapper is looking for files to work with. Because these lines are empty the mapper cannot start. We need to tell the mapper where the files are located  it's looking for. Fill in the lines like this...</p>
+			<code>
+				<div>[...]</div>
+				<div>critter_dat=E:\Fallout2\critter.dat</div>
+				<div>critter_patches=E:\Fallout2\data</div>
+				<div>[...]</div>
+				<div>master_dat=E:\Fallout2\master.dat</div>
+				<div>master_patches=E:\Fallout2\data</div>
+				<div>[...]</div>
+			</code>
+		<p>Save <code class="codeinline">mapper2.cfg</code> and close it. Now run <code class="codeinline">mapper2.exe</code> again and it should start.</p>
+		<p>First time running BIS Mapper should look like this...</p>
+		<img src="images\Preparations\ToolsMapping\2022-04-21 14_21_45-Greenshot.png" alt="">
+		<p>You're ready for mapping :)</p>
+	<hr>
+	<hr>
+
+	<div id="mapping"><h2>Mapping</h2></div>
+		<p>In this chapter we will learn what mapping for Fallout 2 actually is and how it works.</p>
+		<div id="BIS_Mapper_explained"><h3>BIS Mapper explained</h3></div>
+			<p>The BIS mapper is the primary tool you will use for mapping. It has everything you need. Lets dive into it.</p>
+			<div id="BIS_GUI"><h4>Graphical interface</h4></div>
+				<p>Let's take a look at the interface and its buttons.</p>
+				<img src="images\Preparations\ToolsMapping\2022-04-21 14_21_45-Greenshot - Kopie.png" alt="">
+				<br>
+				<br>
+				<img src="images\Preparations\ToolsMapping\2022-04-21 20_59_01-Tiles.png" alt="">
+				<p>This is a dropdown menu. Tiles are currently selected.</p>
+				<img src="images\Preparations\ToolsMapping\2022-04-22 11_54_06-Hex.png" alt="">
+				<p>The left dark grey field shows the number of the hexagonal area when an object is placed and selected.</p>	
+				<br>
+				<br>
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_13_39-Object_bar.png" alt="">
+				<p>This bar shows the objects of the current chosen object category.</p>
+				<br>
+				<br>
+				<img src="images\Preparations\ToolsMapping\2022-04-21 20_59_10-Navigate_left.png" alt="">
+				<img src="images\Preparations\ToolsMapping\2022-04-21 20_59_22-Navigate_right.png" alt="">
+				<p>These are the navigation panels to scroll left or right through the currently chosen object category.</p>
+				<br>
+				<br>
+				<img src="images\Preparations\ToolsMapping\2022-04-21 20_59_54-Visible.png" alt=""><p>With this panel you can toggle the visibility of a certain object category.</p>
+				<br>
+				<br>
+				<img src="images\Preparations\ToolsMapping\2022-04-21 20_59_45-Elevation_1.png" alt="">
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_50_14-Elevation_2.png" alt="">
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_50_44-Elevation_3.png" alt="">
+				<p>Here you can choose the map elevation.</p>
+				<br>
+				<br>
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_00_01-Direction_Northeast.png" alt="">
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_00_01-Direction_East.png" alt="">
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_00_01-Direction_Southeast.png" alt="">
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_00_01-Direction_Southwest.png" alt="">
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_00_01-Direction_West.png" alt="">
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_00_01-Direction_Northwest.png" alt="">
+				<p>This clock looking thing shows the directions a critter can turn. <code class="codeinline">Northeast</code>; <code class="codeinline">East</code>; <code class="codeinline">Southeast</code>; <code class="codeinline">Southwest</code>; <code class="codeinline">West</code> and <code class="codeinline">Northwest</code>.</p>
+				<br>
+				<br>
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_00_09-Multifunctional.png" alt="">
+				<p>This panel has multiple buttons that serve multiple purposes. <code class="codeinline">COPY</code>; <code class="codeinline">COPY ALL</code>; <code class="codeinline">DELETE</code> should be clear. <code class="codeinline">EDIT</code> is used to edit an objects properties.</p>
+				<p><code class="codeinline">TBOV</code> stands for <code class="codeinline">Toggle Block Object View</code> and it turns special tiles that are normally invisible to visible.</p>
+				<p><code class="codeinline">EDG</code> stands for <code class="codeinline">Edge</code> and it allows to set the viewable region for the player when they're on the map. But you need your map first.</p>
+				<p>The <code class="codeinline">*</code> symbol toggles the players viewable region on or off while editing a map.</p>
+				<br>
+				<br>
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_00_16-Description.png" alt="">
+				<p>This panel shows a description of a currently selected object.</p>
+				<p>For example...</p>
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_32_54-Description_selected_Object.png" alt="">
+				<br>
+				<br>
+				<img src="images\Preparations\ToolsMapping\2022-04-22 11_49_56-Description_reselected_Object.png" alt="">
+				<p>If you already placed an object and you reselect it, the description panel will show you a shortened description.</p>
+				<br>
+				<br>
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_00_27-Function_bar.png" alt="">
+				<p>When you bump the edge of the top screen with the mouse pointer, this panel will appear.</p>
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_31_32-Functionbar_File.png" alt="">
+				<h5>New</h5>
+				<p>Create a new map (No way!)</p>
+				<h5>Open</h5>
+				<p>Open an existing map (Really?!)</p>
+				<h5>Save</h5>
+				<p>Save the status of the currently open map.</p>
+				<h5>Save As...</h5>
+				<p>Save the status to a specific map.</p>
+				<h5>Info</h5>
+				<p>Does nothing (Maybe anybody knows more.).</p>
+				<h5>Open From Text</h5>
+				<p>You get an error message (Maybe anybody knows more.).</p>
+				<h5>Quit</h5>
+				<p>Terminate the mapper (Didn't expect that.)</p>
+				<br>
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_31_50-Functionbar_Tools.png" alt="">
+				<h5>Create Pattern</h5>
+				<h5>Use Pattern</h5>
+				<h5>Move Map</h5>
+				<h5>Move Map Elev</h5>
+				<h5>Copy Map Elev</h5>
+				<h5>Edit Obj_dude</h5>
+				<h5>Flush Cache</h5>
+				<h5>Toggle Anim Stepping</h5>
+				<h5>Fix map-objects to pids</h5>
+				<h5>Set Bookmark</h5>
+				<h5>Toggle Block Obj View</h5>
+				<h5>Toggle Click-To-Scroll</h5>
+				<h5>Set Exit-Grid Data</h5>
+				<h5>Mark Exit-Grids</h5>
+				<h5>Mark *ALL* Exit Grids</h5>
+				<h5>*Clear Map Level*</h5>
+				<h5>Create ALL MAP TEXTS</h5>
+				<h5>Rebuild ALL MAPS</h5>
+				<br>
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_32_03-Functionbar_Scripts.png" alt="">
+				<h5>List all Scripts</h5>
+				<h5>Set Start Hex</h5>
+				<h5>Place Spatial Script</h5>
+				<h5>Delete Spatial Script</h5>
+				<h5>Delete *ALL* Spatial SCRIPTS!</h5>
+				<h5>Create Script</h5>
+				<h5>Set Map Script</h5>
+				<h5>Show Map Script</h5>
+				<br>
+				<img src="images\Preparations\ToolsMapping\2022-04-21 21_33_17-Functionbar_Settings.png" alt="">
+				<h5>Scroll Blocker Mode</h5>
+				<h5>Screen Settings</h5>
+				<h5>Set Hi-Res Map Edges</h5>
+				<h5>Set Hi-Res Angled Edges</h5>
+			
+		<hr class="dashedline">
+		<div id="hotkeys"><h4>Hotkeys</h4></div>
+			<h5>Introduction</h5>
+			<p>When there's a slash  <code class="codeinline">/</code> , the left part is in game mode (<code class="codeinline">F8</code>, and usually works in the normal game) while the right is in the editor. Most of the normal game functions still work in the editor - moreso in the game mode of course. The M key is especially useful for selecting critters as it doesn't have the issue of "clicking a bunch of time until you hit the critter" problem mentioned in the documentation since you know exactly where you click. If there's a third slash in the command then these are commands available in the dialog windows. When there's a slash with nothing in front or after it, it means the command isn't available in that mode.</p>
+			<p>	Fallout2/Mapper2 does not block out any of the windows key combinations so all Windows-specific keys will work (<code class="codeinline">Win</code>, <code class="codeinline">Win-B</code>, <code class="codeinline">Win-D</code>, <code class="codeinline">Win-E</code>, <code class="codeinline">Win-F</code>, <code class="codeinline">Win-L</code>, <code class="codeinline">Win-M</code>,
+			<code class="codeinline">Win-U</code>, <code class="codeinline">Win-Pause</code>, <code class="codeinline">Alt-Tab</code>, <code class="codeinline">Alt-Shift-Tab</code>, <code class="codeinline">Alt-Esc</code>, <code class="codeinline">Alt-Shift-Esc</code>, <code class="codeinline">Ctrl-Alt-Del</code>,
+			<code class="codeinline">Ctrl-Esc</code> - Some of the listed combinations might not work depending on you OS version). Additionally, keyboard with extra <code class="codeinline">"Multimedia"</code> or <code class="codeinline">"Internet"</code> keys handle those keys as should be. External <code class="codeinline">"HotKey"</code> programs should work as expected in the game given that there is no special handling done on the keyboard input.</p>
+			<hr class="dottedline">
+			<h5>Key mappings</h5>
+			<p>[ A ]: Attack/</p>
+			<p>[ B ]: Switch attack weapon/Fix map objects to PIDs (same as menu)/Barter</p>	
+			<p>[ C ]: Character/Copy (Note: When using copy, only the current proto selection are copied. This also works for tiles!)/</p>
+			<p>[ D ]: Switch light level look of map (day, night et al)</p>
+			<p>[ E ]: /Edit selected proto</p>
+			<p>[ F ]: Toggle FPS display</p>
+			<p>[ I ]: Inventory/List scripts (same as menu)</p>
+			<p>[ K ]: Kill critter (and resuscitate!)</p>
+			<p>[ L ]: Lock (doors)/Give 500xp to OBJ_DUDE</p>
+			<p>[ M ]: Change mouse cursor to arrow/ change to normal cursor</p>
+			<p>[ N ]: Switch attack mode/Advance 1 month</p>
+			<p>[ O ]: Options</p>
+			<p>[ P ]: Pipboy/Find selected proto in selection bar</p>
+			<p>[ Q ]: Make walls and generic scenery semi-transparent</p>
+			<p>[ R ]: Toggles roofs on and off</p>
+			<p>[ S ]: Skilldex/Place location script</p>
+			<p>[ T ]: Advance 1 minute/Open edit mode menu</p>
+			<p>[ U ]: /Use item (open or close)</p>
+			<p>[ W ]: Worldmap (Note: if PROs are read-only, it crashes)</p>
+			<p>[ Z on QWERTY, Y on QWERTZ ]: Rest/</p>
+			<br>
+			<p>[ ? on QWERTY, - (hyphen) on QWERTZ ]: Display game time</p>
+			<p>[ , ]: /One step change of daylight</p>
+			<p>[ + (plus) & - (minus) ]: Adjust brightness level/Move proto list right and left; if you selected apattern, it allows you to "paste" a greater region of the pattern</p>
+			<p>[ , & . ]: Rotate OBJ_DUDE left and right/</p>
+			<br>
+			<p>[ End ]: Go to last item in proto list</p>
+			<p>[ Del ]: Go in delete mode (same as button in UI)</p>
+			<p>[ Page up, Page down ]: Change map elevation</p>
+			<p>[ (Arrow keys) Up, Down, Left, Right ]: Move POV</p>
+			<p>[ Home ]: Return POV to map level origin</p>
+			<p>[ Esc ]: Cancel menu/quit editor</p>
+			<p>[ Tab or Ctrl-I ]: Pipboy Map (When in game mode it displays more data. Ctrl-I is the usual code to represent a tab)</p>
+			<p>[ Left-Click ]: Move to, look/Select Item</p>
+			<p>[ Right-Click ]: Change attack mode/Cancel current action (Note: When placing tiles, instead of clicking repeatably on the mouse to place a bunch of them, leave the mouse pressed and move the mouse slowly)</p>
+			<br>
+			<p>[ Alt-A ]: Save map as</p>
+			<p>[ Alt-B ]: Edit OBJ_DUDE</p>
+			<p>(Note: As in the menu, and as with the menu, when exiting this function it leaves the screen mostly black. Press F8 to play the map with the modified OBJ_DUDE. Note that every second time, it won't work so you'll need to press F8 until it restores the colors)</p>
+			<p>[ Alt-F ]: File menu</p>
+			<p>[ Alt-G ]: Shift map (use Left/Right/Up/Down keys to move map)</p>
+			<p>[ Alt-H ]: Behaves like P but crashes the application if you're using the wrong type of proto (click on a critter while in Tile mode).  It seems to read all the protos of the type you selected.</p>
+			<p>[ Alt-I ]: Load text map (disabled - same as menu)</p>
+			<p>[ Alt-N ]: New map</p>
+			<p>[ Alt-O ]: Open map</p>
+			<p>[ Alt-P ]: Save text map (need to have a "saved" name for the map first or it will crash, you can then use "Rebuild all maps" to generate the maps from the text files)</p>
+			<p>[ Alt-S ]: Save map</p>
+			<p>[ Alt-T ]: Scripts menu</p>
+			<p>[ Alt-V ]: Tools menu</p>
+			<p>[ Alt-W ]: Set map script</p>
+			<p>[ Alt-Y on QWERTY, Alt-Z on QWERTZ ]: Use pattern</p>
+			<p>[ Alt-F4 ]: Quit real game</p>
+			<p>[ Alt-F7 ]: /Takes snapshots of the map to build a series of tiles which when placed together allows you to see the entire map. (The current POV needs to be inside the scroll blockers for this to work properly)</p>
+			<br>
+			<p>[ Ctrl-Left-Click ]: Place multiple proto onto map (for items)</p>
+			<p>[ Ctrl-F ]: /Disable sound effect cache</p>
+			<p>[ Ctrl-J or Ctrl-Enter]: Give object to OBJ_DUDE</p>
+			<p>[ Ctrl-L ]: Load savegame</p>
+			<p>[ Ctrl-N ]: Advance 1 month</p>
+			<p>[ Ctrl-P ]: Pause</p>
+			<p>[ Ctrl-Q or Ctrl-X ]: Quit</p>
+			<p>[ Ctrl-T ]: Advance 1 day</p>
+			<p>[ Ctrl-S ]: Save game/</p>
+			<p>[ Ctrl-V ]: Version</p>
+			<p>[ Ctrl-End ]: Go to proto 0 in list</p>
+			<p>[ Ctrl-Up, Ctrl-Down (Arrow keys) ]: Rotate critter North/South</p>
+			<p>[ Ctrl-Left, Ctrl-Right (Arrow keys) ]: Rotate critter Left/Right</p>
+			<p>[ Ctrl-/ ]: In the Ctrl-J, Ctrl-Enter menu, allows you to give multiple number of an item depending on which page you are (weird)</p>
+			<p>[ Ctrl-F1 ]: /Toggle Items display (doesn't update UI)</p>
+			<p>[ Ctrl-F2 ]: /Toggle Critters display (doesn't update UI)</p>
+			<p>[ Ctrl-F3 ]: /Toggle Scenery display (doesn't update UI)</p>
+			<p>[ Ctrl-F4 ]: /Toggle Walls display (doesn't update UI)</p>
+			<p>[ Ctrl-F5 ]: /Toggle Tiles display (doesn't update UI)</p>
+			<p>[ Ctrl-F6 ]: /Toggle Misc display (doesn't update UI)</p>
+			<p>[ Ctrl-F7 ]: /Delete script</p>
+			<p>[ Ctrl-F12 ]: Switch between game only and Old Mapper mode/</p>
+			<br>
+			<p>[ 1 ]: Use Sneak skill/Goto bookmark 1/Answer 1</p>
+			<p>[ 2 ]: Use Lockpick skill/Goto bookmark 2/Answer 2</p>
+			<p>[ 3 ]: Use Steal skill/Goto bookmark 3/Answer 3</p>
+			<p>[ 4 ]: Use Traps skillGoto bookmark 4/Answer 4</p>
+			<p>[ 5 ]: Use First aid skill/Goto bookmark 5/Answer 5</p>
+			<p>[ 6 ]: Use Doctor skill/Goto bookmark 6/Answer 6</p>
+			<p>[ 7 ]: Use Science skill/Goto bookmark 7/Answer 7</p>
+			<p>[ 8 ]: Use Repair skill/Goto bookmark 8/Answer 8</p>
+			<p>[ 9 ]: /Goto bookmark 9/Answer 9</p>
+			<p>[ 0 ]: /Goto bookmark 0/Exit dialog</p>
+			<br>
+			<p>[ F1 ]: Help/Select items</p>
+			<p>[ F2 ]: /Select critters</p>
+			<p>[ F3 ]: /Select scenery</p>
+			<p>[ F4 ]: Save/Select walls</p>
+			<p>[ F5 ]: Load savegame/Select tiles</p>
+			<p>[ F6 ]: Quick save/Select misc</p>
+			<p>[ F7 ]: Quickload savegame</p>
+			<p>[ F8 ]: Switch to and from game mode. (Note that going and leaving the game mode restores the POV to its start hex)</p>
+			<p>[ F9 ]: /Rebuild item protos (Librarian menu - need librarian=1 in .cfg)</p>
+			<p>[ F10 ]: Quit/Rebuild proto lists (Librarian menu - need librarian=1 in .cfg)</p>
+			<p>[ F11 ]: /Rebuild all (Librarian menu - need librarian=1 in .cfg)</p>
+			<p>[ F12 ]: Screenshot</p>
+			<hr class="dottedline">
+			<h5>Shift commands</h5>
+			<p>Note: If a command is assigned in the game with the normal key, then using it with the Shift key ends up using that command as in the game. If isn't used in the game but is in the editor, then it will use the editor command.</p>
+			<h5>Except for</h5>
+			<p>[ Shift-A ]: /Destroy all scripts</p>
+			<p>[ Shift-B ]: Toggle between kick and punch</p>
+			<p>[ Shift-L ]: OBJ_DUDE gain level</p>
+			<p>[ Shift-C ]: /Copy All (Same as UI: copy everything except tiles)</p>
+			<p>[ Shift-W ]: World Map/Assign hotkey to the W key to trigger an chosen animation</p>
+			<p>[ Shift-K ]: /Kill critter and choose death (and resuscitate!)</p>
+			<p>[ Shift-F9 ]: Edit AI packet for critter (Note: Crashes on second try, you'll need to know the packet AI number as the game always pops up the same,  when selecting "Done" without selecting any item in the various lists it usually pops up a dialog which permits you to type the string instead of selecting it in the menu. If you type a non-existing string, the editor will create a new entry for you. You cannot add or remove new AI scripts without modifying the executable. You can edit more then one AI entity while in the menu by changing the AI number before pressing done)</p>
+			<p>[ Shift-F11 ]: Edit stats for critter</p>
+			<p>[ Shift-+ or Keypad +, Shift-- ]: /Move proto list right or left by 10</p>
+			<hr class="dottedline">
+			<h5>Map keys</h5>
+			<p>You can use the <code class="codeinline">0</code> through <code class="codeinline">9</code> keys to access any of the defined entrances on a map (accessed from the worldmap on any other occasion then the first). This will work regardless of whether you can see the entry point on the map or not and also works in the normal game (sadly).</p>
+			<hr class="dottedline">
+			<h5>Generic Keys</h5>
+			<p>The options menu can be driven using the first letter of the button you wish to select. The same can be said with <code class="codeinline">Yes/No</code> dialogs, as well as the real games main menu and various sub-menus (e.g. <code class="codeinline">load menu</code>, <code class="codeinline">create new char menu</code>, etc.)Lists can be handled with <code class="codeinline">Up/Down</code> buttons, as well as <code class="codeinline">Page Up</code> and <code class="codeinline">Page Down</code> when the list has more items then the area can display. In addition, various element lists (such as a file list) can be controlled by typing the first letter of the item you're looking for (for example, type <code class="codeinline">D</code> to skip to the first <code class="codeinline">D</code> file in the map list when loading a map). Pressing <code class="codeinline">Enter</code> is equivalent to clicking <code class="codeinline">OK</code>. Pressing <code class="codeinline">Escape</code> cancels the dialogs.</p>
+			<hr class="dottedline">
+			<h5>Librarian mode</h5>
+			<p>The librarian menu can be toggled on with <code class="codeinline">override_librarian=1</code> in the <code class="codeinline">.cfg</code>, note that while it's enabled you can't save your map.</p>
+			<hr class="dottedline">
+			<h5>Loading saved games</h5>
+			<p>You can load saved games into the editor, note however that the games files are used instead of the ones found in the directories and/or the DATs when possible. Also note that if you extracted and modified PRO files in your <code class="codeinline">"working"</code> directory, chances are loading the savegame will delete them so you'd need to make them read-only - also see the W key above about this. Additionally there seems to be problems in using edited PROs in savegames as their map properties are not updated in the actual savegame.</p>
+			<hr class="dottedline">
+			<h5>Editing PRO files</h5>
+			<p>To get the PRO files to be editable, on the same drive that you run the mapper, create <code class="codeinline">/fallout2/dev/proto</code>, and in it place the directories <code class="codeinline">critters</code>, <code class="codeinline">items</code>, <code class="codeinline">scenery</code>, <code class="codeinline">tiles</code>, <code class="codeinline">walls</code> and <code class="codeinline">misc</code>. Once that's done you can edit the PRO files by simply Right-Clicking on them with the mouse and Clicking the <code class="codeinline">Edit</code> button (or pressing <code class="codeinline">E</code>). You also need to make sure that <code class="codeinline">librarian</code> is set to <code class="codeinline">1</code> in the <code class="codeinline">.cfg</code> (and preferably <code class="codeinline">librarian_override</code> still set to <code class="codeinline">0</code> if you still want to be able to save maps).</p>
+			<p>An important note is that each PRO contains its own PID in the file. If you copy a PRO file to overwrite another one or create a new one at the end of the list, you'll need to make sure the internally contained PID matches the its own <code class="codeinline">critter.lst</code> line number. You could hex edit it, or:</p>
+			<p>* edit the proto, thus creating the text file reference.</p>	
+			<p>* rebuild the protos (<code class="codeinline">F9</code>, see above, though you might need to use <code class="codeinline">F11</code>).</p>	
+			<hr class="dottedline">
+			<h5>Bookmarks</h5>
+			<p>Bookmarks deserve a special entry: they are saved right beside the map in the same name as the maps but with the <code class="codeinline">.cfg</code> extention when you save your game. When loading the map it will automatically load the bookmarks. If none exist, the mapper will keep the current bookmark set in memory for any new map and use it.This means that if you edited a map and are rather happy with your bookmarks, you can first load that map to read the bookmarks and then load the map you wish to edit. If the bookmarks aren't working then it's most probably because you've already toyed with the map and the <code class="codeinline">.cfg</code> already exists and is thus read (with no bookmarks set); as such you should probably delete it's <code class="codeinline">.cfg</code> file to import your favorite bookmarks.</p>
+			<hr class="dottedline">
+			<h5>Recording mode</h5>
+			<p>In the games main menu hit <code class="codeinline">Ctrl-R</code>. This will ask you to load a map and then select a name (for the recording). You've now started a recording and to exit you'll need to hit <code class="codeinline">Ctrl-R</code> again. Once recorded, Fallout 2 will play the recording every other time instead of the main movie. If there's more then one recording it'll iterate through each of them (as well as the main movie). You can also use this trick to load the map you wish and play it in the real game by saving the game, quitting the recording and loading your recently saved game.</p>
+			<hr class="dottedline">
+			<h5>Debug Mode</h5>
+			<p>The mapper, like the game, can be run in debug mode. Unlike the game, the mapper doesn't need to be hacked to access it. All you need is to set the <code class="codeinline">DEBUGACTIVE</code> environment variable to <code class="codeinline">GNW</code> (For a debug right on the screen) or <code class="codeinline">LOG</code> to create the file <code class="codeinline">debug.log</code> in your Fallout2 directory.</p>
+			<p>See said patch for further informations about the options available in the <code class="codeinline">.cfg</code>.</p> 
+			<hr class="dottedline">
+			<h5>Editor UI Specific Keys</h5>
+			<p>Slashes  <code class="codeinline">/</code>  seperate here the proto editing (left side) and the instance editing (right side). Note that usually the same command works for the instance when availble then it is for the proto. For sakes of simplicity commands which were similar (ie: at worst, press or release <code class="codeinline">shift</code> in relation to the protos) were omitted.</p>
+			<p>These are keys which can be used in various dialogs which pop up in the editor, mostly for editing protos:</p>
+			<p>[ , ]: "<<" and ">>" buttons</p>
+			<p>[ - , + ]: "(*" and "*)" buttons</p>
+			<p>[ Enter or Ctrl-M ]: Done (Ctrl-M is the usual keycode used to represent Enter)</p>
+			<p>[ Esc ]: Cancel</p>
+			<p>[ Shift- ]: Scroll left-right <code class="codeinline">10</code> in <code class="codeinline">SCENERY</code> list (regardless of wether your're editing a scenery). This can be used to your advantage if you have the version of the game where kids are removed aswhen reaching the kid, the UI doesn't go further using the left/right button. Simply use <code class="codeinline">Shift-]</code> to skip over it and scroll back using the left button. If you set a item (forexample) to a scenery reference, the graphic will still act as a scenery, not as an item. So you can't abuse this feature to make other proto types out of sceneries.</p>
+			<hr class="dottedline">
+			<h5>Tiles</h5>
+			<p>[ M ]: Material</p>
+			<p>[ N ]: Name</p>
+			<p>[ F ]: Flags (Saved, but are they even used?)</p>
+			<hr class="dottedline">
+			<h5>Scenery</h5>
+			<p>[ D ]: Description</p>
+			<p>[ E ]: /Set destination elevation</p>
+			<p>[ F ]: Flags</p>
+			<p>[ I ]: Sound ID</p>
+			<p>[ L ]: Light</p>
+			<p>[ N ]: Name</p>
+			<p>[ M ]: Material/Destination map number</p>
+			<p>[ S ]: /New script</p>
+			<p>[ T ]: Type/Destination tile, elevator type</p>
+			<br>
+			<p>[ Shift-S ]: Script</p>
+			<p>[ Shift-W ]: Walkthrough</p>
+			<hr class="dottedline">
+			<h5>Critters</h5>
+			<p>[ 1 ]: Stats screen for critter</p>
+			<p>[ 2 ]: Stats screen for OBJ_DUDE. Note that when done it returns to the map instead. You'll need to press esc to return to the editing UI.</p>
+			<br>
+			<p>[ A ]: Action point bonus</p>
+			<p>[ B ]: Body type</p>
+			<p>[ C ]: Critical bonus/Clear inventory</p>
+			<p>[ D ]: Description</p>
+			<p>[ F ]: Flags</p>
+			<p>[ H ]: Talking head Fid</p>
+			<p>[ I ]: /Add to inventory</p>
+			<p>[ L ]: Light</p>
+			<p>[ N ]: Name</p>
+			<p>[ R ]: Damage resistance</p>		
+			<p>[ S ]: Sequence damage bonus (note that it displays Melee damage instead!)</p>
+			<p>[ V ]: /View inventory</p>	
+			<br>
+			<p>[ Shift-1 ]: Critter flags</p>
+			<p>[ Shift-A ]: AI Packet</p>	
+			<p>[ Shift-B ]: Barter</p>
+			<p>[ Shift-D ]: Damage type</p>	
+			<p>[ Shift-H ]: HP Bonus</p>
+			<p>[ Shift-K ]: Kill type</p>	
+			<p>[ Shift-R ]: Damage threshold</p>
+			<p>[ Shift-S ]: Script</p>	
+			<p>[ Shift-T ]: Team number</p>
+			<p>[ Shift-U ]: Action flags (Useable)</p>	
+			<p>[ Shift-X ]: Experience</p>
+			<hr class="dottedline">
+			<h5>Walls</h5>
+			<p>[ D ]: Description</p>
+			<p>[ F ]: Flags</p>
+			<p>[ L ]: Light</p>
+			<p>[ N ]: Name</p>
+			<br>
+			<p>[ Shift-U ]: Action flags (useable)</p>
+			<p>[ Shift-S ]: Script</p>
+			<hr class="dottedline">
+			<h5>Misc</h5>
+			<p>[ F ]: Flags</p>
+			<p>[ D ]: Description</p>
+			<p>[ N ]: Name</p>
+			<hr class="dottedline">
+			<h5>Items</h5>
+			<p>[ 1 - 9, Shift-1 - Shift-9 ]: Specific item type options. Note that the drugs type has the keys separated into an upper and lower part.</p>
+			<br>
+			<p>[ W ]: Weight</p>
+			<p>[ T ]: Item Type</p>
+			<p>[ I ]: Sound ID</p>
+			<p>[ S ]: Size</p>
+			<p>[ D ]: Description</p>
+			<p>[ F ]: Flags</p>
+			<p>[ L ]: Lighting</p>
+			<p>[ V ]: Cost (Value)</p>
+			<p>[ N ]: Name</p>
+			<p>[ M ]: Material</p>
+			<br>
+			<p>[ Shift-U ]: Action flags (Useable)</p>
+			<p>[ Shift-I ]: Inventory FID</p>
+			<p>[ Shift-S ]: Script</p>
+			<hr class="dottedline">
+			<h5>Flags</h5> <p>(whenever in an edit flags menu)</p>
+			<p>[ 1 - 0, - (hyphen) on QWERTY, ? on QWERTZ, (NUM-Block) Shift--, Shift-0 - Shift-9 ]: Toggle options. Note that some options which are not displayed can be toggled but who knows what they do and what happens if you toggle them.</p>
+	<hr>
+
+	<div id="BuildMap"><h3>How to build a map</h3></div>
+		<div id="FloorWall"><h4>Floors and walls</h4></div>
+			<p>First you need a floor for your map. It's recommended to always place the tiles first because walls and tiles don't always match. If you'd place walls first it isn't guaranteed that placing the tiles afterwards matches with the already placed walls.</p>
+			<p>You can do this one of two ways, by hand, or by using the patterns included with the editor.</p>
+			<p>To do it by hand, you just scroll through the tiles selector at the bottom of the screen and choose the tiles you want, right click on the one you want to stamp down, then left-click on the map area where you want to place it.</p>
+			<img src="images\mapping\Floors_and_walls\Bas01.webp" alt="">
+			<p>To use the patterns, you simply have to go to the tools menu, and select <code class="codeinline">use pattern</code>.</p>
+			<img src="images\mapping\Floors_and_walls\Bas02.webp" alt="">
+			<p>Select the pattern you want to use from the window that pops up. </p>
+			<img src="images\mapping\Floors_and_walls\Bas03.webp" alt="">
+			<p>Then just click away all over that black screen that is your map. </p>
+			<p>When you are done stamping the pattern down, right click to exit the pattern mode. </p>
+			<p>To speed things up a bit, you can make a large area, then copy it using the copy button on the tool bar at the bottom. </p>
+			<p>While you have the pattern selected, you can press the <code class="codeinline">+</code> (plus) and <code class="codeinline">-</code> (minus) keys to make the pattern stamp bigger or smaller. (2x2, 3x3, 4x4 etc.) </p>
+			<img src="images\mapping\Floors_and_walls\Bas04.webp" alt="">
+			<p>Once you have a basic floor to your map, you need to put down the <code class="codeinline">footprint</code> of all your buildings and things such as roads, there are no patterns for this so you'll just have to do it by hand.</p>
+			<p>I recommend using tiles that make a grid for the footprint to your buildings. You can change it later but it helps with placing the walls. </p>
+			<img src="images\mapping\Floors_and_walls\Tiles grid small.png" alt="" width="900" height="500">
+			<p>Next you need to place the walls, so set the selector to walls, and find the look you are going for.</p>
+			<img src="images\mapping\Floors_and_walls\Bas06.webp" alt="">
+			<p>Some wall sections are spread all over the selector bar, this was because sections of wall were added as they became needed by the original mappers, so you might have to hunt for that corner you want.</p>
+			<p>You should ideally place your walls on the grid if you intend to include roofs to your buildings.</p>
+			<p>Because of the way some wall pieces are made, they leave holes that the player can walk through. Corners are especially prone to this. </p>
+			<p>Turn on the hex grid. You will see that the walls have red hexes below them. These are areas the player cannot go (in simple terms). </p>
+			<img src="images\mapping\Floors_and_walls\Bas07.webp" alt="">
+			<p>Where the wall has no red hex below them, that is where the hole is (Hole under wall. Walls turned off for clarity).</p>
+			<img src="images\mapping\Floors_and_walls\All walls + hexes + holes small.png" alt="" width="700" height="500">
+			<img src="images\mapping\Floors_and_walls\No walls + hexes + holes small.png" alt="" width="700" height="500">
+			<p>To plug these holes with a wall blocker, found in the walls selector, tile number <code class="codeinline">620</code> and <code class="codeinline">621</code>. They are named <code class="codeinline">wall</code> and <code class="codeinline">wall s.t.</code> respectively, and are a solid wall, and a wall that can be shot through (hence the <code class="codeinline">s.t.</code>).</p>
+			<img src="images\mapping\Floors_and_walls\Bas10.webp" alt="">
+			<p>They are placed just like normal walls, but they do not show up on the map normally, they just make the hex red.</p>
+			<p>To be able to see them, you need to turn <code class="codeinline">Toggle Block Obj View</code> on in the Tools menu.</p>
+			<img src="images\mapping\Floors_and_walls\Bas11.webp" alt="">
+			<p>The Blockers show up as a green hex with a <code class="codeinline">W</code> in them. The solid walls have a solid <code class="codeinline">W</code> (shown on the left in the pic), and the <code class="codeinline">shoot through</code> walls have a faded <code class="codeinline">W</code> in them (shown on the right in the pic).</p>
+			<img src="images\mapping\Floors_and_walls\All walls + hexes + hole filler small.png" alt="">
+			<p>The result of filling the holes looks like this.</p>
+			<img src="images\mapping\Floors_and_walls\No walls + hexes + no holes small.png" alt="" width="700" height="500">
+			<p>Have placed the tiles plus all walls plus roof and filling up the holes looks like this.</p>
+			<img src="images\mapping\Floors_and_walls\All walls + roof small.png" alt="" width="700" height="500">
+		<br>
+		<hr class="dashedline">
+
+		<div id="SceneryCritter"><h4>Scenery and critters</h4></div>
+			<p>Our basic map should now be ready. Now place the objects (<code class="codeinline">Scenery</code>). We place some objects that we think fit into the current scene. But be careful... sometimes less is more! Don't try to put the same scenery elements several times in the map so that you get them on one screen. Otherwise you will get the impression that everything is always repeated. And that usually looks ugly or boring.</p>
+			<img src="images\mapping\Scenery and critters\Scenery small.png" alt="" width="700" height="500">
+			<p>Placing Critters. We select <code class="codeinline">Critters</code> in the gray box at the bottom left. Now we can place the existing critters into the map. (I'll tell you later how to create new critters) Use the arrows at the bottom of the screen to indicate in which direction the figure should look. When we have placed a person, we press the <code class="codeinline">M</code> key to get the arrow cursor. We click on the figure and click <code class="codeinline">EDIT</code> at the bottom. Now we can make various settings, such as setting the inventory or assigning a script to the character.</p>
+			<img src="images\mapping\Scenery and critters\Critters small.png" alt="" width="700" height="500">
+			<p>Now comes the rest of the details, such as setting light sources. Some scenery objects emit light by themselves, like the burning barrels. But that's not enough for us, so we'll add some lights ourselves. To do this, we go to <code class="codeinline">Scenery</code> in the lower left corner and move to tile number <code class="codeinline">140</code>. This is our light source. Select it with the right mouse button and place it in the map at the desired position.</p>
+			<p>IMPORTANT: You have to activate <code class="codeinline">Toggle Block Obj View</code> (<code class="codeinline">Tools</code> => <code class="codeinline">Toggle Block Obj View</code>) before, otherwise you can't see the light source! Or just press <code class="codeinline">TBOV</code> on bottom screen.</p>	
+			<p>Under <code class="codeinline">Scripts</code> => <code class="codeinline">Set Start Hex</code> we determine the start location of the player.</p>	
+			<img src="images\mapping\Scenery and critters\Light source visible small.png" alt="">
+		<br>
+		<br>
+			<img src="images\mapping\Scenery and critters\Light source small.png" alt="" width="700" height="500">
+			<p>If we now press <code class="codeinline">F8</code> (<code class="codeinline">default_f8_as_game=</code> must be set to <code class="codeinline">1</code> in <code class="codeinline">mapper.cfg</code>), we enter the test game and we can walk around. The critters don't do much yet, since we haven't assigned them a script. If we press the <code class="codeinline">D</code> key, we change the time of day and can see how our placed light sources work. The map is not 100% finished yet. Still missing are the so-called scroll blockers, which limit the scroll radius of the player and the exit points, which bring the player to the world map etc. This will follow in the next tutorial.</p>
+		<hr class="dashedline">
+
+		<div id="ScrollBlocker"><h4>Scroll blocker</h4></div>
+			<p>When you're finished to build your map, you need to put Scroll Blockers to limitate until where the screen can scroll.</p>
+			<p>You do that by clicking on <code class="codeinline">EDG</code> on bottom screen. You'll receive this menu.</p>
+			<img src="images\mapping\Scroll Blocker and level exits\EDG.png" alt="">
+			<p>You can set the borders by clicking on the four arrows directing in different directions.</p>
+			<img src="images\mapping\Scroll Blocker and level exits\EDG choose.png" alt="">
+			<p>If you click them a green line will appear and stick to your cursor.</p>
+			<img src="images\mapping\Scroll Blocker and level exits\EDG chosen.png" alt="">
+			<p>Just left-click on an area where you desire the edge of the screen to stop.</p>
+			<img src="images\mapping\Scroll Blocker and level exits\EDG place.png" alt="" width="700" height="500">
+			<p>When you're done placing all directions just press <code class="codeinline">save</code>.</p>
+			<img src="images\mapping\Scroll Blocker and level exits\EDG placed save.png" alt="" width="700" height="500">
+			<p>You can turn the visibility of the scroll blocker <code class="codeinline">on/off</code> with the asterisk (<code class="codeinline">*</code>) on the bottom panel.</p>
+			<img src="images\mapping\Scroll Blocker and level exits\EDG asterisk.png" alt="" width="550" height="250">
+			<p>That's the result in game.</p>
+			<img src="images\mapping\Scroll Blocker and level exits\EDG scroll block.png" alt="">
+		<br>
+		<hr class="dashedline">
+
+		<div id="MapExit"><h4>Map exits</h4></div>
+			<p>If you want to exit the map you're currently on, there are two possibilities how to leave it. Exit to the next map or exit to the worldmap.</p>
+			<h5>Map exit to another map</h5>
+			<p>Let's begin with exit to another map.</p>
+			<p>You may know the green and brown exit grids of the Fallout Classic games.</p>
+			<p>Inside the mapper there are even three types of exit grids. Green, brown and black but only the green ones work. The other two don't and shouldn't be used.</p>
+			<img src="images\mapping\Scroll Blocker and level exits\all exit grids.png" alt="">
+			<p>Choose <code class="codeinline">Misc</code>, the green ones begin at <code class="codeinline">15</code> to <code class="codeinline">22</code>. Okay, so put some green exit grids on the map. Notice that only the red hexagons on the green exit grids do something.</p>
+			<img src="images\mapping\Scroll Blocker and level exits\green exit grids placed.png" alt="">
+			<p>Now it's time to write down some information about your map.</p>
+			<code>
+				<div>map name:</div>
+				<div>map number:</div>
+				<div>lookup name:</div>
+				<div>hex number:</div>
+				<div>map level:</div>
+			</code>
+			<p>Before I explain what the individual information mean, we need to do another step first.</p>
+			<hr class="dashedline">
+
+			<h5>MAPS.TXT</h5>
+			<p>Open <code class="codeinline">MAPS.txt</code> located inside...</p>
+			<pre><code>E:\Fallout2\data\data</code></pre>
+			<p>Scroll to the bottom and the last entry should look like this.</p>
+			<code>
+				<div>[Map 150]</div>
+				<div>lookup_name=Bess Dead</div>
+				<div>map_name=rndbess</div>
+				<div>music=07desert</div>
+				<div>saved=No</div>
+			</code>
+			<p>Now fill in your map information like this.</p>
+			<code>
+				<div>[Map 151]</div>
+				<div>lookup_name=Testmap number6</div>
+				<div>map_name=tm_s6</div>
+			</code>					
+			<p><code class="codeinline">lookup_name=</code> This is the full name of the map. My map is called <code class="codeinline">Testmap number6</code>. You can take up to <code class="codeinline">144</code> characters.</p>
+			<p><code class="codeinline">map_name=</code> Is the name of the file of your map, e.g. <code class="codeinline">arrvillage</code> for <code class="codeinline">Arroyo village</code>. My map is called <code class="codeinline">tm_s6</code> without the extension <code class="codeinline">.map</code>.</p>
+			<br>
+			<p>These following two information are not mandatory to make the map work.</p>
+			<p><code class="codeinline">music=</code> Set any music you want in the  (see other entries for examples of what music you can use)</p>
+			<p><code class="codeinline">saved=</code> Change <code class="codeinline">saved=No</code> to <code class="codeinline">saved=Yes</code> (this makes the game save the status of the map when you save the game, so you can drop things and not lose them)</p>
+			<p>Save the information.</p>
+			<br>
+			<p>The other information mean this...</p>
+			<p><code class="codeinline">map number:</code> This is the number we gave our map. In this case <code class="codeinline">151</code>.</p>
+			<p><code class="codeinline">hex number:</code> This is the number of the hex where you want obj_dude to start after exiting and reentering the new map. I chose hex number <code class="codeinline">18697</code>.</p>
+			<p><code class="codeinline">map level:</code> This is the elevation of your map. Inside the mapper you'll see <code class="codeinline">1</code>, <code class="codeinline">2</code> and <code class="codeinline">3</code>. But the engine handles this differently. 
+				<code class="codeinline">(Mapper)1</code> = <code class="codeinline">(Engine)0</code>; <code class="codeinline">(Mapper)2</code> = <code class="codeinline">(Engine)1</code>; <code class="codeinline">(Mapper)3</code> = <code class="codeinline">(Engine)2</code>. My map is at elevation <code class="codeinline">(Mapper)1</code> = <code class="codeinline">(Engine)0</code>.</p>
+			<br>
+			<p>Okay, we have every information we need to be able to do an exit to another map.</p>
+			<code>
+				<div>map name: tm_s6</div>
+				<div>map number: 151</div>
+				<div>lookup name: Testmap number6</div>
+				<div>hex number: 18697</div>
+				<div>map level: 0</div>
+			</code>						
+			<p>Return to the mapper.</p>
+			<p>Choose <code class="codeinline">TOOLS</code> => <code class="codeinline">Set Exit-Grid Data</code>.</p>
+			<img src="images\mapping\Scroll Blocker and level exits\Set Exit-Grid Data.png" alt="">
+			<p>Four smaller windows will appear.</p>
+			<img src="images\mapping\Scroll Blocker and level exits\Exit Grid Dest Map -1.png" alt="">
+			<p><code class="codeinline">Exit Grid Dest Map</code> is our map number.</p>
+			<br>
+			<img src="images\mapping\Scroll Blocker and level exits\Exit Grid Dest Tile -1.png" alt="">
+			<p><code class="codeinline">Exit Grid Dest Tile #</code> is our hex number.</p>
+			<br>	
+			<img src="images\mapping\Scroll Blocker and level exits\Exit Grid Dest Elevation.png" alt="">
+			<p><code class="codeinline">Exit Grid Dest Elevation</code> is our map level.</p>
+			<br>	
+			<img src="images\mapping\Scroll Blocker and level exits\Exit Grid Dest Rotation.png" alt="">
+			<p><code class="codeinline">Exit Grid Dest Roration</code> is the rotation of obj_dude.</p>
+			<br>
+			<p>Let's fill in our information.</p>
+			<img src="images\mapping\Scroll Blocker and level exits\Exit Grid Dest Map 151.png" alt="">
+			<p>Our map number is <code class="codeinline">151</code> which you gave in <code class="codeinline">MAPS.txt</code>.</p>
+			<br>
+			<img src="images\mapping\Scroll Blocker and level exits\Exit Grid Dest Tile 18697.png" alt="">
+			<p>Our hex number is <code class="codeinline">18697</code> where obj_dude will be teleported after stepping on the now invisible red hex field on the green exit grid.</p>
+			<br>
+			<img src="images\mapping\Scroll Blocker and level exits\Exit Grid Dest Elevation.png" alt="">
+			<img src="images\mapping\Scroll Blocker and level exits\Exit Grid Dest Rotation.png" alt="">
+			<p>Elevation an rotation can stay at <code class="codeinline">0</code>. Because our elevation is <code class="codeinline">(Mapper)1</code> = <code class="codeinline">(Engine)0</code>. And rotation <code class="codeinline">0</code> is <code class="codeinline">northeast</code>, that's ok for now.</p>
+			<br>
+			<p>Now that we provided our information, we can mark the exit grids.</p>
+			<p>Choose <code class="codeinline">TOOLS</code> => <code class="codeinline">Mark Exit-Grids</code>.</p>
+			<img src="images\mapping\Scroll Blocker and level exits\Mark Exit-Grids.png" alt="">
+			<p>You will see this...</p>
+			<img src="images\mapping\Scroll Blocker and level exits\Entering mark exit_grids mode.png" alt="">
+			<p>You don't need to choose every exit-grid for itself. If you click on one exit grid, all exit grids at a scope of 20x20 will be marked.</p>
+			<p>Once you're done just press <code class="codeinline">ESC</code>. You will see this...</p>
+			<img src="images\mapping\Scroll Blocker and level exits\Exiting mark exit-grids.png" alt="">
+			<p>Don't test it right away! You need to save your map first, leave the mapper, reenter it and load your map. Now you can test if it works.</p>
+		<hr class="dashedline">
+
+		<div><h5>Map exit to worldmap</h5></div>
+			<p>Let's continue with exit to worldmap.</p>
+			<p>Exit to worldmap is easier because you don't need to change the information asked when hitting <code class="codeinline">TOOLS</code> => <code class="codeinline">Set Exit-Grid Data</code>.</p>
+			<p>Draw your green exit grids where you want them to exit to worldmap.</p>
+			<p>Choose <code class="codeinline">TOOLS</code> -> <code class="codeinline">Set Exit-Grid Data</code>.</p>
+			<p> Just let them default. Like this...</p>
+			<img src="images\mapping\Scroll Blocker and level exits\Exit Grid Dest Map -1.png" alt="">
+			<br>
+			<img src="images\mapping\Scroll Blocker and level exits\Exit Grid Dest Tile -1.png" alt="">
+			<br>	
+			<img src="images\mapping\Scroll Blocker and level exits\Exit Grid Dest Elevation.png" alt="">
+			<br>	
+			<img src="images\mapping\Scroll Blocker and level exits\Exit Grid Dest Rotation.png" alt="">
+			<p>Choose <code class="codeinline">TOOLS</code> -> <code class="codeinline">Mark Exit-Grids</code>.</p>
+			<p>Only choose the exit grids which should lead to the worldmap.</p>
+			<p>Exit the marking mode and save the map and leave the mapper.</p>
+			<p>After you relaunch the mapper you will notice that the green exit grids you chose to exit to worldmap are now brown.</p>
+			<p>Go on and test if it works.</p>
+		<hr>
+
+		<div id="LadderStair"><h4>Ladders and stairs</h4></div>
+			<p>Add your ladders/stairs.</p>
+			<img src="images\mapping\Ladders and stairs\Ladder01.webp" alt="">
+			<br>
+			<img src="images\mapping\Ladders and stairs\Ladder02.webp" alt="">
+			<p>I suggest changing your cursor to the arrow (<code class="codeinline">m</code> key - press again to change it back) for the next part as it makes selecting ladders easier.</p>
+			<p>Select the ladder you want to set the info for.</p>
+			<p>Click on the <code class="codeinline">EDIT</code> button, a screen will appear as shown.</p>
+			<img src="images\mapping\Ladders and stairs\Ladder03.webp" alt="">
+			<p>Click the button called <code class="codeinline">Dest Tile</code> and put in the hex number you would like the player to arrive on the destination level.</p>
+			<p>To find the hex number, click on the floor near the ladder and look in the grey box in the bottom left corner, it is the number <code class="codeinline">19902</code> on the left.</p>
+			<img src="images\mapping\Ladders and stairs\Ladder04.webp" alt="">
+			<p>Click the button called <code class="codeinline">Dest Elev</code> and put in the number of the level you want the ladder/stairs to go to.</p>
+			<p>Click the button called <code class="codeinline">Dest Map</code>. This is where you put the number of the map you want the ladder to go to.</p>
+			<p>To get it to go to the same map as it is on, you need to give that map a number in the <code class="codeinline">maps.txt</code> file and put it in the <code class="codeinline">Dest Map</code> box.</p>
+			<p>For my example map, I ended up with the following.</p>
+			<img src="images\mapping\Ladders and stairs\Ladder05.webp" alt="">
+			<p>Click <code class="codeinline">Done</code>.</p>
+			<p>Repeat steps <code class="codeinline">4</code> - <code class="codeinline">11</code> for the other ladders/stairs.</p>
+		<hr>	
+
+		<div id="Worldmap"><h4>Worldmap</h4></div>
+			<!-- <p>Put your map in the fallout2\data\maps directory (editor should do it automatically but if it's not your map then put it here).</p>
+			<br>
+			
+			<p>Open the file MAPS.TXT which is found in fallout2\data\data.</p>
+			<p>Scroll to the end of the list and copy / paste one of the entry blocks at the end, so you would end up with.</p>
+					<code>
+						<pre>
+							[Map 150] 
+							lookup_name=Bess Dead 
+							map_name=rndbess 
+							music=07desert 
+							saved=No 
+						</pre>
+					</code>
+			<p>Re-number the entry block you just pasted as the next in the list (e.g. 151).</p>
+			<p>Change the name after 'map_name=' to the name of your map.</p>
+			
+			<p>'lookup_name' is what the CITY.TXT file references the map with.</p>
+			<p>So you would end up with...</p>
+					<code>
+						<pre>
+							[Map 151] 
+							lookup_name=TestMap_Entrance 
+							map_name=testmap 
+							music=07desert 
+							saved=Yes 
+						</pre>
+					</code>
+			<p>The 'TestMap_Entrance' is just an identifying name for the map. 'testmap' is the actual name of the map file. </p>
+			<p>Save the file.</p> -->
+			<h5>CITY.TXT</h5>
+			<p>You'll probably notice that if you enter your newly created brown exit grid your map is not shown on the worldmap. For this we need to modify <code class="codeinline">CITY.TXT</code>.</p>
+			<p>Open <code class="codeinline">CITY.TXT</code>. This is where you set the <code class="codeinline">town map</code> art that comes up for you to choose a shortcut to a part of the town when you enter the map from the worldmap (green triangle).</p>
+			<p>Scroll to the end and copy/paste the last entry again, so you would have...</p>
+			<code>
+				<div>[Area 48] </div>
+				<div>area_name=Reno Stables </div>
+				<div>world_pos=953,882 </div>
+				<div>start_state=Off</div>
+				<div>lock_state=on</div>
+				<div>size=Small</div>
+				<div>townmap_art_idx=-1</div>
+				<div>townmap_label_art_idx=-1</div>
+				<div>entrance_0=On,130,410,New Reno Stables,-1,-1,0</div>
+			</code>
+			<p>Change the area number to the next in the sequence.</p>
+			<p>So you would get...</p>
+			<code>
+				<div>[Area 49]</div>
+				<div>area_name=Testmap number6</div>
+				<div>world_pos=xxx,xxx</div>
+				<div>start_state=On </div>
+				<div>lock_state=on</div>
+				<div>size=Small</div>
+				<div>townmap_art_idx=-1 </div>
+				<div>townmap_label_art_idx=-1</div>
+				<div>entrance_0=On,130,410,Testmap Entrance 0,-1,-1,0</div>
+			</code>
+			<p><code class="codeinline">area name=</code> This is the name of your town , city or area. Its equal to lookup_name= in MAPS.TXT.</p>
+			<p><code class="codeinline">world_pos=</code> Set the x- and y-coordinates of where you want the town to show up on the worldmap (make sure you dont overlap any existing towns).</p>
+			<p><code class="codeinline">start_state=</code> Set to on so it shows on the worldmap or off so it doesnt show on the worldmap until you change that with a script.</p>
+			<p><code class="codeinline">lock_state=</code>.</p>
+			<p><code class="codeinline">size=</code> Set to whatever circle size you want. There are Small; Medium and Large.</p>
+			<p><code class="codeinline">townmap_art_idx=</code> Should be left as -1 (it references an external .txt file to look up the name of the townmap artwork).</p>
+			<p><code class="codeinline">townmap_lable_art_idx=</code> Should be left as -1 (it references an external .txt file to look up the name of the townmap artwork).</p>
+			<p><code class="codeinline">entrance_0=</code> The first entrance point to your town visible on the townmap graphic (green triangle).</p>
+			<p><code class="codeinline">On</code> States that this entrance is "enabled". It can be picked from the townmap graphic you get when entering a town from worldmap</p>
+			<p><code class="codeinline">130,410</code> The location of the triangle on the townmap graphic (x- & y- coordinates).</p>
+			<p><code class="codeinline">Testmap Entrance 0</code> Name of the entrance visible on the townmap graphic.</p>
+			<p><code class="codeinline">-1,-1,0</code> The destination elevation, hex, and rotation to place the player on when entering the map (-1 for the map defaults).</p>
+			<p><code class="codeinline">entrance_x=</code> You can add extra entrances in each area for as many maps as make up the town, just add them after entrance_0= and sequentially number them.</p>
+			<p>Save the file.</p>
+			<hr class="dottedline">
+			<h5>MAP.MSG</h5>
+			<p>To make the name of your area under the circle on the worldmap show correctly you need to modify <code class="codeinline">MAP.MSG</code>.</p>
+			<p>Open the file <code class="codeinline">MAP.MSG</code> found in...</p> 
+			<code>\fallout2\data\text\english\game</code> 
+			<p>and scroll to the end.</p>
+			<br>
+			<p>Copy/paste the last line.</p>
+			<code>
+				<div>[...]</div>
+				<div>{1546}{}{Fake Vault 13}</div>
+				<div>{1547}{}{Random Encounter}</div>
+				<div>{1548}{}{Stables}</div>
+			</code>
+			<br>
+			<p>Renumber the line you just pasted to the next number and change the name to your townmap name.</p>
+			<p>So you would get...</p>
+			<code>
+				<div>[...]</div>
+				<div>{1546}{}{Fake Vault 13}</div>
+				<div>{1547}{}{Random Encounter}</div>
+				<div>{1548}{}{Stables}</div>
+				<div>{1549}{}{My Cool Map}</div>
+			</code>
+			<br>
+			<p>Find the last entry before the 1500's and start copy/paste below itself.</p>
+			<code>
+				<div>150. RndBess</div>
+				<div>{650}{}{Desert}</div>
+				<div>{651}{}{Desert}</div>
+				<div>{652}{}{Desert}</div>
+			</code>
+			<br>
+			<p>Renumber the entry you just pasted to the next number/s (as shown below, easy to figure out) and change the name to your map name.</p>
+			<p>So you would get...</p>
+			<code>
+				<div>151. yourmap</div>
+				<div>{653}{}{Desert}</div>
+				<div>{654}{}{Desert}</div>
+				<div>{655}{}{Desert}</div>
+			</code>
+			<p>A little explanation.</p>
+			<code>
+				<div>151. yourmap 	 - The name of the map file.</div>
+				<div>{653}{}{Desert}  - Name to display for elevation 0 of your map (mapper level 1).</div>
+				<div>{654}{}{Desert}  - Name to display for elevation 1 of your map (mapper level 2).</div>
+				<div>{655}{}{Desert}  - Name to display for elevation 2 of your map (mapper level 3).</div>
+			</code>
+			<p>So you might have a map of a church with a second floor and a basement so <code class="codeinline">654</code> would be <code class="codeinline">first floor</code>, <code class="codeinline">655</code> would be <code class="codeinline">basement</code> and <code class="codeinline">653</code> the <code class="codeinline">second floor</code>. It doesn't matter how you do this.</p>
+			<p>Save the file.</p>
+	<hr>
+
+	<div id="New_Critter"><h3>Make new prototype</h3></div>
+		<h4>Critters</h4>
+			<p>Rename <code class="codeinline">patch000.dat</code> inside <code class="codeinline">\Fallout2</code> so it cannot overwrite <code class="codeinline">\data</code>. If you cannot find <code class="codeinline">patch000.dat</code> the better.</p>
+			<p>Create these directories <code class="codeinline">\dev\proto\critters</code> inside <code class="codeinline">\Fallout2</code>.</p>
+			<p>Should look like this.</p>
+			<code>E:\Fallout2\dev\proto\critters</code>
+			<br>
+			<p>Open <code class="codeinline">mapper2.cfg</code> inside <code class="codeinline">\BIS mapper</code>  and change this</p>
+			<code>librarian=0</code>
+			<p>to</p>
+			<code>librarian=1</code>
+			<br>
+			<p>Run <code class="codeinline">mapper2.exe</code>.</p>
+			<p>Choose <code class="codeinline">Critters</code> from the dropdownmenu.</p>
+			<img src="images\Make_new_prototype\Critters\2022-05-24 21_16_32-FALLOUT Mapper.png" alt="">
+			<br>
+			<br>
+			<p>Hit <code class="codeinline">END</code> on your keyboard.</p>
+			<img src="images\Make_new_prototype\Critters\2022-05-24 21_28_51-FALLOUT Mapper.png" alt="">
+			<br>
+			<br>
+			<p>You've arrived at the right most of the Critters selection bar. You can tell this by the empty slot where a Critter FRM should be.</p>
+			<img src="images\Make_new_prototype\Critters\2022-05-24 21_29_31-FALLOUT Mapper.png" alt="">
+			<br>
+			<br>
+			<p>Choose the empty slot. You've chosen it when the empty slot has a red border.</p>
+			<img src="images\Make_new_prototype\Critters\2022-05-24 21_29_55-FALLOUT Mapper.png" alt="">
+			<br>
+			<br>
+			<p>Hit <code class="codeinline">EDIT</code>.</p>
+			<img src="images\Make_new_prototype\Critters\2022-05-24 21_30_14-E__Fallout2_data_data_CITY.TXT - Notepad++.png" alt="">
+			<br>
+			<br>
+			<p>This window should appear. You can choose a ton of options for your new Critter.</p>
+			<img src="images\Make_new_prototype\Critters\2022-05-24 21_30_40-FALLOUT Mapper.png" alt="">
+			<br>
+			<br>
+			<p>But don't touch anything for now. Just hit <code class="codeinline">DONE</code>.</p>
+			<img src="images\Make_new_prototype\Critters\2022-05-24 21_30_54-FALLOUT Mapper.png" alt="">
+			<br>
+			<br>
+			<p>The window should close and you can now see a flaming mannequin on the place where the empty slot was.</p>
+			<img src="images\Make_new_prototype\Critters\2022-05-24 21_31_19-BIS mapper.png" alt="">
+			<br>
+			<br>
+			<p>A bunch of new files have been created.</p>
+			<p>A .txt file here. Called e.g. <code class="codeinline">00000484.txt</code>.</p>
+			<code>E:\Fallout2\dev\proto\critters</code>
+			<br>
+			<p>And a new .pro file here. Called e.g. <code class="codeinline">00000484.pro</code>.</p>
+			<code>E:\Fallout2\data\proto\critters</code> 
+			<br>
+			<p>You should also have <code class="codeinline">critters.lst</code> inside this directory. Open <code class="codeinline">critters.lst</code>. Scroll to the very bottom of the file and you should see this.</p>
+			<code>
+				<div>[...]</div>
+				<div>00000479.pro</div>
+				<div>00000480.pro</div>
+				<div>00000481.pro</div>
+				<div>00000482.pro</div>
+				<div>00000483.pro</div>
+				<div>00000484.pro</div>
+			</code>
+			<p>Your new proto <code class="codeinline">00000484.pro</code> has been added to the list.</p>
+			<p>If you want to delete your new proto, just delete both newly created files and the entry inside <code class="codeinline">critters.lst</code> and the flaming mannequin should have been disappeared inside the mapper.</p>
+	<hr>
+	<hr>
+
+	<div id="basic"><h2>Scripting (Basics)</h2></div>
+		<div id="ssl"><h3>SSL - Star Trek scripting language</h3></div>
+			<p>No, you have not misread, the scripting language used to script Fallout 2 is called Star Trek scripting language or in short SSL. SSL is a mix of pascal or lua with C. Only the devs know what this abomination is.Black Isle Studios created SSL for their Star Trek game that never came true. When they made Fallout 1 and 2 they simply used SSL to script them.Some refer to it as Fallout scripting language, some as Star Trek scripting language and some just call it SSL but all mean the same.If you want to know more you can ask the community, they should know more about it.</p>
+	<hr>
+
+	<div id="script"><h3>Script</h3></div>
+		<p>A script is just a file that contains the source code of the Fallout scripting language. Any object in the game can have a script. Scripts are needed to assign a certain behavior to an object (critter, scenery, items etc.), so that it can be interacted with. They breathe life into the game world and its inhabitants.Not only the player can interact with scripts,but even scripts can interact with eachother. You could also build a map and place critters, scenery and stuff without assigning scripts to them.You could nevertheless interact with them but not that much.What does it mean "not that much"?Well, the game uses default scripts if you don't assign any like combat, push, look, description etc.</p>
+		<p>Let’s see how a script can look like. The following is the script for the well found in Arroyo village.</p>   
+		<code>
+			<div><span class="dyeheader">/* Include Files */</span></div>
+			<div><span class="dyedefine">#include</span> <span class="dyeheader">"..\headers\define.h"</span></div>
+			<div><span class="dyedefine">#include</span> <span class="dyeheader">"..\headers\arvillag.h"</span></div>
+			<div><span class="dyedefine">#include</span> <span class="dyeheader">"..\headers\command.h"</span></div>
+			<br>
+			<span class="dyedefine">#define</span> NAME<div style="text-indent: 9.4em; display: inline-block;">SCRIPT_ASWELL</div>
+			<br>
+			<br>
+			<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">start</span>;</div>
+			<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">use_skill_on_p_proc</span>;</div>
+			<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">description_p_proc</span>;</div>
+			<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">look_at_p_proc</span>;</div>
+			<br>
+			<span class="dyedefine">#define</span> LVAR_Gave_Xp<div style="text-indent: 5em; display: inline-block;">(<span class="dyedefine">0</span>)</div>
+			<br>
+			<br>
+			<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">start</span> <span class="dyestatement">begin</span></div>
+			<div><span class="dyestatement">end</span></div>
+			<br>
+			<span class="dyestatement">procedure</span> <span class="dyeprocedure">description_p_proc</span> <span class="dyestatement">begin</span>
+			<div style="text-indent: 4em;"><span class="dyefunction">script_overrides</span>;</div>
+			<div style="text-indent: 4em;"><span class="dyestatement">if</span> (<span class="dyefunction">map_var</span>(MVAR_Fixed_Well) <span class="dyeoperator">==</span> <span class="dyedefine">0</span>) <span class="dyestatement">then</span> <span class="dyestatement">begin</span></div>
+			<div style="text-indent: 9em;"><span class="dyefunction">display_msg</span>(<span class="dyestandardmacro">mstr</span>(<span class="dyedefine">100</span>));</div>
+			<div style="text-indent: 4em;"><span class="dyestatement">end</span></div>
+			<div style="text-indent: 4em;"><span class="dyestatement">else</span> <span class="dyestatement">begin</span></div>
+			<div style="text-indent: 9em;"><span class="dyefunction">display_msg</span>(<span class="dyestandardmacro">mstr</span>(<span class="dyedefine">101</span>));</div>
+			<div style="text-indent: 4em;"><span class="dyestatement">end</span></div>
+			<span class="dyestatement">end</span>
+			<br>
+			<br>
+			<span class="dyestatement">procedure</span> <span class="dyeprocedure">look_at_p_proc</span> <span class="dyestatement">begin</span> 
+			<div style="text-indent: 4em;"><span class="dyefunction">script_overrides</span>;</div>
+			<div style="text-indent: 4em;"><span class="dyestatement">if</span> (<span class="dyefunction">map_var</span>(MVAR_Fixed_Well) <span class="dyeoperator">==</span> <span class="dyedefine">0</span>) <span class="dyestatement">then</span> <span class="dyestatement">begin</span></div>
+			<div style="text-indent: 9em;"><span class="dyefunction">display_msg</span>(<span class="dyestandardmacro">mstr</span>(<span class="dyedefine">100</span>));</div>
+			<div style="text-indent: 4em;"><span class="dyestatement">end</span></div>
+			<div style="text-indent: 4em;"><span class="dyestatement">else</span> <span class="dyestatement">begin</span></div>
+			<div style="text-indent: 9em;"><span class="dyefunction">display_msg</span>(<span class="dyestandardmacro">mstr</span>(<span class="dyedefine">101</span>));</div>
+			<div style="text-indent: 4em;"><span class="dyestatement">end</span></div>
+			<span class="dyestatement">end</span>
+			<br>
+			<br>
+			<span class="dyestatement">procedure</span> <span class="dyeprocedure">use_skill_on_p_proc</span> <span class="dyestatement">begin</span> 
+			<div style="text-indent: 4em;"><span class="dyestatement">if</span> ((<span class="dyefunction">action_being_used</span> <span class="dyeoperator">==</span> <span class="dyehardcoded">SKILL_REPAIR</span>) <span class="dyestatement">and</span> (<span class="dyefunction">local_var</span>(LVAR_Gave_Xp) == <span class="dyedefine">0</span>)) <span class="dyestatement">then</span> <span class="dyestatement">begin</span></div>
+			<div style="text-indent: 9em;"><span class="dyefunction">script_overrides</span>;</div>
+			<div style="text-indent: 9em;"><span class="dyefunction">display_msg</span>(<span class="dyefunction">message_str</span>(SCRIPT_GENERIC,<span class="dyedefine">1005</span>));</div>
+			<div style="text-indent: 9em;"><span class="dyedevelopermacro">give_xp</span>(EXP_FIX_WELL);</div>
+			<div style="text-indent: 9em;"><span class="dyefunction">set_map_var</span>(MVAR_Fixed_Well,<span class="dyedefine">1</span>);</div>
+			<div style="text-indent: 9em;"><span class="dyefunction">set_local_var</span>(LVAR_Gave_Xp,<span class="dyedefine">1</span>);</div>
+			<div style="text-indent: 4em;"><span class="dyestatement">end</span></div>
+			<span class="dyestatement">end</span>
+		</code>
+		<p>At first glance it can look overwhelming even intimidating. But fear not! We will go through this step by step. First of all we will look at the structure. We'll go more indepth later.</p>
+	<hr>
+
+	<div id="header"><h3>Header File</h3></div>
+		<p>Header files are files that store information that is used repeatedly in every script. So, you don’t have to rewrite the same code over and over again in every script. Once written inside a header File and just included at the top of a script where you want to use the code and you’re good to go.</p>
+		<code>
+			<div><span class="dyedefine">#include</span> <span class="dyeheader">"..\headers\define.h"</span></div>
+			<div><span class="dyedefine">#include</span> <span class="dyeheader">"..\headers\arvillag.h"</span></div>
+			<div><span class="dyedefine">#include</span> <span class="dyeheader">"..\headers\command.h"</span></div>
+		</code>
+		<p>As you can see the suffix of header files is <code class="codeinline">.h</code>.</p>
+		<p>They are located inside the folder <code class="codeinline">\HEADERS</code>.</p>
+	<hr>
+
+	<div id="define"><h3>Define</h3></div>
+		<p>With <code class="codeinline">#define</code> it is possible to specify strings that will be exchanged for another string before the program is translated. Again, the <code class="codeinline">#</code> character causes the preprocessor to do its work first before the nascent program is translated by the compiler into machine language.</p>
+		<p>We have two <code class="codeinline">#define</code> in this example.</p> 
+		<code><span class="dyedefine">#define</span> NAME &emsp; &emsp; SCRIPT_ASWELL</code>
+		<p>and</p>
+		<code><span class="dyedefine">#define</span> LVAR_Gave_Xp (<span class="dyedefine">0</span>)</code>	
+		<p>In the <code class="codeinline">#define</code> below NAME is <code class="codeinline">SCRIPT_ASWELL</code>. This means if you want to refer to <code class="codeinline">SCRIPT_ASWELL</code> inside your script you simply can write <code class="codeinline">NAME</code>.</p>
+		<code><span class="dyedefine">#define</span> NAME &emsp; &emsp; SCRIPT_ASWELL</code>
+		<p>If you hover over <code class="codeinline">SCRIPT_ASWELL</code> with your cursor you'll see the description inside the bluegreyish box.</p>
+		<code>
+			<span class="dyedefine">#define</span> NAME &emsp; &emsp; SCRIPT_ASWELL
+			<div class="codepopup">
+			<div style="text-indent: 4.5em;"><span>Define: SCRIPT_ASWELL</span></div>
+			<div style="text-indent: 4.5em;"><span>(217) //ASWell.int  :Arroyo Well. It's broken. Fix w/ Repair.</span></div>
+			<br>
+			<div style="text-indent: 4.5em;"><span>Declare file: scripts.</span></div>
+			</div>
+		</code>
+		<p>The file <code class="codeinline">SCRIPTS.H</code> is located inside <code class="codeinline">\HEADERS\SCRIPTS.H</code>. We'll talk about this later.</p>
+		<code><span class="dyedefine">#define</span> SCRIPT_ASWELL &emsp; &emsp; (<span class="dyedefine">217</span>) &emsp; <span class="dyecomment">// ASwell.int</span> &emsp; &emsp; <span class="dyecomment">; Arroyo Well. It's broken. Fix w/ Repair.</span></code>
+	<br>
+	<hr>
+
+	<div id="procedure"><h3>Procedure</h3></div>
+		<p>Procedures are just like small programs inside your script. They are an essential part of the program and help programmers to keep the script clear, organized, structured and avoid repetitions since they promote code re-use. A procedure in Fallout scripting language starts with <span class="dyestatement"><code class="codeinline">procedure</code></span> a name (<span class="dyeprocedure"><code class="codeinline">start</code></span> in this case) <span class="dyestatement"><code class="codeinline">begin</code></span> and ends with an <span class="dyestatement"><code class="codeinline">end</code></span> statement.</p>
+		<p>We have four procedures in this example. <code class="codeinline">start;</code> <code class="codeinline">use_skill_on_p_proc;</code> <code class="codeinline">description_p_proc;</code> and <code class="codeinline">look_at_p_proc;</code>. There are more but this scripts just uses these four. They are predefinied by the devs but you can also write your own procecures.</p>
+		<p>Every procedure you use inside your script needs to be declared at the top of the script like seen below.</p>
+		<code>
+			<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">start</span>;</div>
+			<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">use_skill_on_p_proc</span>;</div>
+			<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">description_p_proc</span>;</div>
+			<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">look_at_p_proc</span>;</div>
+		</code>
+		<p>The space between <span class="dyestatement"><code class="codeinline">begin</code></span> and <span class="dyestatement"><code class="codeinline">end</code></span> is called procedure body. Inside the body you write the stuff you want to be executed. In the example below the body is empty. An empty procedure body cannot execute anything because there is nothing to execute. If you call an empty procedure, the procedure starts, sees there's nothing inside the body and ends immediately.</p>
+		<p>The most important procedure of them all is the procedure called <code class="codeinline">start;</code>. The start procedure is the entry point of scripts. Every script has it and every script needs it. If you don't have the start procedure inside you script, it won't work.</p>
+		<code>
+			<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">start</span> <span class="dyestatement">begin</span></div>
+			<div><span class="dyestatement">end</span></div>
+		</code>
+		<p>The other three procedures inside the example script are these.</p>
+		<code>
+			<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">description_p_proc</span> <span class="dyestatement">begin</span></div>
+			<div><span>[...]</span></div>
+			<div><span class="dyestatement">end</span></div>
+			<br>
+			<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">look_at_p_proc</span> <span class="dyestatement">begin</span> </div>
+			<div><span>[...]</span></div>
+			<div><span class="dyestatement">end</span></div>
+			<br>
+			<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">use_skill_on_p_proc</span> <span class="dyestatement">begin</span> </div>
+			<div><span>[...]</span></div>
+			<div><span class="dyestatement">end</span>	</div>
+		</code>
+		<p> You can call procedures from every corner of your script like this.</p>
+		<code><span class="dyestatement">call</span> <span class="dyeprocedure">use_skill_on_p_proc</span>;</code>
+		<p>You can also export/import procedures.</p>
+	<hr>
+
+	<div id="function"><h3>Function</h3></div>
+		<p>Simple hardcoded commands of SSL are called functions. The stuff you write inside the procedure body. That means they are basis commands, and cannot be broken down further.</p>
+		<p>A simple function can look like this:</p>
+		<code><span class="dyefunction">display_msg</span></code>
+		<p>You can also write something more complex like this:</p>
+		<code><span class="dyefunction">display_msg</span>(<span class="dyefunction">message_str</span>(SCRIPT_GENERIC,<span class="dyedefine">1005</span>));</code>
+		<p>As you can see there is a function inside a function and some other stuff. That's also possible.</p>
+	<hr>
+
+	<div id="argument"><h3>Argument</h3></div>
+		<p>The stuff inside the parenthesis is called argument.</p>
+		<code><span class="dyefunction">display_msg</span>(<span class="dyefunction">message_str</span>(SCRIPT_GENERIC,<span class="dyedefine">1005</span>));</code>
+		<p>An argument is also passed here.</p>
+		<code><span class="dyedevelopermacro">give_xp</span>(EXP_FIX_WELL); </code>
+		<p>Many functions need to pass a value of some kind. Just hover over the function to know how many arguments and of what kind wants to be passed.</p>
+	<hr>
+
+	<div id="variable"><h3>Variable</h3></div>
+		<p>A variable is like a temporary container. You can save things into it. For example <code class="codeinline">strings</code>, <code class="codeinline">integers</code>, <code class="codeinline">booleans</code> and the result of functions etc.</p>
+		<p>There are several types of variables. The ones which get into global namespace and the ones that don't. The global namespace is the place where variables are shared between scripts.
+		<p>	The engine does not see names for variables. It refers to variables by numbers. You can perfectly have:</p>
+		<code>
+			<div><span>#define GVAR_1 120</span></div>
+			<div><span>#define GVAR_2 120</span></div>
+		</code>
+		<p>And use either in your scripts, it will work. As you can see the name number combination of variables must be unique otherwise the engine gets confused and throws errors.</p>
+		<p>This also means variables that are inside the global namespace are saved and remembered on map change or game load.</p> 
+		<p>The other variables that are not inside the global namespace just run while the script they are defined in is running. They will be forgotten on map change or game load.</p>
+		<p>The image below is intended to illustrate the global namespace. The green circles are scripts with variables. The blue circle is the global namespace. 
+		<p>	The scripts that are partially in the blue circle have local variables that are not in the global namespace.</p>
+		<p>	The scripts which are fully in the blue circle have global variables which are in the global namespace and therefore must be unique.</p>
+		<p>As you can see, the global variable <code class="codeinline">MVAR_1</code> exists twice, which must not occur in the global namespace.</p>
+		<img src="images\Scripting (Basics)\Global_namespace_image.jpg" alt="Please stand by">
+		<br>
+		<p>Let's take a look at the different types of variables.</p>
+	<hr class="dashedline">
+
+	<h4>Variables of global namespace</h4>
+		<p>Variables getting into global namespace are:</p>
+		<code>
+			<div><span>LVAR_; </span></div>	
+			<div><span>MVAR_; </span></div>
+			<div><span>GVAR_;</span></div>
+			<div><span>export variable;</span></div>
+			<div><span>import variable;</span></div>
+		</code>
+		<br>
+		<code><span class="dyedefine">#define</span> LVAR_Gave_Xp; &emsp; &emsp; (<span class="dyedefine">0</span>)</code>
+		<p>This variable is of type Local variable (<code class="codeinline">LVAR</code>). It is saved during map change and game load. <code class="codeinline">LVARs</code> are used for circumstances that aren't that significant e.g. "have experience points been given to the player?"
+			<code class="codeinline">LVARs</code> are defined and stored in the header of the script in which they are to be used. All <code class="codeinline">LVARs</code> will be prepended with <code class="codeinline">LVAR_</code>.</p>
+		<br>
+		<code><span class="dyedefine">#define</span> MVAR_Fixed_Well; &emsp; &emsp; (<span class="dyedefine">4</span>)</code>
+		<p>This variable is of type Map variable (<code class="codeinline">MVAR</code>). It is saved during map change and game load. <code class="codeinline">MVARs</code> are stored in the corresponding map script. 
+			In this case <code class="codeinline">MVAR_Fixed_Well</code> is stored inside <code class="codeinline">ARVILLAG.H</code>. 
+		<p> With the include command the <code class="codeinline">MVAR</code> can be used in the script.</p>
+		<code>#include "..\headers\arvillag.h"</code>
+		<p>	Map variables need to be added to a file called <code class="codeinline">MapName.GAM</code>, e.g. <code class="codeinline">ARVILLAG.GAM</code>, which must be put in the <code class="codeinline">data\maps</code> directory.
+			<code class="codeinline">MVARs</code> are used for circumstances that are significant for a specific map like "has the well been fixed?"
+			All <code class="codeinline">MVARs</code> will be prepended with <code class="codeinline">MVAR_</code>.</p>
+		<br>
+		<code><span class="dyedefine">#define</span> GVAR_DUMAR_STATUS; &emsp; &emsp; (<span class="dyedefine">369</span>)</code>
+		<p>This variable is of type Global variable. It can be used in any script. To use this type of variable, only the file <code class="codeinline">GLOBAL.H</code> must be included into the script. 
+			It is saved during the map change. Any global variables you define and use must also be put into a file called <code class="codeinline">VAULT13.GAM</code> which is found inside the <code class="codeinline">data\data</code> directory. 
+			<code class="codeinline">GVARs</code> will be stored in a header file called <code class="codeinline">Global.H</code>, located in the <code class="codeinline">\Fallout2\Scripts\Headers\</code> directory. 
+			All <code class="codeinline">GVARs</code> will be prepended with <code class="codeinline">GVAR_</code>.</p>
+		<p>The number inside the parenthesis of all three global namespace variables is no value. It serves as a placeholder for the engine. As soon as the script is executed, 
+			the engine replaces the names of the global namespace variables with the number assigned to it.</p>
+		<br>
+		<code><span class="dyestatement">export variable</span> temple_chest_prt;</code>
+		<p>This variable is defined inside script <code class="codeinline">ARCAVES.SSL</code>. The keyword export ensures that the variable can be used in other scripts. 
+			The variable contains the last value that was assigned to it.</p>
+		<br>
+		<code><span class="dyestatement">import variable</span> temple_chest_prt;</code>
+		<p>The previously exported variable can now be used with the keyword import inside the scripts <code class="codeinline">AITEMCST.SSL</code> and <code class="codeinline">ACTEMVIL.SSL</code>. 
+			The variable contains the value that was last assigned to it.</p>
+		<p>These global namespace variable types must always be defined at the top of the script like in the sample script.</p>
+	<hr class="dashedline">
+
+	<h4>Variables not of global namespace</h4>
+		<p>Variables not getting into global namespace are:</p>
+		<code>
+			<div><span>Local variables e.g.</span></div>
+			<div><span class="dyestatement">variable</span> Only_Once <span class="dyeoperator">:=</span> <span class="dyedefine">0</span>;</div>
+		</code>
+		<br>
+		<p>The variable Only_Once is defined outside the procedure and assigned the value <span class="dyedefine"><code class="codeinline">0</code></span>.</p>
+		<p>This variable can be used in every procedure inside the script. This variable will not be saved when changing the map.</p>
+		<code>
+			<div><span class="dyestatement">variable</span> Only_Once <span class="dyeoperator">:=</span> <span class="dyedefine">0</span>;</div>
+			<br>
+			<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">map_enter_p_proc</span> <span class="dyestatement">begin</span></div>
+			<div>Only_Once <span class="dyeoperator">:=</span> <span class="dyedefine">0</span>;</div>
+		</code>
+		<br>
+		<p>The variable item is defined inside the procedure <span class="dyeprocedure"><code class="codeinline">combat_p_proc</code></span>.</p>
+		<p>This variable can only be used inside the procedure. This variable will not be saved when changing the map.</p>
+		<code>
+			<div><span class="dyestatement">procedure</span><span class="dyeprocedure"> combat_p_proc</span> <span class="dyestatement">begin</span></div>
+			<div><span class="dyestatement">variable</span> item;</div>
+			<br>
+			<div>item <span class="dyeoperator">:=</span> <span class="dyestandardmacro">create_object</span>(PID_HEALING_POWDER),<span class="dyedefine">0</span>,<span class="dyedefine">0</span>);</div>
+			<div><span class="dyefunction">use_obj_on_obj</span>(item,<span class="dyefunction">self_obj</span>);</div>
+		</code>
+	<br>
+	<hr>
+
+	<div id="constant"><h3>Constant</h3></div>
+		<p>Constants are variables with fixed unchangeable value (You can change them but you don't want to, thats the reason using constants :P). A good example is give_xp(EXP_FIX_WELL) because EXP_FIX_WELL is a constant which is defined in ExpPoint.H. 
+			If you use <code class="codeinline">EXP_FIX_WELL</code> in several scripts and you want to change the given experience from <code class="codeinline">100</code> to <code class="codeinline">200</code> you just need to change the value in on place, in <code class="codeinline">ExpPoint.H</code>.</p>
+		<code><span class="dyedefine">#define</span> EXP_FIX_WELL; &emsp; &emsp; (<span class="dyedefine">100</span>)</code>
+	<br>
+	<hr>
+
+	<div id="macro"><h3>Macro</h3></div>
+		<p>A macro is a fragment of code which has been given a name. Whenever the name is used, it is replaced by the contents of the macro. Functions can easily get huge and messy. Macros are shorter and therefore better to read.</p>
+		<p>Let's look at an example.</p>
+		<code><span class="dyedevelopermacro">give_xp</span>(EXP_FIX_WELL); </code>
+		<p>The macro<code class="codeinline">give_xp(x)</code> is located inside the file <code class="codeinline">EXPPOINT.H</code>.</p>
+		<p>Behind <code class="codeinline">give_xp(x)</code> actually hides:</p>  
+		<code>
+			<div><span class="dyefunction">give_exp_points</span>(x);</div>
+			<div><span class="dyefunction">display_msg</span>(<span class="dyefunction">message_str</span>(SCRIPT_GENERIC,<span class="dyedefine">100</span>)<span class="dyeoperator">+</span>x<span class="dyeoperator">+</span><span class="dyefunction">message_str</span>(SCRIPT_GENERIC,<span class="dyedefine">101</span>))</div>
+		</code>
+	<br>
+	<hr>
+
+	<div id="operator"><h3>Operator</h3></div>
+		<p>An operator is a symbol that tells the compiler to perform specific mathematical, relational or logical operation and produce final result. </p>
+			<p><span class="dyeoperator"><code class="codeinline">:=</code></span> (assign value - Assigns the value on the right side to the value on the left side.)</p>
+			<p><span class="dyeoperator"><code class="codeinline">></code></span> (greater than - Checks if the value on the left side is greater then the value on the right side.)</p>
+			<p><span class="dyeoperator"><code class="codeinline"><</code></span> (lesser than - Checks if the value on the left side is lesser then the value on the right side.)</p>
+			<p><span class="dyeoperator"><code class="codeinline">>=</code></span> (greater than or equal to - Checks if the value on the left side is greater then or equal to the value on the right side.)</p>
+			<p><span class="dyeoperator"><code class="codeinline"><=</code></span> (lesser than or equal to - Checks if the value on the left side is lesser then or equal to the value on the right side.)</p>
+			<p><span class="dyeoperator"><code class="codeinline">==</code></span> (equals - Checks if the value on the left side is exactly the same as the value on the right side.)</p>
+			<p><span class="dyeoperator"><code class="codeinline">!=</code></span> (does not equal - Checks if the value on the left side is not exactly the same as the value on the right side.)</p>
+	<hr>
+
+	<div id="statement"><h3>Statement</h3></div>
+		<p>Statements are used to build and subdivide blocks of logic.</p>
+		<p>For example:</p>
+
+		<code>
+			<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">look_at_p_proc</span> <span class="dyestatement">begin</span> </div>
+			<div style="text-indent: 4.5em;"><span class="dyefunction">script_overrides</span>;</div>
+			<div style="text-indent: 4.5em;"><span class="dyestatement">if</span> (<span class="dyefunction">map_var</span>(MVAR_Fixed_Well) <span class="dyeoperator">==</span> <span class="dyedefine">0</span>) <span class="dyestatement">then</span> <span class="dyestatement">begin</span></div>
+			<div style="text-indent: 9em;"><span class="dyefunction">display_msg</span>(<span class="dyestandardmacro">mstr</span>(<span class="dyedefine">100</span>));</div>
+			<div style="text-indent: 4.5em;"><span class="dyestatement">end</span></div>
+			<div style="text-indent: 4.5em;"><span class="dyestatement">else</span> <span class="dyestatement">begin</span> </div>
+			<div style="text-indent: 9em;"><span class="dyefunction">display_msg</span>(<span class="dyestandardmacro">mstr</span>(<span class="dyedefine">101</span>));</div>
+			<div style="text-indent: 4.5em;"><span class="dyestatement">end</span></div>
+			<div><span class="dyestatement">end</span></div>
+		</code>
+		<p>The above example simply says:</p>
+		<img src="images\Scripting (Basics)\2022-05-30 14_28_19-statement_explained.png" alt="">
+		<p>There is no need to write the related statements on the same column but it helps alot.</p>
+	<hr>
+
+	<div id="semicolon"><h3>Semicolon</h3></div>
+		<p>The semicolon symbol ; is used to tell the compiler where a function ends.</p>
+	<hr>
+	<hr>
+
+	<div id="advanced"><h2>Scripting (Advanced)</h2></div>
+		<div id="compiling"><h3>Compiling</h3></div>
+			<p>As you have probably already noticed, the suffix of your script or any script in general is <code class="codeinline">.ssl</code>. For example <code class="codeinline">ASWELL.ssl</code>. 
+				However, this suffix is the raw state of a script. To be able to use your script inside the game you need to compile it. What does that mean? 
+				It means the script needs to be translated from human readable code into machine readable code.
+				Decompiled (human readable) scripts have the suffix <code class="codeinline">.ssl</code>, compiled ones (machine readable) have the suffix <code class="codeinline">.int</code>.
+				So the engine knows what to do with the scripts content.</p>
+			<p>But how exactly do we compile scripts? With Sfall script editor this is child's play.</p>
+			<p>Just look at the top center of the Sfall script editor. There you'll find this button.</p>
+			<img src="images\Compiling\compile_button.png" alt="">
+			<p>Press it. Come on, do it! Press it! Or <code class="codeinline">F8</code>...</p>
+			<img src="images\Compiling\Compiling_failed_bottom.png" alt="">
+			<br>
+			<img src="images\Compiling\Compiling_failed_top.png" alt="">
+			<p>What happened? It didn't compile... You get some unique and some cryptic error messages. But all in all it didn't compile. But how do we get our script correctly compiled? I'm glad you ask. Maybe you noticed some little detail inside <code class="codeinline">ASWELL.SSL</code>.</p>
+			<code><span class="dyedefine">#define</span> NAME<div style="text-indent: 9.4em; display: inline-block;">SCRIPT_ASWELL</div></code>
+	<br>
+	<hr class="dashedline">
+
+	<div id="Scripts.h"><h4>SCRIPTS.H</h4></div>
+		<p>In order to compile your script correctly, it must be listed inside <code class="codeinline">SCRIPTS.H</code>. Let's take a look at <code class="codeinline">SCRIPTS.H</code> located here:</p>
+		<code>E:\Fallout2\data\scripts\decompiled\HEADERS</code>
+		<br>
+		<code>
+			<div><span>/*</span></div>
+			<div><span>	Copyright 1998-2003 Interplay Entertainment Corp.  All rights reserved.</span></div>
+			<div><span>*/</span></div>
+			<div><span></span></div>
+			<div><span>#ifndef SCRIPTS_H</span></div>
+			<div><span>#define SCRIPTS_H</span></div>
+			<div><span></span></div>
+			<div><span>/******************************************************************</span></div>
+			<div><span>File Name: Scripts.h</span></div>
+			<div><span></span></div>
+			<div><span>Purpose: This file contains defines for all of the scripts in</span></div>
+			<div><span>			scripts.lst. This is an ordered list and needs to</span></div>
+			<div><span>			conform exactly to scripts list. All defines in here</span></div>
+			<div><span>			need to be prepended with SCRIPT_ as a naming</span></div>
+			<div><span>			convention.</span></div>
+			<div><span></span></div>
+			<div><span>Created: October 06, 1997</span></div>
+			<div><span>******************************************************************/</span></div>
+			<div><span></span></div>
+			<div><span>#define SCRIPT_OBJ_DUDE         (1)     // obj_dude.int    ; Player script.</span></div>
+			<div><span>#define SCRIPT_TEST0            (2)     // Test0.int       ; Used to Test Scripts</span></div>
+			<div><span>#define SCRIPT_TEST1            (3)     // Test1.int       ; Used to Test Scripts</span></div>
+			<div><span>#define SCRIPT_TEST2            (4)     // Test2.int       ; Used to Test Scripts</span></div>
+			<div><span>#define SCRIPT_TEST3            (5)     // Test3.int       ; Used to Test Scripts</span></div>
+			<div><span>#define SCRIPT_TEST4            (6)     // Test4.int       ; Used to Test Scripts</span></div>
+			<div><span>#define SCRIPT_TEST5            (7)     // Test5.int       ; Used to Test Scripts</span></div>
+			<div><span>#define SCRIPT_ACWARIOR         (8)     // ACWarior.int    ; Generic Warrior in Arroyo</span></div>
+			<div><span>#define SCRIPT_ACVILLGR         (9)     // ACVillgr.int    ; Generic Villager of Arroyo</span></div>
+			<div><span>[...]</span>	</div>
+		</code>
+		<p>What the heck is this?! You might ask. This is <code class="codeinline">SCRIPTS.H</code> or a itsy bitsy tiny part of it (I shorted it because of reasons). Ok, let's take a look at the framework of this file.</p>
+		<p><code class="codeinline">#define SCRIPT_</code> looks familiar. So there needs to be something like <code class="codeinline">#define SCRIPT_ASWELL</code> inside <code class="codeinline">SCRIPTS.H</code>. Let's seek for it.</p>
+		<code>//#define SCRIPT_ASWELL           (217)   // ASWell.int      ; Arroyo Well. It's broken. Fix w/ Repair</code>
+		<p>There it is! Line <code class="codeinline">236</code>! It didn't work because someone put double slash before it to make it a comment.</p>
+		<p>Just remove the double slash. It'd now look like this.</p>
+		<code>#define SCRIPT_ASWELL           (217)   // ASWell.int      ; Arroyo Well. It's broken. Fix w/ Repair</code>
+		<p>Okay. Now you should more or less understand <code class="codeinline">#define SCRIPT_ASWELL</code>. But what's up with <code class="codeinline">217</code>? It serves the purpose of a placeholder or some kind of link. So, to make things short <code class="codeinline">SCRIPT_ASWELL</code> = <code class="codeinline">217</code>.
+			Humans use <code class="codeinline">SCRIPT_ASWELL</code> because it's easier to read and engines work with numbers so <code class="codeinline">217</code> is easier for the engine to understand. Every script has its unique number. Every number is assigned once.
+			Explore <code class="codeinline">SCRIPTS.H</code> to understand this procedure better.</p>
+		<p>Now give it another try. Save the file <code class="codeinline">SCRIPTS.H</code>. Push the compile button.</p>
+		<img src="images\Compiling\compiling_success.png" alt="">
+		<p>Yes! You did it!</p>
+		<img src="images\Compiling\ssl_and_int.png" alt="">
+		<p>You compiled a <code class="codeinline">.ssl</code> script into a <code class="codeinline">.int</code> one. The compiled script will be created at the same place your decompiled script lies. You can be proud of yourself.</p>
+	<hr class="dottedline">
+		<h5>Note</h5>
+			<p>* You can choose whatever name your script has. It doesn't matter if it's called <code class="codeinline">ASWELL.ssl</code>, <code class="codeinline">WELL.ssl</code> or <code class="codeinline">MYSCRIPT.ssl</code>. 
+				But remember, and this is important, a scripts name mustn't be longer than <code class="codeinline">8</code> characters, the suffix <code class="codeinline">.ssl</code> not counted.
+				It mustn't be exactly <code class="codeinline">8</code> characters long either. Just pick a name between min. <code class="codeinline">1</code> and max. <code class="codeinline">8</code> chars long.
+				If you don't follow this rule you'll burn in hell for all eternity!!! And your sleeves slip down every time washing your hands!!!
+				The truth is the engine can't handle more than <code class="codeinline">8</code> chars and will probably crash.</p>
+			<p>* Script names and the suffix aren't case sensitive. It doesn't matter if you write <code class="codeinline">ASWELL.SSL</code>, <code class="codeinline">ASWELL.int</code>, <code class="codeinline">aswell.SSL</code>, <code class="codeinline">aswell.INT</code>, <code class="codeinline">aSwElL.sSl</code>... you're getting the point.</p>
+	<hr>
+
+	<div id="TestScript"><h3>Test your script</h3></div>
+		<div id="Scripts.lst"></div><h4>SCRIPTS.LST</h4>
+			<p>Now that you've got a compiled script you certainly want to test it. One way to test it is within the BIS Mapper. But first we have to add the script into <code class="codeinline">SCRIPTS.LST</code>.
+				We need to do this so that the mapper is able to find the script. Locate the file and open it with whatever editor you like. Jump at the end of the file and add your script like this:</p>
+			<code>HCPAVEL.int &emsp; ;Pavel the former scout of Hock. &emsp; # local_vars=3</code>
+			<p><code class="codeinline">HCPAVEL.int</code> is the name of your compiled script how you of course already noticed. The text after the semicolon is a descriptive text. 
+				The text after the hashtag is the amount of <code class="codeinline">LVARs</code> used inside your script. In this example you see that script <code class="codeinline">HCPAVEL.int</code> uses <code class="codeinline">3</code> <code class="codeinline">LVARs</code>. 
+				If you use <code class="codeinline">0</code> <code class="codeinline">LVARs</code> then you write <code class="codeinline"># local_vars=0</code>. If you use <code class="codeinline">5</code> but write <code class="codeinline"># local_vars=7</code> nobody will tear your head off the script will work anyways.
+				The important thing is that you add your script at the same line number as the entry inside <code class="codeinline">SCRIPTS.H</code> corresponds.
+				E.g. inside <code class="codeinline">SCRIPTS.H</code> <code class="codeinline">SCRIPT_HCPAVEL</code> has number <code class="codeinline">1304</code> so your entry inside <code class="codeinline">SCRIPTS.LST</code> needs to be on line number <code class="codeinline">1304</code>.</p>
+			<hr class="dottedline">
+				<div id="F8Mode"></div><h4>F8 mode</h4>
+			<p>Open the BIS mapper and just press <code class="codeinline">F8</code>. You'll entering some sort of Fallout2 "light". 
+				You can exit it by pressing <code class="codeinline">F8</code> again then you'll return to the mapper editing interface.</p>
+			<hr class="dottedline">				
+			<div id="GameMode"></div><h4>Game mode</h4>
+			<p>Navigate to the Fallout2 game folder located here:</p>
+			<code>E:\Fallout2\</code>
+			<p>Open file <code class="codeinline">ddraw.ini</code> and navigate to line <code class="codeinline">167</code> called <code class="codeinline">StartingMap=</code>. It could be commented out with a semicolon <code class="codeinline">;</code> but just uncomment it by deleting the semicolon.</p>
+			<p>Write your map name after the equals symbol <code class="codeinline">=</code>. E.g. <code class="codeinline">#StartingMap=ABCDEFG.map</code>.</p>
+			<p>Save the file and hit <code class="codeinline">fallout2.exe</code>. Start a new game with any character and you'll notice that you'll start on your map.</p>
+			<hr class="dottedline">
+			<h5>Note</h5>
+				<p>When you face the strange behavior inside the BIS mapper that you can choose all your self written scripts but the last entry overwrites your presious scripts inside the list.
+					Then your facing a bug. I got rid of this bug by shuffling around a few of the vanilla scripts already located inside <code class="codeinline">SCRIPTS.LST</code> 
+					and putting some of my self written scripts between the vanilla scripts but not behind each other.</p>
+		<hr>	
+
+	<div id="AssignScript"><h4>Assign script to object</h4></div>
+		<p>Open the mapper and load your map of choice. There should be at least one object on the map.</p>
+		<img src="images\Scripting (Advanced)\AssignScript\AssignScript.png" alt="" height="80%" width="80%">
+		<p>Choose <code class="codeinline">Critters</code> in dropdown menu, otherwise you cannot mark Critters.</p>
+		<img src="images\Scripting (Advanced)\AssignScript\AssignScriptCritters.png" alt="">
+		<p>Press <code class="codeinline">m</code> to change the cursor from hex to pointer. Left-click the Critter.</p>
+		<img src="images\Scripting (Advanced)\AssignScript\AssignScriptCrittersChoose.png" alt="" height="60%" width="40%">
+		<p>Press <code class="codeinline">Edit</code> on the bottom button panel.</p>
+		<img src="images\Scripting (Advanced)\AssignScript\AssignScriptCrittersEdit.png" alt="" height="60%" width="40%">
+		<p>Choose <code class="codeinline">New Script</code>.</p>
+		<img src="images\Scripting (Advanced)\AssignScript\AssignScriptCrittersNewScript.png" alt="" height="50%" width="50%">
+		<p>A window with all available <code class="codeinline">.int</code> scripts appears.</p>
+		<img src="images\Scripting (Advanced)\AssignScript\AssignScriptCrittersChooseScript.png" alt="" height="50%" width="50%">
+		<p>Navigate to the script you want to assign to the object.</p>
+		<img src="images\Scripting (Advanced)\AssignScript\AssignScriptCrittersChooseScriptHCPAVEL.png" alt="" height="50%" width="50%">
+		<p>After you chose the script the window closes and gets back to the edit window.</p>
+		<img src="images\Scripting (Advanced)\AssignScript\AssignScriptCrittersChooseScriptHCPAVELChosen.png" alt="" height="50%" width="50%">
+		<p>When you're satisfied click on <code class="codeinline">Done</code>.</p>
+		<img src="images\Scripting (Advanced)\AssignScript\AssignScriptCrittersEditDone.png" alt="" height="50%" width="50%">
+		<p>To see if it has really been assigned just go to <code class="codeinline">SCRIPTS</code> and choose <code class="codeinline">List all Scripts</code>.</p>
+		<img src="images\Scripting (Advanced)\AssignScript\AssignScriptListAllScripts.png" alt="">
+		<p>As you can see, our chosen script has successfully been assigned.</p>
+		<img src="images\Scripting (Advanced)\AssignScript\AssignScriptListAllScriptsSeeScripts.png" alt="" height="80%" width="80%">
+		<p>Press <code class="codeinline">F8</code> to test if your script works.</p>
+		<hr class="dottedline">
+		<h5>Note</h5>
+		<p>* If you see your script inside the mapper and attach it to a critter but you cannot interact with the critter how you've supposed it with your script then the error could be following:</p>
+		<p>&nbsp;* Your script isn't located inside the same folder as <code class="codeinline">SCRIPTS.LST</code>.</p>        
+		<p>&nbsp;* The entry of your script inside <code class="codeinline">SCRIPTS.LST</code> doesn't correspond with the entry inside <code class="codeinline">SCRIPTS.H</code>.</p>        
+	<hr>
+		
+	<div id="dialog"><h3>Dialog</h3></div>
+		<h4>Let's talk about...</h4>
+			<p>Do you remember this guy?</p>
+			<img src="images\Dialog\Talk_to_Klint_remember.png" alt="">
+			<p>It's Klint. Say hi to Klint.</p>
+			<img src="images\Dialog\Talk_to_Klint.png" alt="">
+			<p>The mouth symbol is the procedure <code class="codeinline">talk_p_proc;</code>.</p>
+			<img src="images\Dialog\Talk_to_Klint_dialogsystem.png" alt="">
+			<p>The conversation has been initiated and the dialog system appears. Now you see two lines of text. But how does the engine know when which text to say?
+				Well to understand how it works, we need to dig down deeper and take a look at two files <code class="codeinline">ACKLINT.SSL</code> and <code class="codeinline">ACKLINT.MSG</code>.</p>
+			<p>First file is <code class="codeinline">ACKLINT.SSL</code> located here:</p>
+			<code>E:\Fallout2\data\scripts\decompiled\ARROYO</code>
+			<br>
+			<code>
+				<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">talk_p_proc</span> <span class="dyestatement">begin</span></div>
+				<div>[...]</div>
+				<div><span class="dyestatement">if</span> ((<span class="dyefunction">obj_art_fid</span>(<span class="dyefunction">dude_obj</span>) <span class="dyeoperator">==</span> FID_HMWARR) <span class="dyestatement">or</span> (<span class="dyefunction">obj_art_fid</span>(<span class="dyefunction">dude_obj</span>) <span class="dyeoperator">==</span> FID_HFPRIM)) <span class="dyestatement">then</span> <span class="dyestatement">begin</span></div>
+				<div style="text-indent: 4.5em;"><span class="dyefunction">start_gdialog</span>(NAME,<span class="dyefunction">self_obj</span>,<span class="dyedefine">4</span>,<span class="dyedefine">-1</span>,<span class="dyedefine">-1</span>);</div>
+				<div style="text-indent: 4.5em;"><span class="dyefunction">gSay_Start</span>;</div>
+				<div style="text-indent: 9em;"><span class="dyestatement">call</span> <span class="dyeprocedure">Node001</span>;</div>
+				<div style="text-indent: 4.5em;"><span class="dyefunction">gSay_End</span>;</div>
+				<div style="text-indent: 4.5em;"><span class="dyefunction">end_dialogue</span>;</div>
+				<div><span class="dyestatement">end</span></div>
+				<br>
+				<div><span class="dyestatement">else</span> <span class="dyestatement">begin</span></div>
+				<div style="text-indent: 4.5em;"><span class="dyefunction">start_gdialog</span>(NAME,<span class="dyefunction">self_obj</span>,<span class="dyedefine">4</span>,<span class="dyedefine">-1</span>,<span class="dyedefine">-1</span>);</div>
+				<div style="text-indent: 4.5em;"><span class="dyefunction">gSay_Start</span>;</div>
+				<div style="text-indent: 9em;"><span class="dyestatement">call</span> <span class="dyeprocedure">Node006</span>;</div>
+				<div style="text-indent: 4.5em;"><span class="dyefunction">gSay_End</span>;</div>
+				<div style="text-indent: 4.5em;"><span class="dyefunction">end_dialogue</span>;</div>
+				<div><span class="dyestatement">end</span></div>
+				<div><span class="dyestatement">end</span></div>
+			</code>
+			<p>This is procedure <code class="codeinline">talk_p_proc;</code> or at least a part of it. Dialog begins here but we are only interested in call <code class="codeinline">Node006;</code> the rest is unimportant for now.</p>
+			<p>Let's jump to call <code class="codeinline">Node006;</code>.</p>
+			<code>
+				<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">Node006</span> <span class="dyestatement">begin</span></div>
+				<div style="text-indent: 4.5em;"><span class="dyestandardmacro">Reply</span>(<span class="dyedefine">121</span>);</div>
+				<br>
+				<div style="text-indent: 4.5em;">[...]</div>
+				<div style="text-indent: 4.5em;"><span class="dyestandardmacro">NOption</span>(<span class="dyedefine">123</span>,<span class="dyeprocedure">Node007</span>,<span class="dyedefine">004</span>);</div>
+				<div><span class="dyestatement">end</span>	</div>
+			</code>
+			<p>You can probably guess that <code class="codeinline">121</code> and <code class="codeinline">123</code> are the two lines we've seen at the screenshots when you started talking to Klint and the dialog window appeared. But where do they come from? Let's take a look at <code class="codeinline">ACKLINT.MSG</code> located here:</p>
+			<code>E:\Fallout2\data\text\english\dialog</code>
+			<p>Try and open the file with notepad, notepad++, Sfall script editor or whatever you prefer. After you opened the file, it will look like this:</p>
+			<code>
+				<div>{100}{}{You see Klint, a fellow tribesman.}</div>
+				<div>{101}{}{You see Klint.}</div>
+				<div>{102}{}{You see a young man with bulging muscles and a very confident air about him.}</div>
+				<div>{103}{}{Good day to you, }</div>
+				<div>{104}{}{. You have not completed the trial of the Elder and may not pass.}</div>
+				<div>{105}{}{Uh...}</div>
+				<div>{106}{}{I need to go back to the village.}</div>
+				<div>{107}{}{I have some questions of you.}</div>
+				<div>{108}{}{All right, I'm off to take the test.}</div>
+				<div>{109}{}{(sigh) }</div>
+				<div>{110}{}{. You go temple. You take test. You not come back here until take test. Obey Elder. Go!}</div>
+				<div>{111}{}{Me go.}</div>
+				<div>{112}{}{Forgive me, }</div>
+				<div>{113}{}{, but I can not allow you to pass. If you wish to return to the village you may do so only by passing the trial set before you.}</div>
+				<div>{114}{}{I see. I guess I'll be going then.}</div>
+				<div>{115}{}{Can I ask you some questions then?}</div>
+				<div>{116}{}{I could kick your ass and just walk out of here.}</div>
+				<div>{117}{}{Forgive me, but I have no answers to your questions. Take the trial set before you by the Elder and prove yourself worthy to lead our people.}</div>
+				<div>{118}{}{Very well.}</div>
+				<div>{119}{}{Two people working together can move the obelisk that blocks the path. Alone, you would fail. I have no intention of helping you until you pass the trial of the Elder.}</div>
+				<div>{120}{}{Uh-huh. I get the picture.}</div>
+				<div>{121}{}{Greetings, Chosen One! It is good to see you. How may I serve you?}</div>
+				<div>{122}{}{Me say hi. That all.}</div>
+				<div>{123}{}{Just thought I'd say hello. I'll be leaving on my quest soon.}</div>
+				<div>{124}{}{May the spirits of our ancestors protect you, Chosen One. I wish you well on your journey.}</div>
+			</code>
+			<p>Every piece of text related to Klint. As you can see lines <code class="codeinline">121</code> and <code class="codeinline">123</code> are located inside this message file. So, when dialog jumps to <code class="codeinline">Node006;</code> and lines <code class="codeinline">121</code> and <code class="codeinline">123</code> are requested, 
+				the engine looks inside <code class="codeinline">ACKLINT.MSG</code> finds and returns the necessary text lines.</p>
+			<p>You might have noticed that line <code class="codeinline">100</code>, <code class="codeinline">101</code> and <code class="codeinline">102</code> contain descriptive text. They are used by the procedures <code class="codeinline">look_at_p_proc;</code> and <code class="codeinline">description_p_proc;</code>.</p>
+			<p>A: <code class="codeinline">look_at_p_proc;</code> B: <code class="codeinline">description_p_proc;</code></p>
+			<img src="images\Dialog\look_at_p_proc.png" alt="">
+			<img src="images\Dialog\description_p_proc.png" alt="">
+		<br>
+		<hr class="dottedline">
+
+		<h4>Message file basic framework</h4>
+			<p>The basic framework of every message file is this:</p>
+			<code>{}{}{}</code>
+			<p>Thats it. You just have to fill in these curvy brackets. The first pair of brackets contains the line number. The second pair stays always empty. 
+				And the third one contains the sentences which will be said by the critters or the dude.
+				The number inside the first pair of brackets simply is the line number of this dialog message. 
+				So, if you want the npc or the dude talking to this npc say a certain sentence, you don't need to write the same sentence over and over again. 
+				You just write the specific line number into your script which refers to the certain sentence you want the critters to say.</p>
+			<p>Comments are written like this:</p>
+			<code>#MyComment</code>
+			<p>Everything behind the hashtag is interpreted as a comment.</p>
+			<p>I like my message files a bit more organized. Like this:</p>
+			<code>
+				<div>#############################################################</div>
+				<div>#</div>
+				<div>#</div>
+				<div># Message File: ACKLINT.msg</div>
+				<div>#</div>
+				<div># <div style="text-indent: 3.5em; display: inline-block">Body Type:  Klint</div></div>
+				<div># <div style="text-indent: 3.5em; display: inline-block">Location: Arroyo - Temple entrance</div></div>
+				<div># <div style="text-indent: 3.5em; display: inline-block">Combat AI: AI_ARROYO_WARRIOR</div></div>
+				<div># <div style="text-indent: 3.5em; display: inline-block">Weapons: Sharpened Spear</div></div>
+				<div># <div style="text-indent: 3.5em; display: inline-block">HP: ?</div></div>
+				<div># <div style="text-indent: 3.5em; display: inline-block">Skills to note: None</div></div>
+				<div>#</div>
+				<div>#</div>
+				<div># Created: November 13, 1997</div>
+				<div>#</div>
+				<div># Updated: December 24, 1997  </div>
+				<div>#</div>
+				<div>#</div>
+				<div>#############################################################</div>
+				<br>
+				<br>
+				<div>#############################################################</div>
+				<div># Used by look_at_p_proc and description_p_proc.</div>
+				<div>#############################################################</div>
+				<div>{100}{}{You see Klint, a fellow tribesman.}</div>
+				<div>{101}{}{You see Klint.}</div>
+				<div>{102}{}{You see a young man with bulging muscles and a very confident air about him.}</div>
+				<div>#############################################################</div>
+				<br>
+				<br>
+				<div>#############################################################</div>
+				<div># Used by Node001</div>
+				<div>#############################################################</div>
+				<div>#Reply</div>
+				<div>{103}{}{Good day to you, }</div>
+				<div>{104}{}{. You have not completed the trial of the Elder and may not pass.}</div>
+				#
+				<div>#NLowOption</div>
+				<div>{105}{}{Uh...}<div style="text-indent: 32.5em; display: inline-block;">#Invokes Node002</div></div>
+				#
+				<div>#NOption</div>
+				<div>{106}{}{I need to go back to the village.}<div style="text-indent: 17em; display: inline-block;">#Invokes Node003</div></div>
+				<div>{107}{}{I have some questions of you.}<div style="text-indent: 19.2em; display: inline-block;">#Invokes Node004</div></div>
+				<div>{108}{}{All right, I'm off to take the test.}<div style="text-indent: 15.4em; display: inline-block;">#Invokes Node999</div></div>
+				<div>#############################################################</div>
+				<br>
+				<br>
+				<div>#############################################################</div>
+				<div># Used by Node002</div>
+				<div>#############################################################</div>
+				<div>#Reply</div>
+				<div>{109}{}{(sigh) }</div>
+				<div>{110}{}{. You go temple. You take test. You not come back here until take test. Obey Elder. Go!}</div>
+				#
+				<div>#NLowOption</div>
+				<div>{111}{}{Me go.}<div style="text-indent: 32em; display: inline-block;">#Invokes Node999</div></div>
+				<div>#############################################################</div>
+				<br>
+				<br>
+				<div>#############################################################</div>
+				<div># Used by Node003</div>
+				<div>#############################################################</div>
+				<div>#Reply</div>
+				<div>{112}{}{Forgive me, }</div>
+				<div>{113}{}{, but I can not allow you to pass. If you wish to return to the village you may do so only by passing the trial set before you.}</div>
+				#
+				<div>#NOption</div>
+				<div>{114}{}{I see. I guess I'll be going then.}<div style="text-indent: 16em; display: inline-block;">#Invokes Node999</div></div>
+				<div>{115}{}{Can I ask you some questions then?}<div style="text-indent: 16em; display: inline-block;">#Invokes Node004</div></div>
+				<div>{116}{}{I could kick your ass and just walk out of here.}<div style="text-indent: 8.2em; display: inline-block;">#Invokes Node005</div></div>
+				<div>#############################################################</div>
+				<br>
+				<br>
+				<div>#############################################################</div>
+				<div># Used by Node004</div>
+				<div>#############################################################</div>
+				<div>#Reply</div>
+				<div>{117}{}{Forgive me, but I have no answers to your questions. Take the trial set before you by the Elder and prove yourself worthy to lead our people.}</div>
+				#
+				<div>#NOption</div>
+				<div>{118}{}{Very well.}<div style="text-indent: 29.2em; display: inline-block;">#Invokes Node999</div></div>
+				<div>#############################################################</div>
+				<br>
+				<br>
+				<div>#############################################################</div>
+				<div>#  Used by Node005</div>
+				<div>#############################################################</div>
+				<div>#Reply</div>
+				<div>{119}{}{Two people working together can move the obelisk that blocks the path. Alone, you would fail. I have no intention of helping you until you pass the trial of the Elder.}</div>
+				#
+				<div>#NOption</div>
+				<div>{120}{}{Uh-huh. I get the picture.}<div style="text-indent: 20.4em; display: inline-block;">#Invokes Node999</div></div>
+				<div>#############################################################</div>
+				<br>
+				<br>
+				<div>#############################################################</div>
+				<div>#  Used by Node006</div>
+				<div>#############################################################</div>
+				<div>#Reply</div>
+				<div>{121}{}{Greetings, Chosen One! It is good to see you. How may I serve you?}</div>
+				#
+				<div>#NLowOption</div>
+				<div>{122}{}{Me say hi. That all.}<div style="text-indent: 24em; display: inline-block;">#Invokes Node007</div></div>
+				#
+				<div>#NOption</div>
+				<div>{123}{}{Just thought I'd say hello. I'll be leaving on my quest soon.}<div style="text-indent: 1em; display: inline-block;">#Invokes Node007</div></div>
+				<div>#############################################################</div>
+				<br>
+				<br>
+				<div>#############################################################</div>
+				<div>#  Used by Node007</div>
+				<div>#############################################################</div>
+				<div>#NMessage</div>
+				<div>{124}{}{May the spirits of our ancestors protect you, Chosen One. I wish you well on your journey.}</div>
+				<div>#############################################################</div>
+			</code>
+			<p>But you can organize your message files as you like.</p>
+			<hr class="dottedline">
+			<h5>Note</h5>
+			<p>* Message files do always have the suffix <code class="codeinline">.MSG</code>. For example <code class="codeinline">ACKLINT.MSG</code>.</p>
+		<hr class="dottedline">
+		<h4>Float message aka floater</h4>	
+			<p>You've probably already seen messages hovering over the heads of critters while playing Fallout classic.</p>
+			<p>Like this one:</p>
+			<img src="images/Dialog/floater.jpg" alt="">
+			<p>Thats called float message or floater.</p>
+			<p>Floaters are easy to implenet as ssl code. They are mostly used as macros.</p>
+			<p>You probably often see something like this:</p>
+			<code>floater(random(102,107));</code> 
+			<p>or</p>
+			<code>floater_rand(x,y)</code>
+			<p>If you break these macros further down you will end up here.</p>
+			<code>#define floater(x) &emsp; &emsp; &emsp; &emsp; float_msg(self_obj, message_str(NAME,x), FLOAT_COLOR_NORMAL)</code>
+			<br>
+			<code class="codeinline">float_msg</code> is the original form of the floater, which cannot be broken down any further. Because it's a function.
+			<br>
+			<br>
+			<code class="codeinline">FLOAT_COLOR_NORMAL</code> is the color of the floater as the name suggests. The colors are defined at <code class="codeinline">command.h</code><p>and they look like this:</p>
+			<code>
+				<span>#define FLOAT_COLOR_NORMAL</span><div style="text-indent: 9em; display: inline-block">FLOAT_MSG_YELLOW</div>
+				<br>
+				<span>#define FLOAT_COLOR_SICK</span><div style="text-indent: 10em; display: inline-block">FLOAT_MSG_GREEN</div>
+				<br>
+				<span>#define FLOAT_COLOR_BAD</span><div style="text-indent: 10.6em; display: inline-block">FLOAT_MSG_RED</div>
+				<br>
+				<span>#define FLOAT_COLOR_GOOD </span><div style="text-indent: 9.5em; display: inline-block">FLOAT_MSG_WHITE</div>
+				<br>
+				<span>#define FLOAT_COLOR_SFX </span><div style="text-indent: 10em; display: inline-block">FLOAT_MSG_LIGHT_GREY</div>
+				<br>
+				<span>#define FLOAT_COLOR_SAD </span><div style="text-indent: 10em; display: inline-block">FLOAT_MSG_GREY</div>
+				<br>
+				<span>#define FLOAT_COLOR_AFRAID</span><div style="text-indent: 9em; display: inline-block">FLOAT_MSG_LIGHT_RED</div>
+				<br>
+				<span>#define FLOAT_COLOR_PAIN </span><div style="text-indent: 9.5em; display: inline-block">FLOAT_MSG_LIGHT_GREY</div>
+				<br>
+				<span>#define FLOAT_COLOR_HIGH </span><div style="text-indent: 9.5em; display: inline-block">FLOAT_MSG_PURPLE</div>
+				<br>
+				<span>#define FLOAT_COLOR_WHISPER</span><div style="text-indent: 8.4em; display: inline-block">FLOAT_MSG_GREY</div>
+			</code>
+			<p>The colors are again hardcoded in <code class="codeinline">DEFINE.H.</code></p>
+			<code>
+				<div>#define FLOAT_MSG_NORMAL &emsp; &emsp; (0)</div>
+				<div>#define FLOAT_MSG_BLACK &emsp; &emsp; (1)</div>
+				<div>#define FLOAT_MSG_RED &emsp; &emsp; (2)</div>
+				<div>#define FLOAT_MSG_GREEN &emsp; &emsp; (3)</div>
+				<div>#define FLOAT_MSG_BLUE &emsp; &emsp; (4)</div>
+				<div>#define FLOAT_MSG_PURPLE &emsp; &emsp; (5)</div>
+				<div>#define FLOAT_MSG_NEAR_WHITE &emsp; &emsp; (6)</div>
+				<div>#define FLOAT_MSG_LIGHT_RED &emsp; &emsp; (7)</div>
+				<div>#define FLOAT_MSG_YELLOW &emsp; &emsp; (8)</div>
+				<div>#define FLOAT_MSG_WHITE &emsp; &emsp; (9)</div>
+				<div>#define FLOAT_MSG_GREY &emsp; &emsp; &emsp; &emsp;(10)</div>
+				<div>#define FLOAT_MSG_DARK_GREY &emsp; &emsp; &emsp;(11)</div>
+				<div>#define FLOAT_MSG_LIGHT_GREY &emsp; &emsp; (12)</div>
+			</code>
+	<br>
+	<hr>
+
+	<div id="pipboy"><h3>Add quest to pipboy</h3></div>
+		<h4>What do you need</h4>
+		<code>
+			<div>E:\Fallout2\data\data\VAULT13.GAM</div>
+			<div>E:\Fallout2\data\data\QUEST.TXT</div>
+			<div>E:\Fallout2\data\text\english\Game\QUESTS.MSG</div>
+		</code>
+		<p>Lets take a look at the internal of these files.</p>
+	<hr class="dottedline">
+
+		<h4>VAULT13.GAM</h4>
+			<code>
+				<div>GAME_GLOBAL_VARS:</div>
+				<div>//GLOBAL<div style="text-indent: 27em; display: inline-block;">NUMBER</div></div>
+				<br>
+				<div>GVAR_PLAYER_REPUTATION                  :=0;    //      (0)</div>
+				<div>GVAR_CHILDKILLER_REPUTATION             :=0;    //      (1)</div>
+				<div>GVAR_CHAMPION_REPUTATION                :=0;    //      (2)</div>
+				<div>GVAR_BERSERKER_REPUTATION               :=0;    //      (3)</div>
+				<div>GVAR_BAD_MONSTER                        :=0;    //      (4)</div>
+				<div>GVAR_GOOD_MONSTER                       :=0;    //      (5)</div>
+				<div>GVAR_PLAYER_MARRIED                     :=0;    //      (6)</div>
+				<div>GVAR_ENEMY_ARROYO                       :=0;    //      (7)</div>
+				<div>GVAR_KNOWLEDGE_HEALING_POWDER           :=0;    //      (8)</div>
+				<div>GVAR_KILL_EVIL_PLANTS                   :=0;    //      (9)</div>
+			</code>
+			<p>This file contains every <code class="codeinline">GVAR</code> defined.</p>
+			<p><code class="codeinline">GVAR_x</code> is the GVARs name as you already know.</p>
+			<p><code class="codeinline">:=0</code>; assigns a starting value to the <code class="codeinline">GVAR</code>. In this case <code class="codeinline">0</code>.</p>
+			<p><code class="codeinline">(0)</code> is the placeholder for the <code class="codeinline">GVARs</code> name as you already know.</p>
+		<hr class="dottedline">
+
+		<h4>QUEST.TXT</h4>
+			<code>
+				<div>#####</div>
+				<div># Arroyo Quests</div>
+				<div>#####</div>
+				<br>
+				<div># Kill the Evil Plants</div>
+				<div># Arroyo, GVAR_KILL_EVIL_PLANTS, Quest_Accepted, Quest_Completed</div>
+				<div>1500, 100, 9, 2, 6</div>
+				<div>[...]</div>
+			</code>
+			<p>Here are all the quests with their conditions.</p>
+			<p>Everything after <code class="codeinline">#</code> is a comment.</p>
+			<p>The <code class="codeinline">1500</code> retrieves the place name from the <code class="codeinline">MAP.MSG</code>. So in this example it stands for the desert.</p>
+			<p>The <code class="codeinline">100</code> refers to the <code class="codeinline">QUESTS.MSG</code>. There you will find the names of the quests.</p>
+			<p>The <code class="codeinline">9</code> refers to the global variable from the <code class="codeinline">VAULT13.GAM</code>.</p>
+			<p><code class="codeinline">2</code> is the minimum value that the global variable must contain to be displayed in Pipboy.</p>
+			<p><code class="codeinline">6</code> is the minimum value that the global variable must contain in order to be displayed as done in Pipboy.</p>
+		<hr class="dottedline">
+
+		<h4>QUESTS.MSG</h4>
+			<code>
+				<div>#</div>
+				<div># Arroyo Quests</div>
+				<div>#</div>
+				<div>{100}{}{Kill the evil plants that infest Hakunin's garden.}</div>
+				<div>{110}{}{Obtain flint to have Mynoc sharpen your spear.}</div>
+				<div>{120}{}{Rescue Nagor's dog, Smoke, from the wilds.}</div>
+				<div>{130}{}{Retrieve the GECK for Arroyo.}</div>
+				<div>{140}{}{Find Vic the Trader.}</div>
+				<div>[...]</div>
+			</code>
+			<p>This file contains every quest description.</p>
+			<p>Everything after <code class="codeinline">#</code> is a comment.</p>
+			<p><code class="codeinline">100</code> is the quests linenumber.</p>
+			<p>The text behind is the quests description.</p>
+	<hr>
+
+	<div id="MakeTrader"><h3>Make trader</h3></div>
+			<p>In this tutorial I shall attempt to explain how traders work and how to script you own. I will not be covering the actual script compiling or conversation nodes or basic script structure, just the trading part.</p>
+			<p>Traders don't carry their shop inventory, they store it in shelves or other containers, sometimes visible and sometimes not.</p>
+			<p>As we can see from Vault City, Randal and two others keep their stock in lockers that are outside the scroll edges of the map.</p>
+			<img src="images\Scripting (Advanced)\Make_Trader\Tradertut1.webp" alt="">
+			<p>As seen in San Fransisco and other maps, traders can have several tables or shelves to choose from. </p>
+			<img src="images\Scripting (Advanced)\Make_Trader\Tradertut2.webp" alt="">
+			<p>Traders actually use <code class="codeinline">2</code> boxes and <code class="codeinline">4</code> scripts to deal with swapping their inventory.</p>
+			<p>First create a container somewhere off the edge of the map and give it the script <code class="codeinline">ZITMPBOX.int</code>. 
+				This is the temporary box for swapping the inventories. Think of it as the table you need to swap a glass of beer and a glass of wine between hands. 
+				You have to put down one glass to pass the other from hand to hand.</p>
+			<p>To use this box, you must put the following line in the map script after the procedure list at the start: </p>
+			<code>export variable generic_temp_box;</code>
+			<p>Each trader will also need a variable for their store box such as these listed in the Den's map script for the various traders. </p>
+			<code>
+				<div>export variable den_flick_box_obj;</div>
+				<div>export variable den_smitty_box_obj;</div>
+				<div>export variable den_mom_box_obj;</div>
+				<div>export variable den_metzger_box_obj;</div>
+				<div>export variable den_tubby_box_obj;</div>
+			</code>
+			<p>For the sake of this tutorial we'll be using Tubby in the den as our example. </p>	
+			<p>In the traders script you need to import the variables for the temporary box and the store boxes. Add the following lines after the <code class="codeinline">#defines</code> but before the <code class="codeinline">procedures</code>. </p>
+			<code>
+				<div>import variable den_tubby_box_obj;</div>
+				<div>import variable generic_temp_box;</div>	
+			</code>
+			<p>This brings in pointers to the temporary box and Tubby's store box to this script. </p>
+			<p>To actually swap the contents of the traders inventory with the store inventory, you use the following <code class="codeinline">2</code> lines (modified with the right variable name for the traders box of course).</p>
+			<code>
+				<div>move_obj_inven_to_obj(self_obj,generic_temp_box);</div>
+				<div>move_obj_inven_to_obj(den_tubby_box_obj,self_obj);</div>
+			</code>
+			<p>This (in order) moves the traders personal inventory to the temporary box, and then moves the store box inventory to the trader. 
+				This is usually initiated as a conversation node, but can be done as soon as you talk to him before the nodes start! 
+				Next, once trading is complete and you say goodbye, the contents are swapped back by reversing the sequence like so:</p>
+			<code>
+				<div>move_obj_inven_to_obj(self_obj,den_tubby_box_obj);</div>
+				<div>move_obj_inven_to_obj(generic_temp_box,self_obj);</div>
+			</code>
+			<p>This (in order) moves Tubbys inventory (which is his store inventory at this point) back to the stores box, and the contents of the temp box (Tubbys personal inventory) back to Tubby. </p>
+			<p>Swapping back is usually done as part of the exit nodes of a conversation (there may be more than one exit node such as "Thanks, bye", 
+				where you walk away a happy customer, and "Screw you, you ripped me off" for example where he would end the conversation and start combat.) </p>
+			<p>This deals with the traders script and it would work at that, but the stores stock would be limited to whatever you put in the store box and/or sold to the trader and once depleted would not re-stock. 
+				For this you need a script on the store box to replenish the stock over time. </p>
+		<hr class="dashedline">
+
+		<div id="StoreRestock"><h4>Store restock</h4></div>
+			<p>Here is Tubbys store box for example on re-stocking over time:</p>
+			<code>
+				<div>/* Include Files */</div>
+				<div>#include "..\headers\define.h"</div>
+				<br>
+				<span>#define</span> NAME<div style="text-indent: 9.4em; display: inline-block;">SCRIPT_DITUBBOX</div>
+				<br>
+				<br>
+				<div>#include "..\headers\command.h"</div>
+				<br>
+				<span>#define</span> LVAR_RESTOCK_TIME<div style="text-indent: 9.4em; display: inline-block;">(0)</div>
+				<br>
+				<br>
+				<div>import variable den_tubby_box_obj;</div>
+				<br>
+				<div>procedure start;</div>
+				<div>procedure map_enter_p_proc;</div>
+				<br>
+				<div>procedure start begin</div>
+				<div>end</div>
+				<br>
+				<div>procedure map_enter_p_proc begin</div>
+				<div style="text-indent: 4.5em;">if (is_loading_game == false) then begin</div>
+				<div style="text-indent: 9em;">if (local_var(LVAR_RESTOCK_TIME) < game_time) then begin</div>
+				<div style="text-indent: 13.5em;">item_caps_adjust(self_obj, random(151, 161) - self_caps);</div>
+				<div style="text-indent: 13.5em;">check_restock_item(PID_JET, 5, 10, 100)</div>
+				<div style="text-indent: 13.5em;">check_restock_item(PID_PSYCHO, 0, 2, 100)</div>
+				<div style="text-indent: 13.5em;">check_restock_item(PID_BUFFOUT, 0, 1, 100)</div>
+				<div style="text-indent: 13.5em;">check_restock_item(PID_10MM_PISTOL, 1, 2, 100)</div>
+				<div style="text-indent: 13.5em;">check_restock_item(PID_10MM_JHP, 2, 4, 100)</div>
+				<div style="text-indent: 13.5em;">check_restock_item(PID_10MM_AP, 0, 2, 100)</div>
+				<div style="text-indent: 13.5em;">check_restock_item(PID_BRASS_KNUCKLES, 1, 1, 100)</div>
+				<div style="text-indent: 13.5em;">check_restock_item(PID_LEATHER_JACKET, 1, 1, 100)</div>
+				<div style="text-indent: 13.5em;">check_restock_item(PID_STIMPAK, 2, 5, 100)</div>
+				<div style="text-indent: 13.5em;">check_restock_item(PID_10MM_SMG, 0, 1, 100)</div>
+				<div style="text-indent: 13.5em;">check_restock_item(PID_DESERT_EAGLE, 1, 2, 100)</div>
+				<div style="text-indent: 13.5em;">check_restock_item(PID_SLEDGEHAMMER, 0, 1, 100)</div>
+				<div style="text-indent: 13.5em;">check_restock_item(PID_RADAWAY, 0, 3, 100)</div>
+				<div style="text-indent: 13.5em;">set_local_var(LVAR_RESTOCK_TIME, (random(1, 2) * ONE_GAME_DAY) + game_time);</div>
+				<div style="text-indent: 9em;">end</div>
+				<div style="text-indent: 4.5em;">end</div>
+				<div>end</div>
+			</code>
+		<br>
+			<p>The <code class="codeinline">map_enter_p_proc;</code> gets called every time you enter the map.</p>
+			<code>procedure map_enter_p_proc begin</code>
+		<br>
+			<p>It's been checked if you're loading a savefile. If yes skip entire procedure. If no proceed with next step.</p>
+			<code>if (is_loading_game == false) then begin</code>
+		<br>
+			<p>It's been checked if the local variable <code class="codeinline">LVAR_RESTOCK_TIME</code> is smaller than the game time. In this case <code class="codeinline">LVAR_RESTOCK_TIME = 0</code>. Proceed with next step.</p>
+			<code>if (local_var(LVAR_RESTOCK_TIME) < game_time) then begin</code>
+		<br>
+			<p>A random amount of caps will be added to the store box(between <code class="codeinline">151</code> and <code class="codeinline">161</code> inclusive). The chosen random amount of caps will be subtracted from the already contained caps inside the store box.</p>
+			<code>item_caps_adjust(self_obj, random(151, 161) - self_caps);</code>
+		<br>
+			<p>Different items will be added to the store box. E.g. <code class="codeinline">PID_JET</code> is the proto ID for Jet (the drug); <code class="codeinline">5</code> is minimum amount; <code class="codeinline">10</code> maxmimum amount and <code class="codeinline">100</code> is the percentage probability of the item to restock.</p>
+			<code>
+				<div>check_restock_item(PID_JET, 5, 10, 100)</div>
+				<div>check_restock_item(PID_PSYCHO, 0, 2, 100)</div>
+				<div>check_restock_item(PID_BUFFOUT, 0, 1, 100)</div>
+				<div>check_restock_item(PID_10MM_PISTOL, 1, 2, 100)</div>
+				<div>check_restock_item(PID_10MM_JHP, 2, 4, 100)</div>
+				<div>check_restock_item(PID_10MM_AP, 0, 2, 100)</div>
+				<div>check_restock_item(PID_BRASS_KNUCKLES, 1, 1, 100)</div>
+				<div>check_restock_item(PID_LEATHER_JACKET, 1, 1, 100)</div>
+				<div>check_restock_item(PID_STIMPAK, 2, 5, 100)</div>
+				<div>check_restock_item(PID_10MM_SMG, 0, 1, 100)</div>
+				<div>check_restock_item(PID_DESERT_EAGLE, 1, 2, 100)</div>
+				<div>check_restock_item(PID_SLEDGEHAMMER, 0, 1, 100)</div>
+				<div>check_restock_item(PID_RADAWAY, 0, 3, 100)</div>
+			</code>
+		<br>
+			<p>After it has finished restocking, it sets the local variable <code class="codeinline">LVAR_RESTOCK_TIME</code>. A random number between <code class="codeinline">1</code> and <code class="codeinline">2</code> inclusive is taken. It multiplies the random number with one game day and adds the result with the elapsed game time.</p>
+			<code>
+				<div>set_local_var(LVAR_RESTOCK_TIME, (random(1, 2) * ONE_GAME_DAY) + game_time);</div>
+				<br>
+				<div>ONE_GAME_SECOND<div style="text-indent: 8em; display: inline-block;">(10)</div><div style="text-indent: 12em; display: inline-block;">// 10 ticks = 1 second</div></div>
+				<div>ONE_GAME_MINUTE<div style="text-indent: 8em; display: inline-block;">(60*ONE_GAME_SECOND)</div></div>
+				<div>ONE_GAME_HOUR<div style="text-indent: 9.1em; display: inline-block;">(60*ONE_GAME_MINUTE)</div></div>
+				<div>ONE_GAME_DAY<div style="text-indent: 9.6em; display: inline-block;">(24*ONE_GAME_HOUR)</div></div>
+				<div>ONE_GAME_WEEK <div style="text-indent: 8.5em; display: inline-block;">(7*ONE_GAME_DAY)</div></div>
+				<div>ONE_GAME_MONTH<div style="text-indent: 8.5em; display: inline-block;">(30*ONE_GAME_DAY)</div></div>
+			</code>
+			<p>This makes it re-stock every time you come back if it's been more than <code class="codeinline">1</code> or <code class="codeinline">2</code> days (depending on the random roll).</p>
+			<hr class="dottedline">
+			<h5>Note</h5>
+			<p>The critter you want to be a trader must have the proto flag <code class="codeinline">Barter = YES</code> otherwise you will face bugs.</p>
+			<p>If you want to test your trading scripts you must test them inside game. The <code class="codeinline">F8</code> mode won't execute the inventory swap.</p>	
+	<hr>
+	<hr>
+
+	<div id="complex"><h2>Scripting (Complex)</h2></div>
+		<h3>Fix the well for Feargus - Arroyo</h3>
+			<img src="images\Scripting (Complex)\FO2_Arroyo_Feargus.jpg" alt="FO2 Arroyo Feargus">
+			<p>At the center of the Arroyo village there is a well, and Feargus, the Chosen One's nephew, is standing next to it, whining because it is broken. Simply Repair the well. Even with a negative Repair skill, it can still be fixed.</p>
+			<p>This procedure is executed when the player uses the repair skill on the well. After using the skill, a message appears, and the player is rewarded with experience points.</p>
+			<code>
+				<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">use_skill_on_p_proc</span> <span class="dyestatement">begin</span></div>
+				<div style="text-indent: 4.5em;"><span class="dyestatement">if</span> ((<span class="dyefunction">action_being_used</span> <span class="dyeoperator">==</span> <span class="dyehardcoded">SKILL_REPAIR</span>) <span class="dyestatement">and</span> (<span class="dyefunction">local_var</span>(LVAR_Gave_Xp) <span class="dyeoperator">==</span> <span class="dyedefine">0</span>)) <span class="dyestatement">then begin</span></div>
+				<div style="text-indent: 9em;"><span class="dyefunction">script_overrides</span>;</div>
+				<div style="text-indent: 9em;"><span class="dyefunction">display_msg</span>(<span class="dyefunction">message_str</span>(SCRIPT_GENERIC,<span class="dyedefine">1005</span>));</div>
+				<div style="text-indent: 9em;"><span class="dyedevelopermacro">give_xp</span>(EXP_FIX_WELL);</div>
+				<div style="text-indent: 9em;"><span class="dyefunction">set_map_var</span>(MVAR_Fixed_Well,</span><span class="dyedefine">1</span>);</div>
+				<div style="text-indent: 9em;"><span class="dyefunction">set_local_var</span>(LVAR_Gave_Xp,</span><span class="dyedefine">1</span>);</div>
+				<div style="text-indent: 4.5em;"><span class="dyestatement">end</span></div>
+				<div><span class="dyestatement">end</span></div>
+			</code>
+		<br>
+		<hr class="dottedline">
+		<h4>How does this work in detail? Lets break it down.</h4> 
+			<p>The procedures <code class="codeinline">use_skill_on_p_proc;</code> is called.</p>
+			<code>
+				<div><span class="dyestatement">procedure</span> <span class="dyeprocedure">use_skill_on_p_proc</span> <span class="dyestatement">begin</span></div>
+				<div><span class="dyestatement">end</span></div>
+			</code>
+			<br>
+			<p>The first function <code class="codeinline">action_being_used</code> checks if the repair skill, written as <code class="codeinline">SKILL_REPAIR</code>, is used on the well. The second one <code class="codeinline">local_var</code> checks if the local variable <code class="codeinline">LVAR_Gave_Xp</code> is equal <code class="codeinline">0</code>. If both conditions match the following code is executed, else the procedure ends without anything been done.</p>
+			<code><span class="dyestatement">if</span> ((<span class="dyefunction">action_being_used</span> <span class="dyeoperator">==</span> <span class="dyehardcoded">SKILL_REPAIR</span>) <span class="dyestatement">and</span> (<span class="dyefunction">local_var</span>(LVAR_Gave_Xp) <span class="dyeoperator">==</span> <span class="dyedefine">0</span>)) <span class="dyestatement">then begin</span></code>
+			<br>
+			<p>For certain procedures in the game there are default functions that are called when nothing is written inside these procedures. To prevent these default functions to happen when something is indeed written inside the procedures the function <code class="codeinline">script_overrides</code> is used.</p>
+			<code><span class="dyefunction">script_overrides</span>;</code>
+			<br>
+			<p>Show message line <code class="codeinline">1005</code> of file <code class="codeinline">GENERIC.msg</code>.</p>
+			<p>The function <code class="codeinline">display_msg</code> invokes the functionality to display a message. The function <code class="codeinline">message_str</code> has two arguments in this case. 
+			<code class="codeinline">SCRIPT_GENERIC</code> is the message file (<code class="codeinline">.msg</code>) that contains all lines of text that should be used for generic purposes. This file is actually named <code class="codeinline">GENERIC.msg</code> and is located at <code class="codeinline">\text\english\dialog\GENERIC.msg</code>. <code class="codeinline">100</code> and <code class="codeinline">101</code> are the lines which are contained inside the file <code class="codeinline">GENERIC.msg</code>.</p>
+			<code><span class="dyefunction">display_msg</span>(<span class="dyefunction">message_str</span>(SCRIPT_GENERIC,<span class="dyedefine">1005</span>));</code>
+			<br>
+			<p>Inside <code class="codeinline">EXPPOINT.H</code> you’ll find the definition of the macro <code class="codeinline">give_xp(x)</code>.</p>
+			<code>
+				<div><span class="dyedefine">#define</span> <span class="dyedevelopermacro"">give_xp</span>(x)    <span class="dyefunction">give_exp_points</span>(x);</div>
+				<div><span class="indent278px" class="dyefunction">display_msg</span>(<span class="dyefunction">message_str</span>(SCRIPT_GENERIC,<span class="dyedefine">100</span>)+x+<span class="dyefunction">message_str</span>(SCRIPT_GENERIC,<span class="dyedefine">101</span>))</div>
+			</code>
+			<br>
+			<p>You can also define the amount of given exp points in the file <code class="codeinline">EXPPOINT.H</code>. In this example it’s <code class="codeinline">EXP_FIX_WELL</code>. <code class="codeinline">100</code> means <code class="codeinline">100</code> exp points given.</p>
+			<code><span class="dyedefine">#define</span> EXP_FIX_WELL &emsp; &emsp; &emsp; (<span class="dyedefine">100</span>)</code>
+			<br>
+			<p>As you can see in the file <code class="codeinline">ASWELL.SSL</code> the macro <code class="codeinline">give_xp</code> is used with the defined argument <code class="codeinline">EXP_FIX_WELL</code>. 
+				So, if you want to change the amount of exp points given. You just can change the defined argument in the file <code class="codeinline">EXPPOINT.H</code>.</p>
+			<br>
+				<p>This <code class="codeinline">give_xp(x)</code> gives a certain amount of experience points to the player and displays a message to the player so he is informed how many exp points he received.</p>
+			<code><span class="dyedevelopermacro"">give_xp</span>(EXP_FIX_WELL);</code>
+			<br>
+			<p>The function <code class="codeinline">set_map_var</code> sets the map variable <code class="codeinline">MVAR_Fixed_Well</code> to <code class="codeinline">1</code>. The game remembers that the well has been fixed even if you change the map. 
+				So, it’s not possible to trick the game and invoking this quest again.</p>
+			<code><span class="dyefunction">set_map_var</span>(MVAR_Fixed_Well,</span><span class="dyedefine">1</span>);</code>
+			<br>
+			<p>The map variable <code class="codeinline">MVAR_Fixed_Well</code> is located in the <code class="codeinline">ARVILLAG.H</code> file inside the header folder.</p>
+			<code><span class="dyedefine">#define</span> MVAR_Fixed_Well</span> &emsp; &emsp; (<span class="dyedefine">4</span>)</code>
+			<br>
+			<p>The <code class="codeinline">set_local_var</code> function sets the local variable <code class="codeinline">LVAR_Gave_Xp</code> to <code class="codeinline">1</code>.
+				So, if the player tries to invoke the procedure <code class="codeinline">use_skill_on_p_proc</code> again on the well, nothing happens.</p>
+			<code><span class="dyefunction">set_local_var</span>(LVAR_Gave_Xp,</span><span class="dyedefine">1</span>);</code>
+		<br>
+		<hr>
+		<h3>Critters walk around</h3>
+			<p>You've probably seen critters of different kind walking around in random directions. Well based on a Brahmin in Arroyo I'll explain how this works.</p>
+			<p>Inside ACBRAHMN.SSL on line 51 to 61 you'll find these code snippets.</p>
+			<code>
+				<div>procedure timed_event_p_proc begin</div>
+				<div style="text-indent: 4.5em;">if (((critter_state(self_obj) bwand DAM_KNOCKED_DOWN) == FALSE)</div>
+				<div style="text-indent: 9em;">and (not(combat_is_initialized))) then begin</div>
+				<div style="text-indent: 9em;">reg_anim_clear(self_obj);</div>
+				<div style="text-indent: 9em;">reg_anim_begin();</div>
+				<div style="text-indent: 13.5em;">animate_move_to_tile(tile_num_in_direction(tile_num(self_obj),random(0,5),3));</div>
+				<div style="text-indent: 9em;">reg_anim_end();</div>
+				<div style="text-indent: 4.5em;">end</div>
+				<div style="text-indent: 4.5em;">add_timer_event(self_obj,game_ticks(random(3,5)),1);</div>
+				<div>end</div>
+			</code>
+			<br>
+			<p>And on line 125 to 130 this.</p>
+			<code>
+				<div>procedure map_enter_p_proc begin</div>
+				<div style="text-indent: 4.5em;">[...]</div>
+				<div style="text-indent: 4.5em;">add_timer_event(self_obj,game_ticks(random(1,5)),1);</div>
+				<div>end</div>
+			</code>
+			<br>
+			<p>So when the player enters the map the following procedure will be executed.</p>
+			<code>procedure map_enter_p_proc</code>
+			<br>
+			<p>And with it the following function.</p>
+			<code>add_timer_event(self_obj,game_ticks(random(1,5)),1);</code>
+			<br>
+			<p>add_timer_event adds a timed event to the script queue. That means if add_timer_event is called it'll execute code inside the procedure timed_event_p_proc.</p>
+			<p>In this case add_timer_event will be executed on self_obj (brahmin) every 1 to 5 (every number in between included) seconds.</p>
+			<p>Now it jumps into the procedure timed_event_p_proc and continues code execution here.</p>
+			<code>
+				<div>if (((critter_state(self_obj) bwand DAM_KNOCKED_DOWN) == FALSE)</div>
+				<div>and (not(combat_is_initialized))) then begin</div>
+			</code>
+			<br>
+			<p>The first line looks if the critters is knocked down. The second line looks if the critter is inside a combat situation.</p>
+			<p>Let's assume the brahmin isn't knocked down and no combat is initialized. Then the following is executed.</p>
+			<code>
+				<div style="text-indent: 4.5em;">reg_anim_clear(self_obj);</div>
+				<div style="text-indent: 4.5em;">reg_anim_begin();</div>
+				<div style="text-indent: 9em;">animate_move_to_tile(tile_num_in_direction(tile_num(self_obj),random(0,5),3));</div>
+				<div style="text-indent: 4.5em;">reg_anim_end();</div>
+				<div>end</div>
+			</code>
+			<p>First line clears all momentarily executed animations of the brahmin.</p>
+			<p>The second line initiates the beginning of an animation.</p> 
+			<p>The third line does the actual animation. It says that an animation to a tile should be executed to a random direction beginning at 0 going to 5 (remember the directions inside the BIS mapper?) 
+				and a distance of 3.</p>
+			<p>And the fourth line terminates the execution of the animation.</p>
+			<p>Next line is known from before. The add_timer_event. Now it'll be executed not every 1 to 5 seconds, instead it will be executed every 3 to 5 (4 included)
+				seconds and repeats the code inside timed_event_p_proc.</p>
+			<p>Now assume the Brahming is knocked down or inside a fight, the animation won't be executed and the code jumps directly to the add_timer_event inside timed_event_p_proc.</p>
+		<br>
+		<hr>
+		<h3>Make brahma get drunk</h3>
+			<p>Did you know that you can get brahma drunk?</p>
+			<p>Take a look at this code snippet from the script ACBRAHMN.SSL.</p>
+			<code>
+				<div>procedure use_obj_on_p_proc begin</div>
+				<div style="text-indent: 2em;">if ((obj_pid(obj_being_used_with) == PID_BEER)</div>
+				<div style="text-indent: 2.7em;">or (obj_pid(obj_being_used_with) == PID_BOOZE)) then begin</div>
+				<div style="text-indent: 4em;">variable item := 0;</div>
+				<div style="text-indent: 4em;">script_overrides;</div>
+				<div style="text-indent: 4em;">item := obj_being_used_with;</div>
+				<div style="text-indent: 4em;">rm_obj_from_inven(source_obj,obj_being_used_with);</div>
+				<div style="text-indent: 4em;">destroy_object(item);</div>
+				<div style="text-indent: 4em;">if ((critter_state(self_obj) bwand DAM_KNOCKED_DOWN) == FALSE) then begin</div>
+				<div style="text-indent: 6em;">reg_anim_clear(self_obj);</div>
+				<div style="text-indent: 6em;">reg_anim_begin();</div>
+				<div style="text-indent: 7.7em;">reg_anim_animate(self_obj,ANIM_hit_from_front,-1);</div>
+				<div style="text-indent: 7.7em;">reg_anim_animate(self_obj,ANIM_fall_back,5);</div>
+				<div style="text-indent: 7.7em;">reg_anim_animate(self_obj,ANIM_fall_back_sf,-1);</div>
+				<div style="text-indent: 6em;">reg_anim_end();</div>
+				<div style="text-indent: 6em;">critter_injure(self_obj,DAM_KNOCKED_DOWN);</div>
+				<div style="text-indent: 4em;">end</div>
+				<div style="text-indent: 2em;">end</div>
+				<div>end</div>
+			</code>
+			<br>
+			<p>Let's analyze what exactly the individual lines do.</p>
+			<br>
+			<code>procedure use_obj_on_p_proc begin</code>
+			<p>This procedure is always called as soon as an object is applied to something. In this case, to a brahmin.</p>
+			<br>
+			<code>if ((obj_pid(obj_being_used_with) == PID_BEER)</code>
+			<p>This line checks which item (pid) is used and its pointer. In this case a beer.</p>
+			<br>
+			<code>or (obj_pid(obj_being_used_with) == PID_BOOZE)) then begin</code>
+			<p>This line checks if booze is being used on the brahmin. So this and the line before check if beer or booze are used on the brahmin. If one of the two applies, the rest of the code is executed.</p>
+			<br>
+			<code>variable item := 0;</code>
+			<p>A local variable is getting created and the value 0 is assigned.</p>
+			<br>
+			<code>script_overrides;</code>
+			<p>Tells the C-engine that the script will override default behavior for the object.</p>
+			<br>
+			<code>item := obj_being_used_with;</code>
+			<p>The information which object-(pointer) and which pid (beer or booze) is assigned to the local variable.</p>
+			<br>
+			<code>rm_obj_from_inven(source_obj,obj_being_used_with);</code>
+			<p>This function removes the used object from the sources inventory (in this case it's the player).</p>
+			<br>
+			<code>destroy_object(item);</code>
+			<p>The used item gets destroyed so it cannot be used twice accidentally.</p>
+			<br>
+			<code>if ((critter_state(self_obj) bwand DAM_KNOCKED_DOWN) == FALSE) then begin</code>
+			<p>In this line the critters state is being checked. Is the brahmin knocked down? No? Then continue the code.</p>
+			<br>
+			<code>reg_anim_clear(self_obj);</code>
+			<p>Clears all animation the critter is currently executing.</p>
+			<br>
+			<code>reg_anim_begin();</code>
+			<p>Initiate the beginning of a new animation.</p>
+			<br>
+			<code>reg_anim_animate(self_obj,ANIM_hit_from_front,-1);</code>
+			<p>A hitting from front animation is played with no delay.</p>
+			<br>
+			<code>reg_anim_animate(self_obj,ANIM_fall_back,5);</code>
+			<p>A fallback animation is played with a delay of 5 ticks.</p>
+			<br>
+			<code>reg_anim_animate(self_obj,ANIM_fall_back_sf,-1);</code>
+			<p>Another fallback animation is played but this time it's an single frame animation. The last frame of a knockdown.</p>
+			<br>
+			<code>reg_anim_end();</code>
+			<p>The animation execution ends.</p>
+			<br>
+			<code>critter_injure(self_obj,DAM_KNOCKED_DOWN);</code>
+			<p>The execution of this line actually violates the critter. It gets knocked down.</p>
+			<br>
+			<p>And this is how brahma can get drunk and get knocked down with the associated animation.</p>
+	<hr>
+	<hr>
+
+	<div id="sFall"><h2>Scripting (sFall) (Optional)</h2></div>
+		<a href="https://sfall.bgforge.net/">sFall scripting guide</a>
+	<br>
+	<br>
+	<hr>
+	<hr>
+
+	<div id="Make_DAT_file"><h2>Make your own DAT-file</h2></div>
+		<p>If you're finished with creating the files and directories you need for your mod, you can bundle them into one single file, the DAT-file.</p>
+		<p>To do this we open the DATExplorer2.exe</p>
+		<p>Hit "New" and a dropdown menu will appear. Choose "DAT: Fallout 2".</p>
+		<img src="images\Make_DAT_file\2022-11-11 21_48_16-Unbenannt - Paint.png" alt="">
+		<br>
+		<br>
+		<p>A new window will appear that asks you in which directory to save the new DAT-file. Choose a location.</p>
+		<img src="images\Make_DAT_file\2022-11-11 21_53_40-Speichern unter.png" alt="">
+		<br>
+		<br>
+		<p>Insert a name for your new DAT-file. Call it whatever you want and hit "Save".</p>
+		<img src="images\Make_DAT_file\2022-11-11 21_51_34-Speichern unter.png" alt="">
+		<p>A new DAT-file with the given name will appear in the chosen directory and inside DATExplorer2.</p>
+		<img src="images\Make_DAT_file\2022-11-11 21_53_58-DAT Explorer II - v1.1.0.0 - by Mr.Stalin.png" alt="">
+		<br>
+		<br>
+		<p>Mark all directories you want to be part of the new DAT-file and drag and drop them on empty space anywhere on the right side inside DATExplorer2.</p>
+		<img src="images\Make_DAT_file\2022-11-11 21_54_38-Q-Dir 11.13.png" alt="">
+		<br>
+		<br>
+		<p>After the upload is complete, you'll see your directories building a directory-hierachy under your newly created DAT-file.</p>
+		<img src="images\Make_DAT_file\2022-11-11 21_55_35-DAT Explorer II - v1.1.0.0 - by Mr.Stalin.png" alt="">
+		<br>
+		<br>
+		<p>When you're finished with filling your DAT-file, hit "Save" and confirm with "yes".</p>
+		<img src="images\Make_DAT_file\2022-11-11 21_57_26-DAT Explorer II - v1.1.0.0 - by Mr.Stalin.png" alt="">
+		<br>
+		<br>
+		<p>A banner will appear in the middle of the DATExplorer2 window, saying: "Wait for saving the DAT file...".</p>
+		<img src="images\Make_DAT_file\2022-11-11 21_57_45-.png" alt="">
+		<br>
+		<br>
+		<p>On the bottom of the application a progress bar will appear showing what file is being packed.</p>	
+		<img src="images\Make_DAT_file\2022-11-11 21_58_20-DAT Explorer II - v1.1.0.0 - by Mr.Stalin.png" alt="">
+		<p>After the message is disappeared you can check if your DAT-file has been created corretly by simply unpacking it again.</p>
+	<hr>
+	<hr>
+
+	<div id="Make_Installer"><h2>Make your own installer</h2></div>
+		<p>Now it's the time you've got everything that makes a mod. But to make life easier for everyone who wants to play your mod, 
+			you simply can create an installer that handels almost everything.</p>
+		<p>Let's start by creating a .zip file by marking all the files you want to by inside your mod-folder, right-click and zip it.</p>
+		<img src="images\Make_Installer\2022-11-16 21_31_43-Unbenannt - Paint.png" alt="">
+		<img src="images\Make_Installer\2022-11-16 21_32_45-Q-Dir 11.13.png" alt="">
+		<br>
+		<br>
+		<p>Download and install the application called NSIS. You can get it <a href="https://nsis.sourceforge.io/Download">here</a>.</p>
+		<p>Execute the app and hit "Installer based on .ZIP file".</p>
+		<img src="images\Make_Installer\2022-11-16 21_34_22-Q-Dir 11.13.png" alt="">
+		<br>
+		<br>
+		<p>Under "Source ZIP file" hit "Open..." and choose the .zip-file of your mod.</p>
+		<img src="images\Make_Installer\2022-11-16 21_34_56-Zip2Exe 0.38.png" alt="">
+		<p>After you've loaded the .zip-file you'll see near "Extracted" the total amount of the conatained files inside the .zip-file and the size.</p>
+		<p>Nearby "Installer Name" well... you can enter the name of your mod.</p>
+		<p>"Interface" sets what the installers interface should looke like while installing.</p>
+		<p>"Default Folder" is the installation destination of the installer. You can leave it empty, enter a path or simply enter the name of your mod.</p>
+		<p>You see that I entered my mods name inside this field.</p>
+		<img src="images\Make_Installer\2022-11-16 21_35_25-Zip2Exe 0.38.png" alt="">
+		<p>"Output EXE File" is where your installer will be located after generating it and the name of the installer.</p>
+		<p>And last but not least "Compression". Default settings are ok.</p>
+		<p>After you're done, hit "Generate".</p>
+		<br>
+		<p>A new window appears and shows the generation process.</p>
+		<img src="images\Make_Installer\2022-11-16 21_35_36-Zip2Exe 0.38.png" alt="">
+		<br>
+		<br>
+		<p>The process takes a while.</p>
+		<img src="images\Make_Installer\2022-11-16 21_38_44-Zip2Exe 0.38.png" alt="">
+		<p>The process is done. You can close the window now.</p>
+		<br>
+		<p>Your installer is created. You can use and distribute it now.</p>
+		<img src="images\Make_Installer\2022-11-17 19_59_55-Window.png" alt="">
+	<br>
+	<br>
+	<hr>
+	<hr>
+
+	<div id="art"><h2>Art (Optional)</h2></div>
+		<div id="talkhead"><h3>Talking Heads</h3></div>
+			<h4>Preparations</h4>
+				<p>Make sure you have these programs:</p>
+				<code>
+					<div>♥Adobe Photoshop or Gimp (preferably the former),</div>
+					<div>♥Fallout Frame Animator,</div>
+					<div>♥SFall Script Editor.</div>
+				</code>
+	<br>
+	<hr class="dottedline">
+	<h4>Animation Basics</h4>
+		<p>Every talking head has 3 moods:</p>
+		<code>
+			<div>♥Bad,</div>
+			<div>♥Neutral and</div>
+			<div>♥Good.</div>
+		</code>
+		<p>Each one of them must have at least 1 idle animation (most vanilla heads have 3) and 1 speaking animation otherwise the game won't function properly. If you downloaded the Vic images, you'll notice that there's a folder for each mood with 3 idle/fidget and speaking animations each.</p>
+		<p>The folder structure can look like this:</p>
+		<code>
+			<div>Bad</div>
+			<div>|</div>
+			<div>|->Fidget1</div>
+			<div style="text-indent: 4.5em;">|->1.png</div>
+			<div style="text-indent: 4.5em;">|->2.png</div>
+			<div>|</div>
+			<div>|->Fidget2</div>
+			<div style="text-indent: 4.5em;">|->1.png</div>
+			<div style="text-indent: 4.5em;">|->2.png</div>
+			<div style="text-indent: 4.5em;">|->3.png</div>
+			<div style="text-indent: 4.5em;">|->4.png</div>
+			<div style="text-indent: 4.5em;">|->5.png</div>
+			<div style="text-indent: 4.5em;">|->6.png</div>
+			<div style="text-indent: 4.5em;">|->7.png</div>
+			<div style="text-indent: 4.5em;">|->8.png</div>
+			<div>|</div>
+			<div>|->Fidget3</div>
+			<div style="text-indent: 4.5em;">|->1.png</div>
+			<div style="text-indent: 4.5em;">|->2.png</div>
+			<div style="text-indent: 4.5em;">|->3.png</div>
+			<div style="text-indent: 4.5em;">|->4.png</div>
+			<div style="text-indent: 4.5em;">|->5.png</div>
+			<div style="text-indent: 4.5em;">|->6.png</div>
+			<div style="text-indent: 4.5em;">|->7.png</div>
+			<div>|</div>
+			<div>|->Talk</div>
+			<div style="text-indent: 4.5em;">|->1.png</div>
+			<div style="text-indent: 4.5em;">|->2.png</div>
+			<div style="text-indent: 4.5em;">|->3.png</div>
+			<div style="text-indent: 4.5em;">|->4.png</div>
+			<div style="text-indent: 4.5em;">|->5.png</div>
+			<div style="text-indent: 4.5em;">|->6.png</div>
+			<div style="text-indent: 4.5em;">|->7.png</div>
+			<div style="text-indent: 4.5em;">|->8.png</div>
+			<div style="text-indent: 4.5em;">|->9.png</div>
+			<br>
+			<div>Good</div>
+			<div>|</div>
+			<div>|->Fidget1</div>
+			<div style="text-indent: 4.5em;">|->1.png</div>
+			<div style="text-indent: 4.5em;">|->2.png</div>
+			<div style="text-indent: 4.5em;">|->3.png</div>
+			<div style="text-indent: 4.5em;">|->4.png</div>
+			<div>|</div>
+			<div>|->Fidget2</div>
+			<div style="text-indent: 4.5em;">|->1.png</div>
+			<div style="text-indent: 4.5em;">|->2.png</div>
+			<div style="text-indent: 4.5em;">|->3.png</div>
+			<div style="text-indent: 4.5em;">|->4.png</div>
+			<div style="text-indent: 4.5em;">|->5.png</div>
+			<div style="text-indent: 4.5em;">|->6.png</div>
+			<div style="text-indent: 4.5em;">|->7.png</div>
+			<div style="text-indent: 4.5em;">|->8.png</div>
+			<div style="text-indent: 4.5em;">|->9.png</div>
+			<div>|</div>
+			<div>|->Fidget3</div>
+			<div style="text-indent: 4.5em;">|->1.png</div>
+			<div style="text-indent: 4.5em;">|->2.png</div>
+			<div style="text-indent: 4.5em;">|->3.png</div>
+			<div style="text-indent: 4.5em;">|->4.png</div>
+			<div style="text-indent: 4.5em;">|->5.png</div>
+			<div style="text-indent: 4.5em;">|->6.png</div>
+			<div style="text-indent: 4.5em;">|->7.png</div>
+			<div>|</div>
+			<div>|->Talk</div>
+			<div style="text-indent: 4.5em;">|->1.png</div>
+			<div style="text-indent: 4.5em;">|->2.png</div>
+			<div style="text-indent: 4.5em;">|->3.png</div>
+			<div style="text-indent: 4.5em;">|->4.png</div>
+			<div style="text-indent: 4.5em;">|->5.png</div>
+			<div style="text-indent: 4.5em;">|->6.png</div>
+			<div style="text-indent: 4.5em;">|->7.png</div>
+			<div style="text-indent: 4.5em;">|->8.png</div>
+			<div style="text-indent: 4.5em;">|->9.png</div>
+			<br>
+			<div>Neutral</div>
+			<div>|</div>
+			<div>|->Fidget1</div>
+			<div style="text-indent: 4.5em;">|->1.png</div>
+			<div style="text-indent: 4.5em;">|->2.png</div>
+			<div style="text-indent: 4.5em;">|->3.png</div>
+			<div style="text-indent: 4.5em;">|->4.png</div>
+			<div>|</div>
+			<div>|->Fidget2</div>
+			<div style="text-indent: 4.5em;">|->1.png</div>
+			<div style="text-indent: 4.5em;">|->2.png</div>
+			<div style="text-indent: 4.5em;">|->3.png</div>
+			<div style="text-indent: 4.5em;">|->4.png</div>
+			<div style="text-indent: 4.5em;">|->5.png</div>
+			<div style="text-indent: 4.5em;">|->6.png</div>
+			<div style="text-indent: 4.5em;">|->7.png</div>
+			<div style="text-indent: 4.5em;">|->8.png</div>
+			<div style="text-indent: 4.5em;">|->9.png</div>
+			<div style="text-indent: 4.5em;">|->10.png</div>
+			<div style="text-indent: 4.5em;">|->11.png</div>
+			<div style="text-indent: 4.5em;">|->12.png</div>
+			<div style="text-indent: 4.5em;">|->13.png</div>
+			<div style="text-indent: 4.5em;">|->14.png</div>
+			<div style="text-indent: 4.5em;">|->15.png</div>
+			<div>|</div>
+			<div>|->Fidget3</div>
+			<div style="text-indent: 4.5em;">|->1.png</div>
+			<div style="text-indent: 4.5em;">|->2.png</div>
+			<div style="text-indent: 4.5em;">|->3.png</div>
+			<div style="text-indent: 4.5em;">|->4.png</div>
+			<div style="text-indent: 4.5em;">|->5.png</div>
+			<div style="text-indent: 4.5em;">|->6.png</div>
+			<div style="text-indent: 4.5em;">|->7.png</div>
+			<div style="text-indent: 4.5em;">|->8.png</div>
+			<div>|</div>
+			<div>|->Talk</div>
+			<div style="text-indent: 4.5em;">|->1.png</div>
+			<div style="text-indent: 4.5em;">|->2.png</div>
+			<div style="text-indent: 4.5em;">|->3.png</div>
+			<div style="text-indent: 4.5em;">|->4.png</div>
+			<div style="text-indent: 4.5em;">|->5.png</div>
+			<div style="text-indent: 4.5em;">|->6.png</div>
+			<div style="text-indent: 4.5em;">|->7.png</div>
+			<div style="text-indent: 4.5em;">|->8.png</div>
+			<div style="text-indent: 4.5em;">|->9.png</div>
+			<div>|</div>
+			<div>|->Transitions</div>
+			<div style="text-indent: 4.5em;">|</div>
+			<div style="text-indent: 4.5em;">|->Neutral-Bad</div>
+			<div style="text-indent: 9em;">|->1.png</div>
+			<div style="text-indent: 9em;">|->2.png</div>
+			<div style="text-indent: 9em;">|->3.png</div>
+			<div style="text-indent: 9em;">|->4.png</div>
+			<div style="text-indent: 9em;">|->5.png</div>
+			<div style="text-indent: 4.5em;">|</div>
+			<div style="text-indent: 4.5em;">|->Neutral-Good</div>
+			<div style="text-indent: 9em;">|->1.png</div>
+			<div style="text-indent: 9em;">|->2.png</div>
+			<div style="text-indent: 9em;">|->3.png</div>
+			<div style="text-indent: 9em;">|->4.png</div>
+			<div style="text-indent: 9em;">|->5.png</div>
+		</code>
+	<br>
+	<hr class="dottedline">
+	<h4>Converting images to proper format</h4>
+		<p>First off open your first series of images (in this case the folder "Neutral\Fidget1").</p>
+		<img src="images\TalkingHeads\Photoshop picture 1.png" alt="Photoshop picture 1.">
+		<br>
+		<br>
+		<p>Select all layers and change the image size to 356 x 200.</p>
+		<img src="images\TalkingHeads\Photoshop picture 2.png" alt="Photoshop picture 2.">
+		<br>
+		<br>
+		<p>Go to Image -> Mode -> Indexed Color and select Custom Palette.</p>
+		<img src="images\TalkingHeads\Photoshop picture 3.png" alt="Photoshop picture 3.">
+		<br>
+		<br>
+		<p>Open the Fallout Frame Animator folder and select the Fallout.act file (I've also uploaded the palette in this message).</p>
+		<img src="images\TalkingHeads\Photoshop picture 4.png" alt="Photoshop picture 4.">
+		<br>
+		<br>
+		<p>Save the image as an 8bit BMP this is the image format the Fallout 2 engine uses.</p>
+		<p>Do the same process for all the images.</p>
+		<hr class="dottedline">
+		<h5>Note</h5>
+		<p>* Make sure you use a uniform color as the background for your images (the transparent part of PNG images turn white which is ideal) as the program to create FRMs (which we will see in the next step) 
+			will cut the background color, for this reason try not have that same one on the character of the program will cut sections of the it that uses the same color.</p>    
+		<p>* Use shortcut keys to make the workflow faster on Photoshop you can go to Edit -> Keyboard Shortcuts to make your own.</p>    
+		<p>* You don't have to use Photoshop, Gimp is a good free alternative. </p>    
+		<hr class="dottedline">
+		<h4>How the animations work</h4>
+			<p>Before creating our animation files (FRMs) I'll try to explain how the talking head animations work.</p>
+			<p>Every talking head file (.frm) has main name that must be 5 letters or less, for this tutorial we will use the word "Vic". You then add the relevant suffix to the name for each animation, they are as follows:</p>
+			<code>
+				<div>B = Bad mood</div>
+				<div>G = Good Mood</div>
+				<div>N = Neutral Mood</div>
+				<div>f1 = Fidget 1 (Character blinking)</div>
+				<div>f2 = Fidget 2 (Character nodding)</div>
+				<div>f3 = Fidget 3 (Character shaking head)</div>
+				<div>(B,G,N)P = Character talking.</div>
+				<div>BN,NB,GN,NG = Mood transition from (B,G,N) to (B,G,N)</div>
+			</code>
+		<br>
+		<hr class="dottedline">
+		<h5>Examples</h5>
+			<p>If you want to create an animation for Vic where he is blinking and in a neutral mood you must name it:</p>
+			<code>VicNf1</code>
+			<p>Vic (the characters name) + N (the mood he is in) + f1 (Fidget 1).</p>
+			<br>
+			<p>If you want to create an animation where Vic is speaking in a bad mood you must name it:</p>
+			<code>VicBP</code>
+			<p>Vic (the character name) + B (the mood he is in) + P (Talk).</p>
+			<br>
+			<p>If you want to an animation where Vic transitions from good to neutral mood you must name it:</p>
+			<code>VicGN</code>
+			<p>Vic (the character name) + GN ( Good to Neutral).</p>
+			<p>Hopefully this isn't too confusing.</p>
+		<br>
+		<hr class="dottedline">
+			<p>I'll show you what each animation looks like.</p>
+			<h5>Neutral mood:</h5>
+			<p>Nf1 (Neutral Fidget 1).</p>
+			<img src="images\TalkingHeads\nf1.gif" alt="Vic neutral fidget 1.">
+			<p>Nf2 (Neutral Fidget 2).</p>
+			<img src="images\TalkingHeads\nf2.gif" alt="Vic neutral fidget 2.">
+			<p>Nf3 (Neutral Fidget 3).</p>
+			<img src="images\TalkingHeads\nf3.gif" alt="Vic neutral fidget 3.">
+			<p>NP (Neutral Talk).</p>
+			<img src="images\TalkingHeads\np.gif" alt="Vic neutral talk.">
+		<br>
+		<br>
+		<hr class="dottedline">
+			<h5>Bad mood:</h5>
+			<p>Bf1 (Bad Fidget 1).</p>
+			<img src="images\TalkingHeads\bf1.gif" alt="Vic bad fidget 1.">
+			<p>Bf2 (Bad Fidget 2).</p>
+			<img src="images\TalkingHeads\bf2.gif" alt="Vic bad fidget 2.">
+			<p>Bf3 (Bad Fidget 3).</p>
+			<img src="images\TalkingHeads\bf3.gif" alt="Vic bad fidget 3.">
+			<p>BP (Bad Talk).</p>
+			<img src="images\TalkingHeads\bp.gif" alt="Vic bad talk.">
+		<br>
+		<br>
+		<hr class="dottedline">
+			<h5>Good mood:</h5>
+			<p>Gf1 (Good Fidget 1).</p>
+			<img src="images\TalkingHeads\gf1.gif" alt="Vic good fidget 1.">
+			<p>Gf2 (Good Fidget 2).</p>
+			<img src="images\TalkingHeads\gf2.gif" alt="Vic good fidget 2.">
+			<p>Gf3 (Good Fidget 3).</p>
+			<img src="images\TalkingHeads\gf3.gif" alt="Vic good fidget 3.">
+			<p>GP (Good Talk).</p>
+			<img src="images\TalkingHeads\gp.gif" alt="Vic good talk.">
+		<br>
+		<br>
+		<hr class="dottedline">
+			<h5>Mood Transitions:</h5>
+			<p>NB (Neutral to Bad)</p>
+			<img src="images\TalkingHeads\nb.gif" alt="NB (Neutral to Bad).">
+			<p>BN (Bad to Neutral).</p>
+			<img src="images\TalkingHeads\bn.gif" alt="BN (Bad to Neutral).">
+			<p>NG (Neutral to Good).</p>
+			<img src="images\TalkingHeads\ng.gif" alt="NG (Neutral to Good).">
+			<p>GN (Good to Neutral).</p>
+			<img src="images\TalkingHeads\gn.gif" alt="GN (Good to Neutral).">
+		<br>
+		<br>
+		<hr class="dottedline">
+		<h4>Creating FRMs</h4>
+			<p>After converting our images to 8bit BMPs we can open the Fallout Frame Animator Program and click Add Frames (Ctrl + A).</p>
+			<img src="images\TalkingHeads\Creating FRMs 1.png" alt="">
+			<br>
+			<br>
+			<p>We will be creating the first neutral fidget (Nf1) so select the relevant BMP images.</p>
+			<img src="images\TalkingHeads\Creating FRMs 2.png" alt="">
+			<br>
+			<br>
+			<p>We will have to remove the white background, to do this go to options (folder icon left of the vault boy icon) and on Transparent Color check Auto and on Frames Tune check Autocutting.</p>
+			<img src="images\TalkingHeads\Creating FRMs 3.png" alt="">
+			<br>
+			<br>
+			<p>We will save the file as "VicNf1", use the previous section for naming guidelines.</p>
+			<img src="images\TalkingHeads\Creating FRMs 4.png" alt="">
+			<br>
+			<br>
+			<p>Create all the remaining FRMs, this is what the complete set will look like:</p>
+			<code>
+				<div>VicBf1.frm</div>
+				<div>VicBf2.frm</div>
+				<div>VicBf3.frm</div>
+				<div>VicBN.frm</div>
+				<div>VicBP.frm</div>
+				<div>VicGf1.frm</div>
+				<div>VicGf2.frm</div>
+				<div>VicGf3.frm</div>
+				<div>VicGN.frm</div>
+				<div>VicGP.frm</div>
+				<div>VicNB.frm</div>
+				<div>VicNf1.frm</div>
+				<div>VicNf2.frm</div>
+				<div>VicNf3.frm</div>
+				<div>VicNG.frm</div>
+				<div>VicNP.frm </div>
+			</code>
+		<br>
+		<hr class="dottedline">
+		<h4>Talking Animations</h4>
+			<p>All talking animations (NP,GP,BP) must have 9 frames, each one representing a different viseme (the shape the mouth makes when saying a letter).</p>
+			<img src="images\TalkingHeads\Creating FRMs 5.png" alt="">
+			<br>
+			<br>
+			<p>I'm not 100% sure of the exact order but I think it is:</p>
+			<code>
+				<div>1 - Closed (In between frame)</div>
+				<div>2 - A</div>
+				<div>3 - E</div>
+				<div>4 - I</div>
+				<div>5 - F</div>
+				<div>6 - L</div>
+				<div>7 - M</div>
+				<div>8 - O</div>
+				<div>9 - U</div>
+			</code>
+		<br>
+		<hr class="dottedline">
+		<h5>Animation Tips</h5>
+			<p>* The bare minimum amount of animations for a Talking Head to be functional is this:</p>
+			<code>
+				<div>[name]Nf1,</div>
+				<div>[name]NP,</div>
+				<div>[name]NG,</div>
+				<div>[name]NB,</div>
+				<div>[name]Bf1,</div>
+				<div>[name]BN,</div>
+				<div>[name]BP</div>
+				<div>[name]Gf1</div>
+				<div>[name]GN</div>
+				<div>[name]GP</div>
+			</code>
+			<p>* If use want to make a static image as a Talking Head instead of an animated one, simply make a FRM of each animation (mentioned in the previous tip) with that single image. </p>
+			<p>* Try to make the animations loop so in game the Heads will look fluid, make sure the last frame links to the first one.</p>
+			<p>* The first frame of Nf1,Bf1 and Gf1 (specially Nf1) is arguably the most important as the Head freezes on it before randomly choosing one of the Fidgets (f1,f2,f3), so make sure it looks cool! </p>
+		<br>
+		<hr class="dottedline">
+		<h4>Adding our head into the game</h4>
+			<p>For this section we will need the Sfall Script editor and "Dat Explorer" by Dims.</p>
+		<br>
+		<hr class="dottedline">
+		<h4>Creating a Patch</h3>
+			<p>Go into your main Fallout 2 directory and create a folder called "patch001.dat" 
+				(if you already have a "patch001" folder or .dat file name it "patch002"), open it and create two new folder named "art" and "scripts" respectively.</p>
+			<img src="images\TalkingHeads\Patch 1.png" alt="">
+			<br>
+			<br>
+			<p>Open the "art" folder and create a folder named "heads".</p>
+			<img src="images\TalkingHeads\Patch 2.png" alt="">
+			<br>
+			<br>
+			<p>In the main Fallout 2 directory open the "master.dat" file with Dat Explorer</p>
+			<img src="images\TalkingHeads\Patch 3.png" alt="">
+			<br>
+			<br>
+			<p>In Master.dat open the "art" folder and then the "heads" folder and find "HEADS.lst".</p>
+			<img src="images\TalkingHeads\Patch 4.png" alt="">
+			<br>
+			<br>
+			<p>Extract HEADS.lst to the "heads" folder we created inside of "patch001.dat" (.../patch001/art/heads).</p>
+			<p>Put all the Vic FRMs we created earlier in the "Heads" folder, it should look like this:</p>
+			<img src="images\TalkingHeads\Patch 5.png" alt="">
+			<br>
+			<br>
+			<p>Open HEADS.lst with a text editing software like Notepad (ideally Notepad++), this is the list of all the the Talking Heads in Vanilla Fallout 2. 
+				The name on each line is the name of one talking head (for example Marcus' head is named "mrcus"), 
+				the "3,3,3" indicates how many fidget/idle animations they have for each mood (Bad, Neutral, Good in this order).</p>
+			<img src="images\TalkingHeads\Patch 6.png" alt="">
+			<br>
+			<br>
+			<p>Add the line "vic,3,3,3" at the bottom of the list: vic is the name of the talking head and 
+				3,3,3 is the number of fidgets we made (bf1, bf2, bf3 for Bad, nf1, nf2, nf3 for Neutral and gf1,gf2, gf3 for Good)</p>
+			<img src="images\TalkingHeads\Patch 7.png" alt="">
+			<br>
+			<br>
+			<p>Go to the "scripts" folder inside "master.dat" and open the character's script you wish to modify, for example "acklint.int".
+				To open Fallout 2 script files (.int) you can use various programs, to most common is Sfall Script Editor.</p>
+			<p>Find the line starting with "start_gdialog" (use CTRL + F to find code with ease).
+				If it has no talking head assigned to it, it will look like this (the first number will be different):</p>
+			<code>start_gdialog(1364, self_obj, 4, -1, -1);</code>
+			<p>* The first number (1364) represent's the characters script number, you don't need to change that.
+			<br>
+			* "self_obj" makes it so that the code is referring to the object it's assigned to, you also don't need to change this.
+			<br>
+			* The second number (4) represents the mood the character is in, 4 is neutral, 1 is happy and 7 is angry. 
+			<br>
+			&nbsp;	You can change these if you want your character to start the dialog with a certain mood, although it's not essential.
+			<br>
+				* The third number (-1) represents the talking head the character would use, since it doesn't have one the number is -1, we will be changing this one.
+			<br>
+				* And finally the fourth number ( the last -1) represents the background the character would be using, as it doesn't have one the number is -1, we will also be changing this.</p>
+			<p>Open "head.lst" in ".../art/heads" and "backgrnd.lst" in ".../art/backgrnd":</p>
+			<p>* "head.lst" lists all the talking heads in the game files, they are ordered numerically from top to bottom (starting from 0).
+			<br>
+			&nbsp;	For example Sulik's head is the 9th row in the list so, since we start counting from 0, his talking head number is "8".
+			<br>
+				* "backgrnd.lst" is very similar as it lists all the backgrounds in the game.
+			<br>
+			&nbsp;	For example "junktown.frm" is in the 8th row so, since we also start counting from 0, it's background number is "7".</p>
+			<br>
+			<p>Using both "head.lst" and "backgrnd.lst" as a reference change the "start_gdialog" line as follows:</p>
+			<code>start_gdialog(1364, self_obj, 4, [talking head number], [background number]);</code>
+			<p>* The [talking head number] for the one we are adding would be it's number in "head.lst", for example if you modified the vanilla list the number would likely be "13".
+			<br>
+			* You can choose anything you want as a background, for example use "3" if you want The Hub backdrop.</p>
+			<br>
+			<p>Using these examples the code would look like this:</p>
+			<code>start_gdialog(1364, self_obj, 4, 13, 3);</code>
+			<p>* There may be more than one "start_gdialog" line so make sure you change all of them.</p>
+			<br>
+			<p>Compile the script and you are done!</p>
+	<br>
+	<hr>
+	<hr>
+
+	<div id="addendum"><h2>Addendum</h2></div>
+		<p>If you want to share feedback, got questions, find any error or just want to chat 
+			please consider looking at the <code class="codeinline"><a href="https://www.nma-fallout.com/forums/fallout-general-modding.18/">No Mutants Allowed (NMA) forum modding subsection</a></code>.
+			There you'll find the </p> <code class="codeinline"><a href="https://www.nma-fallout.com/threads/femics-fallout-2-modding-guide.221013/">thread of this guide</a></code>.
+		<p>A really big thanks to anybody who wrote a tutorial or dropped some knowledge here and there.</p>   
+		<p>You can do whatever you want with the content of this tutorial but please always remember to credit me and this work.</p>
+	<br>
+	<hr>
+	<hr>
+
+	<div id="source"><h2>Sources</h2></div>
+		<p><a href="https://falloutmods.fandom.com/wiki/Making_new_tiles">Making new tiles (Author: Wild_Qwerty - Mutants Rising Team)</a></p>
+		<p><a href="https://falloutmods.fandom.com/wiki/Making_new_walls">Making new walls (Author: Wild_Qwerty - Mutants Rising Team)</a></p>
+		<p><a href="https://falloutmods.fandom.com/wiki/How_To_Use_FOT_Critters_In_FO2">How To Use FOT Critters In FO2 (Author: Wild_Qwerty - Mutants Rising Team)</a></p>
+		<p><a href="https://falloutmods.fandom.com/wiki/Greyscaling_and_manipulating_FRM_sprites">Greyscaling and manipulating FRM sprites (Author: Lisac2k)</a></p>
+		<p><a href="https://falloutmods.fandom.com/wiki/Making_a_new_character_using_existing_Fallout_characters">Making a new character using existing Fallout characters (Author: Lisac2k)</a></p>
+		<p><a href="https://falloutmods.fandom.com/wiki/Making_ColorRIX_Images_for_Fallout_Loading_Screens">Making ColorRIX Imagesfor Fallout Loading Screens (Author: .Pixote.)</a></p> 
+		<p><a href="https://falloutmods.fandom.com/wiki/Making_animations_with_3ds_Max_and_FrameAnimator">Making animations with2ds Max and FrameAnimator (Author: Jochua)</a></p>
+		<p><a href="https://falloutmods.fandom.com/wiki/Making_a_new_worldmap">Making a new worldmap (Author: Lisac2k)<a></p>
+		<p><a href="https://falloutmods.fandom.com/wiki/New_World_Map_Tiles">New World Map Tiles (Author: Unknown (Last Hope mod))</a></p>
+		<p><a href="https://falloutmods.fandom.com/wiki/Unpacking_the_Fallout_2_.dat_files">Unpacking the Fallout 2 .dat files (Author: Red?)</a></p>
+		<p><a href="https://falloutmods.fandom.com/wiki/Floors_and_walls">Floors and walls (Author: ColJack)</a></p>
+		<p><a href="https://falloutmods.fandom.com/wiki/Adding_maps">Adding maps (Author: ColJack)</a></p>
+		<p><a href="https://falloutmods.fandom.com/wiki/Ladders_and_stairs">Ladders and stairs (Author: ColJack)</a></p>
+		<br>
+	</div>
+</body>
+</html>

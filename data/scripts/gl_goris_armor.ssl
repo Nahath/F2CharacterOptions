@@ -1,0 +1,106 @@
+/**
+ * gl_goris_armor.ssl
+ * Global script: enforces that Goris can wear only the Bridgekeeper's Robes.
+ *
+ * Change 4: Goris can wear Bridgekeeper's Robes but no other armor.
+ *
+ * On game load:
+ *   - Registers HOOK_INVENWIELD to intercept all wield events.
+ *   - If Goris is in the party with wrong armor equipped, unequips it.
+ *   - If Goris has no armor but carries the Bridgekeeper's Robes, equips them.
+ *
+ * HOOK_INVENWIELD:
+ *   Fires before any critter wields or unwields. When Goris attempts to
+ *   equip any armor except the Bridgekeeper's Robes, set_sfall_return(0)
+ *   bypasses the engine wield handler, blocking the equip.
+ *
+ * Note: all Goris proto variants (152, 319-324) are body type Biped in
+ * vanilla master.dat — no proto patching is needed.
+ *
+ * obj_pid() returns the raw proto_id (stripped of type bits).
+ *
+ * Registration: add to sfall.cfg [Scripts] → GlobalScriptPaths.
+ * Requires: Sfall 4.x or newer.
+ */
+
+#include "DEFINE.H"
+#include "SFALL.H"
+#include "define_extra.h"
+
+#define PID_GORIS_BASE    152
+#define PID_GORIS_STAGE1  319
+#define PID_GORIS_STAGE2  320
+#define PID_GORIS_STAGE3  321
+#define PID_GORIS_STAGE4  322
+#define PID_GORIS_STAGE5  323
+#define PID_GORIS_STAGE6  324
+
+#define PID_BRIDGEKEEPERS_ROBES  524
+
+#define is_goris_pid(p) ((p) == PID_GORIS_BASE or (p) == PID_GORIS_STAGE1 or (p) == PID_GORIS_STAGE2 or (p) == PID_GORIS_STAGE3 or (p) == PID_GORIS_STAGE4 or (p) == PID_GORIS_STAGE5 or (p) == PID_GORIS_STAGE6)
+
+procedure start;
+procedure goris_wield_hook;
+procedure find_goris;
+
+procedure start begin
+    if game_loaded then begin
+        register_hook_proc(HOOK_INVENWIELD, goris_wield_hook);
+
+        variable goris := find_goris();
+        if (goris != 0) then begin
+            variable worn := critter_inven_obj(goris, INVEN_TYPE_WORN);
+
+            /* Unequip any wrong armor that was equipped before this mod loaded. */
+            if (worn != 0 and obj_pid(worn) != PID_BRIDGEKEEPERS_ROBES) then begin
+                unwield_slot(goris, INVEN_TYPE_WORN);
+                worn := 0;
+            end
+
+            /* Auto-equip Bridgekeeper's Robes if slot is now empty. */
+            if (worn == 0) then begin
+                variable robes := obj_carrying_pid_obj(goris, PID_BRIDGEKEEPERS_ROBES);
+                if (robes != 0) then begin
+                    wield_obj_critter(goris, robes);
+                end
+            end
+        end
+    end
+end
+
+/*
+ * Fires before any critter wields or unwields an armor or weapon.
+ * arg0 = critter, arg1 = item, arg2 = slot (INVEN_TYPE_*),
+ * arg3 = 1 when wielding / 0 when unwielding
+ * ret0 = 0 bypasses engine handler (blocks the equip)
+ */
+procedure goris_wield_hook begin
+    variable critter := get_sfall_arg_at(0);
+    if (not is_goris_pid(obj_pid(critter))) then return;
+
+    variable slot := get_sfall_arg_at(2);
+    if (slot != INVEN_TYPE_WORN) then return;
+
+    /* Only restrict wield attempts; allow unwield freely. */
+    if (get_sfall_arg_at(3) != 1) then return;
+
+    variable item := get_sfall_arg_at(1);
+    if (obj_pid(item) != PID_BRIDGEKEEPERS_ROBES) then begin
+        set_sfall_return(0);
+    end
+end
+
+procedure find_goris begin
+    variable pm_list := party_member_list_critters;
+    variable n := len_array(pm_list);
+    variable i, member;
+    for (i := 0; i < n; i := i + 1) begin
+        member := get_array(pm_list, i);
+        if (member != 0) then begin
+            if (is_goris_pid(obj_pid(member))) then begin
+                return member;
+            end
+        end
+    end
+    return 0;
+end

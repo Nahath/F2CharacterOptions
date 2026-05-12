@@ -1,0 +1,25 @@
+/*
+  Super Dynamite (inactive)
+  PID: 534
+  Script ID: 1304
+
+  When used, places the active version (DYNMK2ON, PID 535) on the ground
+  at the player's feet and destroys this item.
+*/
+
+#define PID_ACTIVE_SUPER_DYNAMITE  (535)
+
+procedure start;
+procedure use_p_proc;
+
+procedure start
+begin
+end
+
+procedure use_p_proc
+begin
+  script_overrides;
+  create_object(PID_ACTIVE_SUPER_DYNAMITE, tile_num(dude_obj), elevation(dude_obj));
+  destroy_object(self_obj);
+  display_msg("You set the super dynamite. Better run.");
+end

@@ -1,0 +1,210 @@
+html {
+	scroll-behavior: smooth;
+}
+
+header {
+  text-align: center;
+  font-size: 120%;
+}
+
+body {
+	background-color: #1f1f1f;
+	color: white;
+	font-weight: normal;
+	font-family: monospace;
+}
+
+/*********************************************************************************************************************/
+
+p {
+  line-height: 1.6;
+}
+
+ol {
+	counter-reset: item;
+	list-style-type: none;
+	padding-inline-start: 0.5rem;
+}
+
+.intro-item::before {
+  counter-set: item 1;
+  position: relative;
+  right: 0.1em;
+}
+
+ol > li {
+  padding-left: 1em;
+}
+
+ol li::before {
+	counter-increment: item;
+	content: counters(item, ".") ". ";
+}
+
+details > summary {
+  cursor:pointer; 
+}
+
+details > summary > li {
+  display: inline;
+}
+
+.item-sidebar {
+	font-size: .75rem;
+	position: fixed;
+	inset-inline-start: 0;
+	inset-block-start: 0;
+	transform: translatex(-100%);
+}
+
+.item-main {
+	font-size: 100%;
+	hyphens: auto;
+	text-align: justify;
+}
+
+@media only screen and (min-width: 70rem) {
+	
+	.item-sidebar {
+    transform: translatex(0);
+    max-height: 100%;
+    width: calc(3% + 15rem);
+    overflow-y: auto;
+    overflow-x: hidden;
+	}	
+
+  .item-sidebar::-webkit-scrollbar {
+    width: 5px;               /* width of the entire scrollbar */
+  }
+  
+  .item-sidebar::-webkit-scrollbar-track {
+    background: black;        /* color of the tracking area */
+  }
+  
+  .item-sidebar::-webkit-scrollbar-thumb {
+    background-color: grey;    /* color of the scroll thumb */
+    border-radius: 20px;       /* roundness of the scroll thumb */
+  }
+  
+	.item-main {
+		padding-inline-start: calc(5% + 15rem);
+		padding-inline-end: 1.5rem;
+    overflow-x: hidden;
+	}
+
+}
+
+.dashedline {
+  border-style: dashed;
+}
+
+.dottedline {
+  border-style: dotted;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/*********************************************************************************************************************/
+
+code {
+  background-color: #3a3b3c;
+  padding: 1em;
+  padding-left: 4.5em;
+  display: block;
+}
+
+.codebigbox {
+  background-color: #3a3b3c;
+  padding: 1px;
+}
+
+.codeinline {
+  background-color: #3a3b3c;
+  display: inline-block;
+  padding: 2px 10px;
+}
+
+.codepopup {
+  background-color: #474757;
+  padding: 1em;
+  margin-inline-start: 10em;
+  margin-inline-end: 1em;
+}
+
+/*********************************************************************************************************************/
+
+h2 {
+  color: #bd9d30;
+}
+
+h3 {
+  color: #bd9d30;
+}
+
+h4 {
+  color: #bd9d30;
+}
+
+h5 {
+  color: #bd9d30;
+}
+
+/*********************************************************************************************************************/
+
+a:link {
+  color: #0cbe0c;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #447c44;
+}
+
+a:active {
+  color: #80ff00;
+}
+
+/*********************************************************************************************************************/
+
+.dyeoperator {
+  color: #dad181;
+}
+
+.dyedefine {
+  color: #e55451;
+}
+
+.dyestatement {
+  color: #4368ff;
+}
+
+.dyeprocedure {
+  color: #f5deb3;
+}
+
+.dyefunction {
+  color: #ffa500;
+}
+
+.dyestandardmacro {
+  color: #ffd700;
+}
+
+.dyecomment {
+  color: #7a7b7a;
+}
+
+.dyeheader {
+  color: #6ac582;
+}
+
+.dyedevelopermacro {
+  color: #a974bc;
+}
+
+.dyehardcoded {
+  color: #7de1e0;
+}

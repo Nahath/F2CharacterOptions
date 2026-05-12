@@ -1,0 +1,73 @@
+/**
+ * hs_steal.ssl
+ * Hook script: fired when a steal or plant attempt is made using the
+ * Steal skill.
+ *
+ * Change 2: If the player's Steal skill is greater than 60, allow stealing
+ * an item that is currently equipped in the target's hand slots (left or
+ * right hand).  Items not in either hand slot follow normal steal rules.
+ *
+ * Requires: Sfall 4.x or newer.
+ *
+ * Hook args retrieved in order via get_sfall_arg:
+ *   arg0 (obj) - Thief   (the critter performing the steal/plant).
+ *   arg1 (obj) - Target  (the critter being stolen from / planted on).
+ *   arg2 (obj) - Item    (the item being stolen or planted).
+ *   arg3 (int) - Action: 0 = stealing, 1 = planting.
+ *   arg4 (int) - Quantity.
+ *
+ * Return value via set_sfall_return (ret0):
+ *    1 = force success
+ *    0 = force fail   (engine shows failure message)
+ *    2 = force fail silently
+ *   -1 = use engine default
+ *
+ * INVEN_TYPE constants from DEFINE.H:
+ *   INVEN_TYPE_WORN       = 0  (armor slot)
+ *   INVEN_TYPE_RIGHT_HAND = 1
+ *   INVEN_TYPE_LEFT_HAND  = 2
+ */
+
+#include "DEFINE.H"
+#include "SFALL.H"
+
+#define STEAL_THRESHOLD  60
+
+procedure start;
+
+procedure start begin
+    if game_loaded then begin
+        return;
+    end
+
+    variable thief    := get_sfall_arg;  /* arg0 */
+    variable target   := get_sfall_arg;  /* arg1 */
+    variable item     := get_sfall_arg;  /* arg2 */
+    variable is_plant := get_sfall_arg;  /* arg3 */
+    /* arg4 (quantity) not needed. */
+
+    /* Only modify behaviour for the player's steal attempts. */
+    if (thief != dude_obj) then begin
+        return;
+    end
+    if (is_plant != 0) then begin
+        return;
+    end
+
+    /*
+     * Check whether the item is equipped in either of the target's hands.
+     * Uses INVEN_TYPE_RIGHT_HAND (1) and INVEN_TYPE_LEFT_HAND (2) from DEFINE.H.
+     */
+    variable rhand := critter_inven_obj(target, INVEN_TYPE_RIGHT_HAND);
+    variable lhand := critter_inven_obj(target, INVEN_TYPE_LEFT_HAND);
+    variable is_equipped := (item == rhand or item == lhand);
+
+    if (is_equipped) then begin
+        if (has_skill(dude_obj, SKILL_STEAL) > STEAL_THRESHOLD) then begin
+            set_sfall_return(1);  /* High skill — allow the steal.  */
+        end else begin
+            set_sfall_return(2);  /* Too low   — fail silently.     */
+        end
+    end
+    /* For unequipped items the engine decides normally (no return set). */
+end
