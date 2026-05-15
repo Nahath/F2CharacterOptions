@@ -218,3 +218,106 @@ which map it was picked up on.
 **Alternative fix:** Re-place the item in the mapper after patching the proto's
 ScriptID to -1.  The new placement calls `obj_new_sid` against the updated proto,
 so the saved SID will be -1 in the map file from then on.
+
+## data\MAPS\*.SAV — working cache, not cleared between sessions
+
+`data\MAPS\` is a working temp directory, separate from slot save directories
+(`data\SAVEGAME\SLOT##\`).  The engine writes a `.SAV` for each visited map on
+every map transition — even if the player never manually saves.
+
+**The original Fallout 2 exe does not reliably clear this directory between game
+sessions.**  If you start a new game after a prior session visited the same maps,
+those stale `.SAV` files are loaded, and your mapper-placed items (picked up,
+moved, or otherwise changed in the previous run) will be missing or wrong on the
+new run.
+
+**This directory is safe to delete when the game is not running.**  Slot saves
+in `data\SAVEGAME\` are unaffected — they are an entirely separate copy written
+only on manual save.
+
+**Fix for test runs:** Delete `data\MAPS\*.SAV` before each test run to guarantee
+a clean map state.  Failure to do so causes confusing "items missing on fresh new
+game" bugs that have nothing to do with scripts or protos.
+
+## obj_pid() on critters includes type bits
+
+`obj_pid(critter_obj)` returns the **full** 32-bit PID including the object type
+byte in bits 24–31.  The critter type is `1`, so the full PID is
+`0x01000000 | file_number` = `16777216 + file_number`.
+
+Comparing a critter PID against a bare file number (e.g., `obj_pid(goris) == 152`)
+will **always fail** — the actual return value is `16777368` for Goris base (file
+152).  This mistake makes any critter-identity check a silent no-op.
+
+**Correct constant definition:**
+```ssl
+#define PID_GORIS_BASE  (16777216 + 152)   /* = 0x01000098 */
+```
+
+**Items are unaffected** — item type = 0, so item PIDs equal their file numbers
+(e.g., `PID_BRIDGEKEEPERS_ROBES = 524`).
+
+Confirmed from: `fallout2-re` source (`opGetObjectPid` returns `obj->pid` raw),
+RPU `critrpid.h` (`PID_GORIS = 16777368`), RPU `party.h`
+(`Goris_Ptr = party_member_obj(PID_GORIS)`).
+
+## Strength mechanics and HOOK_ITEMDAMAGE
+
+### Confirmed Strength effects (vanilla Fallout 2)
+
+| Effect | Formula |
+|--------|---------|
+| Carry Weight | `25 + (ST × 25)` lbs (Small Frame: × 15) |
+| Melee Damage (derived stat) | `max(ST − 5, 1)` |
+| Starting Unarmed skill | `65 + (AG + ST) / 2` |
+| Starting Melee Weapons skill | `55 + (AG + ST) / 2` |
+| Starting Hit Points | `15 + ST + (2 × EN)` |
+| Weapon min-ST penalty | −20% to hit per missing ST point |
+
+Melee Damage is added to **maximum damage only** (not minimum).  It applies to
+**both** unarmed and melee weapon attacks — not unarmed only.  Example: a crowbar
+with base 3–10 and Melee Damage 4 becomes 3–14.
+
+Confirmed from: Fallout wiki weapon damage notation, NMA engine calculations,
+`tartarus.rpgclassics.com` skill formulas, GOG forum min-ST penalty thread.
+
+### Modifying melee damage with HOOK_ITEMDAMAGE
+
+`HOOK_ITEMDAMAGE` fires whenever the engine retrieves the damage rating of the
+player's weapon (including fists).
+
+```
+int  arg0 - default min damage (already includes vanilla Melee Damage bonus)
+int  arg1 - default max damage (already includes vanilla Melee Damage bonus)
+Item arg2 - weapon object (0 if unarmed)
+Critter arg3 - the attacker
+int  arg4 - attack type
+int  arg5 - non-zero if melee weapon
+
+int  ret0 - new min damage (or single fixed value if ret1 not set)
+int  ret1 - new max damage
+```
+
+**Key detail:** `arg0`/`arg1` already have the vanilla `max(ST − 5, 1)` bonus
+baked in.  To replace the formula entirely, subtract the vanilla bonus out first
+or just set absolute values directly.
+
+**Pattern for a custom ST-based melee bonus:**
+```ssl
+procedure hs_itemdamage_proc begin
+    variable attacker := get_sfall_arg_at(3);
+    if (attacker != dude_obj) then return;
+    variable is_melee := get_sfall_arg_at(5);
+    if (not is_melee) then return;
+
+    variable st := get_critter_stat(attacker, STAT_st);
+    variable cur_min := get_sfall_arg_at(0);
+    variable cur_max := get_sfall_arg_at(1);
+    /* replace with custom formula */
+    set_sfall_return(cur_min);
+    set_sfall_return(cur_max + (st - 5));
+end
+```
+
+Registration: `register_hook_proc(HOOK_ITEMDAMAGE, hs_itemdamage_proc)` in
+`game_loaded` block of any global script.

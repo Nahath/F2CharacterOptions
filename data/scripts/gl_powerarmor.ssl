@@ -19,7 +19,7 @@
 #define PID_ADVANCED_POWER_ARMOR_MK2 349
 
 #define ST_CAP_NORMAL  10
-#define ST_CAP_PA      12
+#define ST_CAP_PA      14
 
 #define is_pa_pid(p) ((p) == PID_POWER_ARMOR or (p) == PID_HARDENED_POWER_ARMOR or (p) == PID_ADVANCED_POWER_ARMOR or (p) == PID_ADVANCED_POWER_ARMOR_MK2)
 

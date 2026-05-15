@@ -135,6 +135,26 @@ Super Dynamite is fully working:
 - 120–240 damage explosion after timer
 MCP docs updated: proto-format.md, debugging-facts.md, sfall-function-notes.md
 
+## Additional session work (post-compaction)
+- ST cap for Power Armor raised to 14 (from 12); verified via punch damage
+- Removed Change 2 (steal equipped weapons): deleted hs_steal.ssl/.int, kcsajag.ssl/.int, removed from install.py
+- Removed all Klamath downtown map changes: deleted kisbox.ssl/.int, removed all MAP-patch code from install.py
+- Confirmed install.py runs cleanly; f2mod.dat = 9 files, 28,248 bytes
+- Documented data\MAPS\ cache behavior in debugging-facts.md
+
+## gl_goris_armor.ssl — COMPLETE (committed 5ee9253)
+Goris auto-equips Bridgekeeper's Robes via 30-frame heartbeat using wield_obj_critter.
+
+**Key findings from this session:**
+- HOOK_INVENWIELD never fires for companion armor — "Use Best Armor" is the only
+  equip mechanism for companions and it bypasses the hook entirely.
+- "Use Best Armor" has an upstream engine check that silently skips Goris (vanilla
+  behavior). The check is before inven_wield is called; exact condition unknown but
+  is NOT body type (Goris is PROTO_CR_BODY_TYPE=0 / Biped in vanilla master.dat).
+- wield_obj_critter bypasses the upstream block and works correctly.
+- Heartbeat uses party_member_list(0) + inven_count/inven_ptr to find robes (PID 524).
+- Verified: AC 28 → 48 (+20) on equip, matching Bridgekeeper's Robes AC bonus.
+
 ## Next Step
 No pending work.
 

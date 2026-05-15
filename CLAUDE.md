@@ -1,6 +1,6 @@
 # Working Directory
 
-All mod work is done in `C:\Games\F2Modding`. This includes mod tools and the Fallout 2 install being modified. Do NOT touch the GOG install at `C:\Program Files (x86)\GOG Galaxy\Games\Fallout 2`.
+All mod work is done in `C:\git\f2Mod\F2Modding`. The Fallout 2 install being modified is at `C:\git\f2Mod\F2Modding\Fallout 2`. Do NOT touch the GOG install at `C:\Program Files (x86)\GOG Galaxy\Games\Fallout 2` and do NOT use `C:\Games\F2Modding`.
 
 # Instructions
 
@@ -21,7 +21,7 @@ An MCP server with Fallout 2 modding tools is available. Use it proactively:
 
 # Session Notes
 
-Maintain `C:\Games\F2Modding\CURRENT_SESSION.md` throughout every session. Update it regularly — not just at the end — capturing:
+Maintain `C:\git\f2Mod\F2Modding\CURRENT_SESSION.md` throughout every session. Update it regularly — not just at the end — capturing:
 - What was tried and what the result was
 - What works and what doesn't, with best judgment as to why
 - Any new understanding of how the engine or sfall behaves

@@ -1027,3 +1027,6 @@
 {53401}{}{Dynamite...but a lot bigger.}
 {53500}{}{Super Dynamite}
 {53501}{}{Dynamite....but a lot bigger. And it's ticking!}
+
+{60000}{}{Dynamite MKII}
+{60001}{}{A military-grade demolition charge packing twice the explosive force of standard dynamite. The casing is reinforced and the blasting compound has been enhanced for maximum yield. Handle with extreme care.}
