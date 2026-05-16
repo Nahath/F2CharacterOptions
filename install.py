@@ -38,12 +38,39 @@ DAT_SCRIPTS = {
     r"scripts\gl_goris_armor.int":       r"data\scripts\gl_goris_armor.int",
     r"scripts\hs_inventorymove.int":     r"data\scripts\hs_inventorymove.int",
     r"scripts\dynamitemk2.int":          r"data\scripts\dynamitemk2.int",
+    r"scripts\vcandy.int":               r"data\scripts\vcandy.int",
+    r"scripts\rcdrjohn.int":             r"data\scripts\rcdrjohn.int",
+    r"scripts\fcdrfung.int":             r"data\scripts\fcdrfung.int",
     # Stub for a spatial script that the Arroyo map references by name but
     # whose .int is absent from master.dat and all mod archives.  Without it
     # the engine crashes on "Couldn't open … for read" immediately after the
     # Temple-of-Trials cinematic.
     r"scripts\a swarm of mantis infesting some spore plants.int":
         r"data\scripts\a swarm of mantis infesting some spore plants.int",
+}
+
+# Dialog MSG files to patch: internal DAT path -> list of (msg_id, text) to append.
+# Each file is extracted from master.dat (or rpu.dat), entries appended, then
+# included in f2mod.dat so the engine uses our patched version.
+DIALOG_MSG_PATCHES = {
+    r"text\english\dialog\vcandy.msg": [
+        (360, "Who do you want this for?"),
+        (361, "On myself."),
+        (362, "Actually, I changed my mind."),
+        (363, "They already have as many implants as I can give them."),
+    ],
+    r"text\english\dialog\rcdrjohn.msg": [
+        (330, "Who do you want this for?"),
+        (331, "On myself."),
+        (332, "Actually, I changed my mind."),
+        (333, "They already have as many implants as I can give them."),
+    ],
+    r"text\english\dialog\fcdrfung.msg": [
+        (241, "Who do you want this for?"),
+        (242, "On myself."),
+        (243, "Actually, I changed my mind."),
+        (244, "They already have as many implants as I can give them."),
+    ],
 }
 
 # Proto constants (proto 600 is based on proto 51, inactive dynamite)
@@ -337,6 +364,26 @@ def step_build_and_install_dat(game_root):
     file_map[INVEN_LST]     = ext_inven_lst
     inven_fid = 0x07000000 | dynmk2_idx
     print(f"  Built DYNMK2.FRM (inven index {dynmk2_idx}, FID=0x{inven_fid:08X})")
+
+    master_dat = os.path.join(game_root, "master.dat")
+    rpu_dat    = os.path.join(game_root, "mods", "rpu.dat")
+    for dat_msg_path, new_entries in DIALOG_MSG_PATCHES.items():
+        raw = None
+        if os.path.isfile(rpu_dat):
+            raw = read_file_from_dat(rpu_dat, dat_msg_path)
+        if raw is None:
+            raw = read_file_from_dat(master_dat, dat_msg_path)
+        if raw is None:
+            abort(f"{dat_msg_path!r} not found in rpu.dat or master.dat.")
+        text = raw.decode("latin-1")
+        if not text.endswith("\n"):
+            text += "\n"
+        for msg_id, msg_text in new_entries:
+            marker = "{" + str(msg_id) + "}"
+            if marker not in text:
+                text += f"{{{msg_id}}}{{}}{{{msg_text}}}\n"
+        file_map[dat_msg_path] = text.encode("latin-1")
+        print(f"  Patched {os.path.basename(dat_msg_path)} (+{len(new_entries)} entries)")
 
     proto_key = f"proto\\items\\{DST_PROTO_ID:08d}.pro"
     file_map[proto_key] = build_proto_600(game_root, script_id, inven_fid)
