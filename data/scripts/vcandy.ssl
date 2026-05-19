@@ -295,9 +295,37 @@ end
    incrementing the death count for reputation purposes and Enemy Counters are placed
    in here. */
 procedure destroy_p_proc begin
+   variable _tile;
+   variable _elev;
+   variable _item;
+   variable _objs;
+   variable _n;
+   variable _i;
 
 /* Increment the aligned critter counter*/
    inc_good_critter
+
+   _tile := tile_num(self_obj);
+   _elev := elevation(self_obj);
+
+   // Normal kill: items still in inventory
+   while (obj_is_carrying_obj_pid(self_obj, PID_SUPER_STIMPAK) > 0) do begin
+      _item := obj_carrying_pid_obj(self_obj, PID_SUPER_STIMPAK);
+      rm_obj_from_inven(self_obj, _item);
+      destroy_object(_item);
+   end
+
+   // Overkill: items already dropped to ground — scan the tile
+   _objs := tile_get_objs(_tile, _elev);
+   _n := len_array(_objs);
+   _i := 0;
+   while (_i < _n) do begin
+      _item := _objs[_i];
+      if (_item != 0 and obj_pid(_item) == PID_SUPER_STIMPAK) then
+         destroy_object(_item);
+      _i += 1;
+   end
+   free_array(_objs);
 
 /* Set global_variable for Enemy status*/
 end

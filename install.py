@@ -37,6 +37,7 @@ DAT_SCRIPTS = {
     r"scripts\gl_powerarmor.int":        r"data\scripts\gl_powerarmor.int",
     r"scripts\gl_goris_armor.int":       r"data\scripts\gl_goris_armor.int",
     r"scripts\hs_inventorymove.int":     r"data\scripts\hs_inventorymove.int",
+    r"scripts\hs_useskill.int":          r"data\scripts\hs_useskill.int",
     r"scripts\dynamitemk2.int":          r"data\scripts\dynamitemk2.int",
     r"scripts\vcandy.int":               r"data\scripts\vcandy.int",
     r"scripts\rcdrjohn.int":             r"data\scripts\rcdrjohn.int",

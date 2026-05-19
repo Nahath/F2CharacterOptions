@@ -1,0 +1,38 @@
+#include "DEFINE.H"
+#include "SFALL.H"
+
+#define PID_SUPER_STIMPAK   (144)
+#define NPC_PID_DOC_ANDREW  (16777684)   /* 0x01000000 | 468 */
+
+procedure start;
+
+procedure start begin
+   if game_loaded then return;
+
+   variable user   := get_sfall_arg;   /* arg0 */
+   variable target := get_sfall_arg;   /* arg1 */
+   variable skill  := get_sfall_arg;   /* arg2 */
+   get_sfall_arg;                       /* arg3 skill bonus, unused */
+
+   if (user == dude_obj
+       and skill == SKILL_STEAL
+       and obj_pid(target) == NPC_PID_DOC_ANDREW
+       and has_trait(TRAIT_PERK, dude_obj, PERK_thief_perk)) then begin
+      variable count := 0;
+      variable idx   := 0;
+      variable item;
+      while (idx < inven_count(target)) do begin
+         item := inven_ptr(target, idx);
+         if (obj_pid(item) == PID_SUPER_STIMPAK) then
+            count += 1;
+         idx += 1;
+      end
+      while (count < 2) do begin
+         item := create_object(PID_SUPER_STIMPAK, 0, 0);
+         add_obj_to_inven(target, item);
+         count += 1;
+      end
+   end
+
+   set_sfall_return(-1);
+end
