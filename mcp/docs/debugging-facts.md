@@ -321,3 +321,81 @@ end
 
 Registration: `register_hook_proc(HOOK_ITEMDAMAGE, hs_itemdamage_proc)` in
 `game_loaded` block of any global script.
+
+---
+
+## NPC Identification — Fast Path
+
+**Goal:** find a named NPC's script index and proto PID so you can gate a hook script on that specific NPC.
+
+### Step 1 — get the scripts.lst index
+```
+mcp: read_scripts_lst search=<partial name>
+```
+Returns 0-based line numbers. The 0-based index is what `get_script(obj)` returns at runtime.
+
+Example: `read_scripts_lst search=ascorti` → `809  RCAscort.int`
+
+### Step 2 — get internal_pid (only if needed for obj_pid())
+Look up the NPC in `tools/critters.csv` (columns: file_num, internal_pid, name, map).
+- internal_pid = `0x01000000 | file_num`
+- `obj_pid()` is only needed when `get_script()` alone isn't specific enough (rare).
+
+### Step 3 — runtime gate in hook script
+```ssl
+if (get_script(target) == 809) then begin   // 809 = RCAscort.int
+    // Ascorti-specific logic
+end
+```
+
+`get_script(obj)` returns the 0-based scripts.lst index for the script attached to an object.
+Returns 0 if unscripted, -1 on error. Works on any object, not just the player.
+
+### Why this is faster than MAP binary analysis
+MAP binary parsing (reading the scripts section, tracing SID→script index, scanning object fields)
+is complex and error-prone. It's only needed for **static MAP patching**. For runtime hook scripts,
+`get_script()` does the lookup in one call with no MAP parsing required.
+
+### When multiple critters share a proto
+Many named NPCs use a generic proto (e.g., Ascorti uses "Bureaucrat 2" / file_num 456).
+`obj_pid()` alone can't distinguish them. `get_script(target) == <index>` uniquely identifies
+the named NPC because each NPC has its own script file.
+
+### NPCs confirmed (scripts.lst 0-based index)
+| NPC | Script | Index | file_num | internal_pid | Notes |
+|-----|--------|-------|----------|--------------|-------|
+| Doc Andrew (Vault City) | VCAndy.int | 92 | 468 | 16777684 | — |
+| Guards (Ascorti's bar) | RCAscGrd.int | 1113 | 456 | 16777672 | same proto as Ascorti |
+| Sgt. Stark (Vault City) | VCStark.int | 122 | — | — | NOT Navarro |
+| Sgt. Dornan (Navarro drill sergeant) | Ccdrill.int | 717 | — | — | "Drill Seargant in Colusa/Nevarro" |
+| Metzger (The Den, slaver) | dcMetzge.int | 45 | — | — | — |
+| Jo (Modoc) | mcJo.int | 101 | — | — | — |
+| Mayor Ascorti (Redding) | RCAscort.int | 809 | 456 | 16777672 | — |
+| Marge LeBarge (Redding) | RCMarge.int | 693 | — | — | — |
+| Dan McGrew (Redding) | RCMcGrew.int | 806 | — | — | — |
+| First Citizen Lynette (Vault City) | VCLynett.int | 127 | — | — | — |
+| Valerie, Vic's daughter (Vault City) | VCMainWk.int | 971 | — | — | — |
+| Festus (Gecko) | GCFestus.int | 130 | — | — | "Festering ghoul" in scripts.lst |
+| Rose (Modoc diner) | mcRose.int | 107 | — | — | — |
+| Liz (Broken Hills) | hcLiz.int | 596 | — | — | — |
+| Intelligent Radscorpion (Broken Hills) | hcScorp.int | 1172 | — | — | only scorpion script in BH |
+| Brian, Power Technician (Broken Hills) | hcBrian.int | 1131 | — | — | — |
+| Doc Jubilee (NCR) | SCDocJub.int | 462 | — | — | painting = SIpaint.int index 953 |
+| Fergus (NCR Congress House receptionist) | SCFergus.int | 520 | — | — | "Welcome to Congress House…" |
+| Westin (NCR rancher, NCR3) | SCWestin.int | 470 | — | — | — |
+| Raul (Navarro) | CcRaul.int | 1052 | — | — | — |
+| Ken Lee (San Francisco) | FCKenLee.int | 855 | — | — | — |
+| Big Jesus Mordino (New Reno) | ncBigJes.int | 455 | — | — | — |
+| Mr. Salvatore (New Reno boss) | ncSalvat.int | 442 | — | — | — |
+| John Bishop (New Reno) | ncBishop.int | 419 | — | — | — |
+| Orville Wright (New Reno) | ncOrvill.int | 438 | — | — | — |
+| President Richardson (Enclave) | qhPrzRch.int | 802 | — | — | — |
+
+### Doc Jubilee painting — Vault 13 reveal mechanism
+- PID 78 (Fuzzy Painting / "Velvet Elvii") has ScriptID=-1 in the proto.
+- SIpaint.int (index 953) is attached to the painting OBJECT at runtime by Doc Jubilee's script.
+- When the player examines the painting in inventory, SIpaint.int fires and marks Vault 13 on the world map.
+- To replicate this for a stolen painting, use `create_object_sid(78, 0, 0, 953)` instead of `create_object(78, 0, 0)`.
+
+### Compiler constraint: parametrized user-defined procedure calls
+The F2 SSL compiler (sfall compile.exe) requires parametrized user-defined procedure calls to appear in an **assignment context**. Bare statement calls (`inject(target, pid, want);`) cause "Assignment operator expected." Always assign: `r := inject(target, pid, want);`

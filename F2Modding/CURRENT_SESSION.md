@@ -208,12 +208,163 @@ Guard: `if (target_critter != dude_obj)` — player still gets bonuses from engi
 - `data/scripts/vcandy.ssl` — direct edits at all 4 implant grant/upgrade points
 - All three compiled and installed: f2mod.dat = 66,801 bytes, 15 files
 
+## CSV Extraction — COMPLETE
+
+- `tools/extract_data.py` — standalone script, imports read_file_from_dat from install.py
+- `tools/items.csv` — 531 items: file_num, internal_pid, name, type
+- `tools/npcs.csv` — 857 placements: file_num, internal_pid, name, map (one row per proto per map)
+- Scan approach: search every 4-byte aligned offset for a valid critter file_num; validate tile<40000, elevation in {0,1,2}, critter_idx != 0xFFFFFFFF, ObjID non-zero
+- Critter internal PIDs are 0x01000000 | file_num (e.g. file_num 15 → internal_pid 16777231)
+- Confirmed correct: Power Armor file_num=14/internal_pid=3, Goris/Myron/Sulik on expected maps
+
+## Steal-Only Item System — COMPLETE (first NPC: Doc Andrew)
+
+### Implementation
+- `data/scripts/hs_useskill.ssl` — HOOK_USESKILL hook; fires before steal window opens.
+  Checks: user==dude_obj, skill==SKILL_STEAL, target PID==16777684 (Doc Andrew, file_num 468),
+  player has PERK_thief_perk (105). If all true and fewer than 2 Super Stimpaks (PID 144) in
+  Andrew's inventory, injects them via create_object + add_obj_to_inven. Always set_sfall_return(-1).
+- `data/scripts/vcandy.ssl` destroy_p_proc — cleanup loop: iterates Andrew's inventory,
+  rm_obj_from_inven + destroy_object for any PID 144 items on Andrew's death.
+- `install.py` DAT_SCRIPTS — added `scripts\hs_useskill.int`.
+- f2mod.dat now 16 files, 66,653 bytes.
+
+### Key facts
+- `add_obj_to_inven(critter, item)` is the correct opcode (not move_to_obj_inven).
+- `create_object(PID, 0, 0)` creates off-map item; use with add_obj_to_inven (not create_object_sid).
+- hs_*.int files are auto-discovered by sfall from DAT archives; no GlobalScriptPaths entry needed.
+- GlobalScriptPaths in ddraw.ini only covers gl*.int pattern.
+- `PID_SUPER_STIMPAK` is in data/headers/itempid.h but NOT in data/scripts/DEFINE.H;
+  must define locally in hook scripts that use data/scripts/DEFINE.H.
+
+### Known gap
+Item remains in Andrew's inventory if player opens steal window but doesn't take it.
+This is accepted behavior.
+
+## NPC Identification — Stark and Ascorti
+
+### Sgt. Stark (Vault City, NOT Navarro)
+- Script: VCStark.int = scripts.lst index **122**
+- file_num and internal_pid: not yet confirmed
+
+### Sgt. Dornan (Navarro drill sergeant)
+- Script: Ccdrill.int = scripts.lst index **717**
+- Comment in scripts.lst: "Drill Seargant in Colusa/Nevarro"
+- file_num and internal_pid: not yet confirmed
+
+### Ascorti (Redding Downtown)
+- Proto: file_num **456** ("Bureaucrat 2"), internal_pid **16777672** (= 0x010001C8)
+- Map: REDDOWN.MAP — 4 instances of Bureaucrat 2, all script-held (tile=0xFFFFFFFF)
+- Script: RCAscort.int = scripts.lst index **809**
+- To identify Ascorti specifically (vs other Bureaucrat 2 guards): `get_script(target) == 809`
+- sfall `get_script(obj)` returns the 0-based scripts.lst line number for the script attached to an object
+- The other Bureaucrat 2 instances in REDDOWN use RCAscGrd.int (index 1113)
+
+### Key finding: get_script()
+`get_script(obj)` is the clean way to identify named NPCs when multiple critters share the same proto.
+Use: `obj_pid(target) == 16777672 and get_script(target) == 809` to gate on Ascorti specifically.
+
+## Steal System Expansion — COMPLETE (pending test)
+
+hs_useskill.ssl extended to 24 NPCs (23 inject-on-steal + President's key copy).
+Compiled clean (3,538 bytes). Installed: f2mod.dat = 17 files, 73,613 bytes.
+
+Key implementation notes:
+- Helper procedures count_pid(target, pid) and inject(target, pid, want) handle top-up logic
+- inject_weapon(target, pid): creates one weapon, reads ammo PID + mag size from proto via
+  get_proto_data(pid, PROTO_WP_AMMO_PID) and get_proto_data(pid, PROTO_WP_MAG_SIZE), then
+  sets OBJ_DATA_CUR_CHARGES (0x3C) and OBJ_DATA_WEAPON_AMMO_PID (0x40) on the created object
+  before adding to inventory. No-op if target already has 1. Used for all ranged weapons.
+- Weapons loaded: Alien Blaster, 10mm SMG, Sniper Rifle, Plasma Pistol Ext, Bozar, HK P90c,
+  Vindicator, H&K G11E, Pancor Jackhammer, Red Ryder LE BB Gun
+- Parametrized user-defined proc calls must use assignment context: r := inject(...) — bare calls cause compile error
+- Ascorti uses item_caps_adjust(target, 1500 - item_caps_total(target)) to top up to 1500 caps
+- Doc Jubilee painting uses create_object_sid(78, 0, 0, 953) so SIpaint.int is attached — Vault 13 map revealed when player examines stolen painting
+- President's key: inject up to 2 total (original stays for looting, copy is stealable)
+- All NPCs identified by get_script(target) == SID_xxx; full table in ExtraStealCases.md and debugging-facts.md
+
+## Custom Steal System — COMPLETE (pending test)
+
+Replaced vanilla two-roll steal system with new single-roll formula via HOOK_STEAL (hs_steal.ssl).
+
+### Formula
+```
+chance = clamp(your_steal - their_steal - (4 × item_size) - session_count, 0, 95)
+```
+- `your_steal` / `their_steal`: has_skill(critter, SKILL_STEAL). Non-critter targets (containers) use 0.
+- `item_size`: get_proto_data(obj_pid(item), PROTO_IT_SIZE) — PROTO_IT_SIZE=112, a separate proto
+  field from weight (PROTO_IT_WEIGHT=116). Vanilla coefficient is -4% per size unit (confirmed from
+  fallout2-ce skill.cc: `stealModifier -= 4 * itemGetSize(item)`).
+- `session_count`: 0 for first item stolen from current target, +1 each subsequent attempt.
+  Resets when target changes. Applied before cap so excess skill burns it off first.
+- Cap is 95% (hard max).
+
+### Key facts
+- Planting is passed through to engine handler (set_sfall_return(-1)).
+- Script-level variables persist between hook invocations in sfall (same as global scripts).
+- `has_skill(critter, SKILL_STEAL)` is the correct opcode (DEFINE.H: `CRITTER_SKILL_LEVEL = has_skill`).
+- `sprintf` in this sfall version only accepts one format argument — use string concatenation for debug.
+- Hook return values: 2=success (item transferred), 0=fail, -1=use engine handler.
+- Debug lines print: your_skill, their_skill, size_pen, session_pen, final chance%.
+- f2mod.dat = 18 files, 74,103 bytes.
+
+## NPC Steal Skill Table + Plastic Explosives — COMPLETE
+
+### hs_useskill.ssl
+- Added `#define PID_PLASTIC_EXPLOSIVES (85)`
+- Westin and Raul cases expanded to begin/end blocks: inject Bozar/HK P90c (weapon) + 2 plastic explosives each
+- Compiled clean: 3,638 bytes
+
+### hs_steal.ssl
+- Added `npc_steal_skill(sid)` procedure: 49-entry if-else chain returning user-specified steal skill
+- `their_skill` now uses: lookup first, falls back to `has_skill` if not in table
+- Compiled clean: 3,728 bytes
+- f2mod.dat = 18 files, 74,556 bytes
+
+### Script indices found (all via read_scripts_lst):
+| SID | Script | NPC | Steal skill |
+|-----|--------|-----|------------|
+| 79  | KCMaida.int | Maida Buckner | 15 |
+| 41  | DCFlick.int | Flick | 25 |
+| 47  | DCTubby.int | Tubby | 25 |
+| 51  | dcRebecc.int | Becky | 25 |
+| 44  | DCSmitty.int | Smitty | 35 |
+| 110 | VCHarry.int | Happy Harry | 50 |
+| 118 | VCRandal.int | Randal | 55 |
+| 94  | VCDrTroy.int | Dr. Troy | 45 |
+| 607 | hcJacob.int | Jacob | 45 |
+| 425 | ncEldrid.int | Eldridge | 75 |
+| 440 | ncRenesc.int | Renesco | 70 |
+| 346 | ncSalMen.int | Salvatore Guards | 60 |
+| 807 | RCDrJohn.int | Doc Johnson | 55 |
+| 937 | RCCshTnd.int | Cash Tender | 100 |
+| 251 | SCBuster.int | Buster | 90 |
+| 406 | SCDuppo.int | Duppo | 75 |
+| 1182 | SCBGrd.int | NCR Guards (outside Buster's) | 80 |
+| 1062 | CcGrdca.int | Navarro Guard (combat armor) | 80 |
+| 1063 | CcGrdpa.int | Navarro Guard (power armor) | 80 |
+| 824 | FCGunMer.int | Mai Da Chiang | 110 |
+| 924 | FCLaoCho.int | Lao Chou | 110 |
+| 1103 | FCTnkMer.int | Jenna | 80 |
+| 1101 | FCTnkGmr.int | Cal | 80 |
+| 747 | FCShiGrd.int | Shi Guards (covers Chinatown + Palace) | 100 |
+| 976 | FCMarc.int | Marc | 60 |
+| 989 | FCFemPnk.int | Female Tanker Vagrant | 60 |
+
+### Uncertain mappings (noted for testing)
+- FCGunMer (824) assumed to be Mai Da Chiang — only SF gun merchant script found
+- FCFemPnk (989) assumed to be Female Tanker Vagrant — only SF female punk script
+- Chinatown Guards and Shi Palace Guards both mapped to FCShiGrd (747) — no separate Chinatown guard script found
+
 ## Next Step
-Test in game: give Goris the Phoenix Armor Implants via Dr. Andrew (Vault City).
-Expected debug output: FireDR goes from 60 → 65, PlasmaDR from 90 → 95 after grant.
+User to test in-game:
+1. Steal system: verify debug numbers make sense for various NPCs (especially ones with high override skills like Dornan=110, Cash Tender=100).
+2. Verify plastic explosives appear in Westin and Raul inventories when opening steal window.
+3. Confirm uncertain mappings: Mai Da Chiang = gun merchant, Female Tanker Vagrant = female punk.
 
 ## Open Questions / Decisions
-None.
+- hcScorp.int (index 1172) is the only Broken Hills scorpion script — assumed correct, user will confirm via testing.
+- No separate Chinatown guard script found — FCShiGrd covers both types (both set to 100 steal skill anyway).
 
 ## scripts.lst (loose override at data\scripts\scripts.lst)
 - 0-based index 1303 = line 1304 in file = DYNMK2.int   ; Super Dynamite (inert)

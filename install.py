@@ -38,6 +38,7 @@ DAT_SCRIPTS = {
     r"scripts\gl_goris_armor.int":       r"data\scripts\gl_goris_armor.int",
     r"scripts\hs_inventorymove.int":     r"data\scripts\hs_inventorymove.int",
     r"scripts\hs_useskill.int":          r"data\scripts\hs_useskill.int",
+    r"scripts\hs_steal.int":             r"data\scripts\hs_steal.int",
     r"scripts\dynamitemk2.int":          r"data\scripts\dynamitemk2.int",
     r"scripts\vcandy.int":               r"data\scripts\vcandy.int",
     r"scripts\rcdrjohn.int":             r"data\scripts\rcdrjohn.int",
@@ -71,6 +72,9 @@ DIALOG_MSG_PATCHES = {
         (242, "On myself."),
         (243, "Actually, I changed my mind."),
         (244, "They already have as many implants as I can give them."),
+    ],
+    r"text\english\game\perk.msg": [
+        (1206, "An expert thief, you can steal items that no other person could steal or loot. Also provides a one-time bonus of +10% to your Sneak, Lockpick, Steal, and Traps skills."),
     ],
 }
 
@@ -379,12 +383,21 @@ def step_build_and_install_dat(game_root):
         text = raw.decode("latin-1")
         if not text.endswith("\n"):
             text += "\n"
+        added = replaced = 0
         for msg_id, msg_text in new_entries:
-            marker = "{" + str(msg_id) + "}"
-            if marker not in text:
-                text += f"{{{msg_id}}}{{}}{{{msg_text}}}\n"
+            entry = f"{{{msg_id}}}{{}}{{{msg_text}}}"
+            pattern = re.compile(r'\{' + str(msg_id) + r'\}\{[^}]*\}\{[^}]*\}')
+            if pattern.search(text):
+                text = pattern.sub(entry, text)
+                replaced += 1
+            else:
+                text += entry + "\n"
+                added += 1
         file_map[dat_msg_path] = text.encode("latin-1")
-        print(f"  Patched {os.path.basename(dat_msg_path)} (+{len(new_entries)} entries)")
+        parts = []
+        if added:    parts.append(f"+{added} added")
+        if replaced: parts.append(f"{replaced} replaced")
+        print(f"  Patched {os.path.basename(dat_msg_path)} ({', '.join(parts)})")
 
     proto_key = f"proto\\items\\{DST_PROTO_ID:08d}.pro"
     file_map[proto_key] = build_proto_600(game_root, script_id, inven_fid)

@@ -1,0 +1,50 @@
+name,location,role,stealable_items,suggested_steal_skill
+Maida Buckner,Klamath,Merchant,General goods + caps,15
+Tubby,The Den,Merchant,Weapons + caps,25
+Flick,The Den,Merchant,General goods + caps,25
+Becky,The Den,Merchant,Bar goods + caps,25
+Smitty,The Den,Merchant,Fuel Cell Controller (~2000 caps); Fuel Cell Regulator (~750 caps); caps,35
+Metzger,The Den,Named NPC,Shotgun; stimpaks (injected),25
+Jo,Modoc,Named NPC,10mm SMG + ammo (injected); caps,35
+Rose,Modoc,Named NPC,Cattle prod (injected),35
+Happy Harry,Vault City,Merchant,General goods + caps,50
+Randal,Vault City,Merchant,Advanced goods + caps,55
+Dr. Troy,Vault City,Merchant,Medical supplies + caps,45
+Doc Andrew,Vault City,Named NPC,Super stimpaks (injected),45
+Lynette,Vault City,Named NPC,Plasma pistol extended cap (injected),55
+Valerie,Vault City,Named NPC,Super tool kit (injected),50
+Festus,Gecko,Named NPC,Holy hand grenade (injected),55
+Jacob,Broken Hills,Merchant,General goods + caps,45
+Liz,Broken Hills,Named NPC,Dean's Electronics x2; Guns and Bullets x2 (injected),45
+Intelligent Radscorpion,Broken Hills,Named NPC,Electronic lockpick MkII (injected),55
+Brian,Broken Hills,Named NPC,RadAway x2 (injected),40
+Eldridge,New Reno,Merchant,Combat shotgun; 10mm SMG; Desert Eagle; advanced weapons if Made Man; caps,75
+Renesco,New Reno,Merchant,Drugs and chems + caps,70
+Mr. Salvatore,New Reno,Named NPC,Alien blaster (injected); laser pistol (natural),70
+Salvatore Guards,New Reno,Guard,Laser pistol (natural),60
+Big Jesus Mordino,New Reno,Named NPC,H&K G11E + ammo (injected),70
+John Bishop,New Reno,Named NPC,Pancor Jackhammer (injected),70
+Orville Wright,New Reno,Named NPC,Red Ryder LE BB Gun + ammo (injected),70
+Doc Johnson,Redding,Merchant,Medical supplies + caps,55
+Cash Tender,Redding,Merchant,Caps only (4000-5000 caps; no other inventory),100
+Ascorti,Redding,Named NPC,1500 caps (injected),60
+Marge LeBarge,Redding,Named NPC,Micro fusion cells x3 (injected),55
+Dan McGrew,Redding,Named NPC,Sniper rifle (injected),55
+Buster,NCR,Merchant,Bozar; Pancor Jackhammer; H&K G11; Light Support Weapon; ammo; caps,90
+Duppo,NCR,Merchant,General goods + caps,75
+NCR Guards,NCR,Guard,Bozar (~5250 caps each); 3 guards outside Buster's,80
+Doc Jubilee,NCR,Named NPC,Fuzzy painting / Velvet Elvii (injected; reveals Vault 13 on examine),65
+Fergus,NCR,Named NPC,2mm EC x2 + 4.7mm Caseless x2 (injected),60
+Westin,NCR,Named NPC,Bozar (injected),60
+Raul,Navarro,Named NPC,HK P90c (injected),60
+Sgt. Dornan,Navarro,Named NPC,Advanced Power Armor MkII (injected),110
+Navarro Soldiers,Navarro,Guard,Plasma rifle (~3000 caps); Advanced Power Armor MkI (equipped - not directly stealable),80
+Mai Da Chiang,San Francisco,Merchant,Vindicator minigun (~15250); Avenger minigun (~5500); M72 Gauss Rifle (~8000); H&K G11E (~8000); Bozar (~5250); caps,110
+Lao Chou,San Francisco,Merchant,Skill books + advanced goods + caps,110
+Jenna,San Francisco (Tanker),Merchant,Skill books + general goods + caps,80
+Cal,San Francisco (Tanker),Merchant,Melee weapons + caps,80
+Ken Lee,San Francisco,Named NPC,Vindicator minigun + 4.7mm Caseless ammo (injected),100
+Chinatown Guards,San Francisco,Guard,Vindicator minigun (~15250 caps each),100
+Shi Palace Guards,San Francisco,Guard,H&K G11E (~8000) or M72 Gauss Rifle (~8000) each,100
+Marc,San Francisco (Tanker),Named NPC,M72 Gauss Rifle (natural),60
+Female Tanker Vagrant,San Francisco (Tanker),Named NPC,M72 Gauss Rifle (natural),60

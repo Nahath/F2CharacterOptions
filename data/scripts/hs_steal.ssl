@@ -1,0 +1,127 @@
+#include "DEFINE.H"
+#include "SFALL.H"
+#include "define_extra.h"
+
+// Persist between hook invocations (sfall keeps hook scripts in memory)
+variable steal_session_target;
+variable steal_session_count;
+
+procedure start;
+procedure npc_steal_skill(variable sid);
+
+// Returns the NPC's steal skill override, or 0 to fall back to has_skill.
+// All SID values are 1-based (engine convention: line 1 of scripts.lst = SID 1).
+procedure npc_steal_skill(variable sid)
+begin
+   if      (sid == 80)   then return 15;   // Maida Buckner
+   else if (sid == 42)   then return 25;   // Flick
+   else if (sid == 48)   then return 25;   // Tubby
+   else if (sid == 52)   then return 25;   // Becky
+   else if (sid == 45)   then return 35;   // Smitty
+   else if (sid == 46)   then return 25;   // Metzger
+   else if (sid == 102)  then return 35;   // Jo
+   else if (sid == 108)  then return 35;   // Rose
+   else if (sid == 111)  then return 50;   // Happy Harry
+   else if (sid == 119)  then return 55;   // Randal
+   else if (sid == 95)   then return 45;   // Dr. Troy
+   else if (sid == 93)   then return 45;   // Doc Andrew
+   else if (sid == 128)  then return 55;   // Lynette
+   else if (sid == 972)  then return 50;   // Valerie
+   else if (sid == 131)  then return 55;   // Festus
+   else if (sid == 608)  then return 45;   // Jacob
+   else if (sid == 597)  then return 45;   // Liz
+   else if (sid == 1173) then return 55;   // Intelligent Radscorpion
+   else if (sid == 1132) then return 40;   // Brian
+   else if (sid == 426)  then return 75;   // Eldridge
+   else if (sid == 441)  then return 70;   // Renesco
+   else if (sid == 443)  then return 70;   // Mr. Salvatore
+   else if (sid == 347)  then return 60;   // Salvatore Guards
+   else if (sid == 456)  then return 70;   // Big Jesus Mordino
+   else if (sid == 420)  then return 70;   // John Bishop
+   else if (sid == 439)  then return 70;   // Orville Wright
+   else if (sid == 808)  then return 55;   // Doc Johnson
+   else if (sid == 938)  then return 100;  // Cash Tender
+   else if (sid == 810)  then return 60;   // Ascorti
+   else if (sid == 694)  then return 55;   // Marge LeBarge
+   else if (sid == 807)  then return 55;   // Dan McGrew
+   else if (sid == 252)  then return 90;   // Buster
+   else if (sid == 407)  then return 75;   // Duppo
+   else if (sid == 1183) then return 80;   // NCR Guards (outside Buster's)
+   else if (sid == 463)  then return 65;   // Doc Jubilee
+   else if (sid == 521)  then return 60;   // Fergus
+   else if (sid == 471)  then return 60;   // Westin
+   else if (sid == 1053) then return 60;   // Raul
+   else if (sid == 718)  then return 110;  // Sgt. Dornan
+   else if (sid == 1063) then return 80;   // Navarro Guard (combat armor)
+   else if (sid == 1064) then return 80;   // Navarro Guard (power armor)
+   else if (sid == 825)  then return 110;  // Mai Da Chiang
+   else if (sid == 925)  then return 110;  // Lao Chou
+   else if (sid == 1104) then return 80;   // Jenna
+   else if (sid == 1102) then return 80;   // Cal
+   else if (sid == 856)  then return 100;  // Ken Lee
+   else if (sid == 748)  then return 100;  // Shi Guards
+   else if (sid == 977)  then return 60;   // Marc
+   else if (sid == 990)  then return 60;   // Female Tanker Vagrant
+   return 0;
+end
+
+procedure start
+begin
+   if game_loaded then begin
+      steal_session_target := 0;
+      steal_session_count  := 0;
+      return;
+   end
+
+   variable thief    := get_sfall_arg;   // arg0: critter stealing
+   variable target   := get_sfall_arg;   // arg1: critter/container being stolen from
+   variable item     := get_sfall_arg;   // arg2: item being stolen or planted
+   variable is_plant := get_sfall_arg;   // arg3: 0 = steal, 1 = plant
+   get_sfall_arg;                         // arg4: quantity (unused)
+
+   // Let planting use the engine's normal handler — we only override stealing.
+   if (is_plant) then begin
+      set_sfall_return(-1);
+      return;
+   end
+
+   // Session tracking: reset count when the target changes.
+   if (target != steal_session_target) then begin
+      steal_session_target := target;
+      steal_session_count  := 0;
+   end
+
+   variable my_skill    := has_skill(thief, SKILL_STEAL);
+   variable their_skill := 0;
+   if (obj_type(target) == OBJ_TYPE_CRITTER) then begin
+      variable sid := get_script(target);
+      their_skill := npc_steal_skill(sid);
+      if (their_skill == 0) then
+         their_skill := has_skill(target, SKILL_STEAL);
+   end
+
+   // Vanilla item-size penalty: -4% per size unit (from fallout2-ce skill.cc).
+   // PROTO_IT_SIZE is a distinct proto field from weight — it is an abstract
+   // bulk value specifically tuned for the steal mechanic.
+   variable item_size := get_proto_data(obj_pid(item), PROTO_IT_SIZE);
+   variable size_pen  := 4 * item_size;
+
+   // Formula: your skill - their skill, minus size penalty, minus session penalty.
+   // Session penalty applies BEFORE the 95% cap so excess skill burns it off first.
+   variable raw    := my_skill - their_skill - size_pen - steal_session_count + 20;
+   variable chance;
+   if (raw > 95) then     chance := 95;
+   else if (raw < 0) then chance := 0;
+   else                   chance := raw;
+
+   steal_session_count += 1;
+
+   variable success := (random(1, 100) <= chance);
+
+   // Vanilla message strings: 570 = "You fail to steal the X." / 571 = "You steal the X."
+   display_msg(sprintf(mstr_skill(570 + success), obj_name(item)));
+
+   variable ret_val := 0;
+   if (success) then ret_val := 2;
+   set_sfall_return(ret_val);
+end
