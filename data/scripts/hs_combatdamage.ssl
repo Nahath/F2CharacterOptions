@@ -1,0 +1,28 @@
+#include "DEFINE.H"
+#include "SFALL.H"
+#include "define_extra.h"
+
+#define TACTICIAN_NAME  "Tactician"
+
+procedure start;
+
+procedure start
+begin
+   if game_loaded then return;
+
+   variable target   := get_sfall_arg;   // arg0: target critter
+   variable attacker := get_sfall_arg;   // arg1: attacker critter
+   variable dmg      := get_sfall_arg;   // arg2: damage to target
+
+   if (has_fake_perk_npc(dude_obj, TACTICIAN_NAME) == 0) then return;
+
+   // Companion dealing damage: +10%
+   if (attacker != dude_obj and obj_in_party(attacker)) then begin
+      set_sfall_return(dmg * 11 / 10);
+      return;
+   end
+
+   // Companion receiving damage: -10%
+   if (target != dude_obj and obj_in_party(target)) then
+      set_sfall_return(dmg * 9 / 10);
+end

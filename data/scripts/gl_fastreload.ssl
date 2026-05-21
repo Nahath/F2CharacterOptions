@@ -9,22 +9,54 @@
 #define MASS_LOBBER_IMAGE   (107)
 #define MASS_LOBBER_NAME    "Mass Lobber"
 #define MASS_LOBBER_ST_MIN  (5)
-#define MASS_LOBBER_DESC    "Requires Strength 5 and Level 9. Your powerful arm gives you a talent for lobbing things. Reduces the Action Point cost of throwing attacks by 2."
+#define MASS_LOBBER_LVL_MIN (9)
+#define MASS_LOBBER_DESC    "Your powerful arm gives you a talent for lobbing things. Reduces the Action Point cost of throwing attacks by 2."
+
+#define TACTICIAN_IMAGE    (82)
+#define TACTICIAN_NAME     "Tactician"
+#define TACTICIAN_CH_MIN   (6)
+#define TACTICIAN_LVL_MIN  (12)
+#define TACTICIAN_DESC     "You know how to lead a battle. Allied characters deal 10% more damage and receive 10% less."
 
 procedure start;
+procedure game_mode_hook;
 
 procedure start
 begin
    if game_loaded then begin
       perk_add_mode(ADD_PERK_MODE_PERK);
 
+      register_hook_proc(HOOK_GAMEMODECHANGE, game_mode_hook);
+
       if (has_fake_perk_npc(dude_obj, FAST_RELOAD_NAME) == 0) then
          set_selectable_perk_npc(dude_obj, FAST_RELOAD_NAME, 1, FAST_RELOAD_IMAGE, FAST_RELOAD_DESC);
 
+   end
+end
+
+// Fires on every game mode change. Catches the case where the player levels up
+// mid-session and immediately opens the charscreen for their perk pick.
+procedure game_mode_hook
+begin
+   variable event_type := get_sfall_arg;   // arg0: 1 = game exit, 0 = otherwise
+   variable prev_mode  := get_sfall_arg;   // arg1: previous game mode
+
+   if (event_type != 0) then return;
+
+   // Charscreen just opened (wasn't open before)
+   if ((get_game_mode bwand CHARSCREEN) and ((prev_mode bwand CHARSCREEN) == 0)) then begin
       if (has_fake_perk_npc(dude_obj, MASS_LOBBER_NAME) == 0) then begin
          variable player_st := get_critter_stat(dude_obj, STAT_st);
-         if (player_st >= MASS_LOBBER_ST_MIN) then
+         variable player_lv := get_pc_stat(PCSTAT_level);
+         if (player_st >= MASS_LOBBER_ST_MIN and player_lv >= MASS_LOBBER_LVL_MIN) then
             set_selectable_perk_npc(dude_obj, MASS_LOBBER_NAME, 1, MASS_LOBBER_IMAGE, MASS_LOBBER_DESC);
+      end
+
+      if (has_fake_perk_npc(dude_obj, TACTICIAN_NAME) == 0) then begin
+         variable tact_ch := get_critter_stat(dude_obj, STAT_ch);
+         variable tact_lv := get_pc_stat(PCSTAT_level);
+         if (tact_ch >= TACTICIAN_CH_MIN and tact_lv >= TACTICIAN_LVL_MIN) then
+            set_selectable_perk_npc(dude_obj, TACTICIAN_NAME, 1, TACTICIAN_IMAGE, TACTICIAN_DESC);
       end
    end
 end

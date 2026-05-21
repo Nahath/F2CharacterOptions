@@ -35,9 +35,12 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 # internal DAT path -> source path relative to SCRIPT_DIR
 DAT_SCRIPTS = {
     r"scripts\gl_powerarmor.int":        r"data\scripts\gl_powerarmor.int",
+    r"scripts\gl_fastreload.int":         r"data\scripts\gl_fastreload.int",
     r"scripts\gl_goris_armor.int":       r"data\scripts\gl_goris_armor.int",
     r"scripts\hs_inventorymove.int":     r"data\scripts\hs_inventorymove.int",
     r"scripts\hs_useskill.int":          r"data\scripts\hs_useskill.int",
+    r"scripts\hs_calcapcost.int":         r"data\scripts\hs_calcapcost.int",
+    r"scripts\hs_combatdamage.int":      r"data\scripts\hs_combatdamage.int",
     r"scripts\hs_steal.int":             r"data\scripts\hs_steal.int",
     r"scripts\dynamitemk2.int":          r"data\scripts\dynamitemk2.int",
     r"scripts\vcandy.int":               r"data\scripts\vcandy.int",
