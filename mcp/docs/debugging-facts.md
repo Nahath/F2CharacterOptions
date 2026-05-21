@@ -399,3 +399,67 @@ the named NPC because each NPC has its own script file.
 
 ### Compiler constraint: parametrized user-defined procedure calls
 The F2 SSL compiler (sfall compile.exe) requires parametrized user-defined procedure calls to appear in an **assignment context**. Bare statement calls (`inject(target, pid, want);`) cause "Assignment operator expected." Always assign: `r := inject(target, pid, want);`
+
+---
+
+## Fake Selectable Perks (set_selectable_perk_npc)
+
+### perk_add_mode is a direct opcode, not a metarule
+Call as `perk_add_mode(value)` — NOT `sfall_func1("perk_add_mode", value)`.
+The metarule form silently fails with `OPCODE ERROR: sfall_func1("perk_add_mode", ...) - metarule function is unknown.` in debug.log, leaving perk_add_mode at its default. The default appears to be `ADD_PERK_MODE_PERK (2)`.
+
+### ADD_PERK_MODE_REMOVE (4) crashes the game on perk selection
+Setting `perk_add_mode(ADD_PERK_MODE_PERK + ADD_PERK_MODE_REMOVE)` causes a hard crash when the player selects a fake perk from the level-up dialog. Use `ADD_PERK_MODE_PERK (2)` only. To prevent re-taking a perk, rely on `has_fake_perk_npc` at registration time — if the player already has it, don't call `set_selectable_perk_npc` again on the next game load.
+
+### has_fake_perk_npc is also a direct opcode
+`has_fake_perk_npc(critter, name)` returns 1 if taken, 0 if not taken or not registered. It is not defined in SFALL.H — call it directly.
+
+### Registration pattern for player-selectable perks
+```ssl
+// In game_loaded block:
+perk_add_mode(ADD_PERK_MODE_PERK);
+if (has_fake_perk_npc(dude_obj, PERK_NAME) == 0) then
+   set_selectable_perk_npc(dude_obj, PERK_NAME, 1, IMAGE_INDEX, PERK_DESC);
+```
+`set_selectable_perk_npc` uses `obj_dude->id` as the owner, bypassing the IsNpcControlled() check, which is what makes it work for the player character.
+
+---
+
+## HOOK_CALCAPCOST facts
+
+### arg4 (weapon) can be non-zero garbage in non-combat contexts
+The hook fires during interface redraws (not just combat). In those calls, arg4 is not 0 but is also not a valid object pointer (observed value: 5). Passing it to `obj_pid()` crashes. **Always get the weapon via `critter_inven_obj`** — never trust arg4:
+```ssl
+if (atktype < 2) then
+   wpn := critter_inven_obj(critter, INVEN_TYPE_LEFT_HAND);
+else
+   wpn := critter_inven_obj(critter, INVEN_TYPE_RIGHT_HAND);
+```
+
+### The hook fires multiple times per attack action — arg3 (ap_cost) compounds
+HOOK_CALCAPCOST fires for display updates, computing, sequencing, and running phases. Each subsequent firing receives the already-modified cost from the previous firing as arg3. A naive `-2` applied three times gives `5→3→1→1` instead of `5→3`. To compute the reduction idempotently, **read the vanilla AP cost from the proto** instead of from arg3:
+```ssl
+if (atktype bwand 1) then
+   new_cost := get_proto_data(obj_pid(wpn), PROTO_WP_APCOST_2) - 2;
+else
+   new_cost := get_proto_data(obj_pid(wpn), PROTO_WP_APCOST_1) - 2;
+```
+`atktype bwand 1 == 0` = primary attack (LWEP1/RWEP1); `== 1` = secondary (LWEP2/RWEP2).
+
+### Detecting throw attacks: use PROTO_FLAG_EXT, not PROTO_WP_ANIM
+`PROTO_WP_ANIM` (offset 36) stores the **weapon animation class** (WPN_ANIM_KNIFE=1, WPN_ANIM_PISTOL=5, etc.) — NOT the attack mode.
+
+Attack modes (Swing/Thrust/Throw/Single/Burst/Flame) are packed in **`PROTO_FLAG_EXT` (offset 24)**:
+- **Lower nibble** (bits 0–3): primary attack mode
+- **Upper nibble** (bits 4–7): secondary attack mode
+
+Confirmed from `fallout2-ce` source (`weaponGetAttackTypeForHitMode` reads `extendedFlags & 0xF` for primary, `(extendedFlags & 0xF0) >> 4` for secondary).
+
+```ssl
+variable ext := get_proto_data(obj_pid(wpn), PROTO_FLAG_EXT);
+if (atktype bwand 1) then
+   is_throw := ((ext bwand 0xF0) == (ATTACK_MODE_THROW * 16));  // secondary
+else
+   is_throw := ((ext bwand 0xF) == ATTACK_MODE_THROW);           // primary
+```
+Both `PROTO_FLAG_EXT` and `ATTACK_MODE_THROW` are already defined in `define_extra.h`.

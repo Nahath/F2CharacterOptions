@@ -1,0 +1,30 @@
+#include "DEFINE.H"
+#include "SFALL.H"
+#include "define_extra.h"
+
+#define FAST_RELOAD_IMAGE   (78)
+#define FAST_RELOAD_NAME    "Fast Reload"
+#define FAST_RELOAD_DESC    "You can just keep firing. Reload time is reduced by one action point."
+
+#define MASS_LOBBER_IMAGE   (107)
+#define MASS_LOBBER_NAME    "Mass Lobber"
+#define MASS_LOBBER_ST_MIN  (5)
+#define MASS_LOBBER_DESC    "Requires Strength 5 and Level 9. Your powerful arm gives you a talent for lobbing things. Reduces the Action Point cost of throwing attacks by 2."
+
+procedure start;
+
+procedure start
+begin
+   if game_loaded then begin
+      perk_add_mode(ADD_PERK_MODE_PERK);
+
+      if (has_fake_perk_npc(dude_obj, FAST_RELOAD_NAME) == 0) then
+         set_selectable_perk_npc(dude_obj, FAST_RELOAD_NAME, 1, FAST_RELOAD_IMAGE, FAST_RELOAD_DESC);
+
+      if (has_fake_perk_npc(dude_obj, MASS_LOBBER_NAME) == 0) then begin
+         variable player_st := get_critter_stat(dude_obj, STAT_st);
+         if (player_st >= MASS_LOBBER_ST_MIN) then
+            set_selectable_perk_npc(dude_obj, MASS_LOBBER_NAME, 1, MASS_LOBBER_IMAGE, MASS_LOBBER_DESC);
+      end
+   end
+end

@@ -1,0 +1,55 @@
+#include "DEFINE.H"
+#include "SFALL.H"
+#include "define_extra.h"
+
+#define FAST_RELOAD_NAME   "Fast Reload"
+#define MASS_LOBBER_NAME   "Mass Lobber"
+
+procedure start;
+
+procedure start
+begin
+   if game_loaded then return;
+
+   variable critter  := get_sfall_arg;   // arg0: critter performing the action
+   variable atktype  := get_sfall_arg;   // arg1: attack type (ATKTYPE_* constants)
+   get_sfall_arg;                         // arg2: is aimed attack, unused
+   variable ap_cost  := get_sfall_arg;   // arg3: default AP cost
+   variable weapon   := get_sfall_arg;   // arg4: weapon object (0 if unavailable)
+   variable wpn      := 0;
+   variable wep_anim := 0;
+   variable is_throw := 0;
+   variable new_cost := 0;
+
+   if (critter != dude_obj) then return;
+
+   if (atktype == ATKTYPE_LWEP_RELOAD or atktype == ATKTYPE_RWEP_RELOAD) then begin
+      if (has_fake_perk_npc(dude_obj, FAST_RELOAD_NAME)) then begin
+         new_cost := ap_cost - 1;
+         if (new_cost < 1) then new_cost := 1;
+         set_sfall_return(new_cost);
+      end
+   end else if (atktype <= ATKTYPE_RWEP2
+                and has_fake_perk_npc(dude_obj, MASS_LOBBER_NAME)) then begin
+      if (atktype < 2) then
+         wpn := critter_inven_obj(critter, INVEN_TYPE_LEFT_HAND);
+      else
+         wpn := critter_inven_obj(critter, INVEN_TYPE_RIGHT_HAND);
+      if (wpn != 0) then begin
+         wep_anim := get_proto_data(obj_pid(wpn), PROTO_FLAG_EXT);
+         if (atktype bwand 1) then
+            is_throw := ((wep_anim bwand 0xF0) == (ATTACK_MODE_THROW * 16));
+         else
+            is_throw := ((wep_anim bwand 0xF) == ATTACK_MODE_THROW);
+         if (is_throw) then begin
+            // Read vanilla cost from proto to avoid compounding across multiple hook firings
+            if (atktype bwand 1) then
+               new_cost := get_proto_data(obj_pid(wpn), PROTO_WP_APCOST_2) - 2;
+            else
+               new_cost := get_proto_data(obj_pid(wpn), PROTO_WP_APCOST_1) - 2;
+            if (new_cost < 1) then new_cost := 1;
+            set_sfall_return(new_cost);
+         end
+      end
+   end
+end
