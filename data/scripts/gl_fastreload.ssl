@@ -18,6 +18,11 @@
 #define TACTICIAN_LVL_MIN  (12)
 #define TACTICIAN_DESC     "You know how to lead a battle. Allied characters deal 10% more damage and receive 10% less."
 
+#define BRUTE_FORCE_IMAGE   (61)
+#define BRUTE_FORCE_NAME    "Brute Force"
+#define BRUTE_FORCE_LVL_MIN (24)
+#define BRUTE_FORCE_DESC    "Increases non-critical damage by 30%. If brute force isn't working, you're not using enough."
+
 procedure start;
 procedure game_mode_hook;
 
@@ -57,6 +62,12 @@ begin
          variable tact_lv := get_pc_stat(PCSTAT_level);
          if (tact_ch >= TACTICIAN_CH_MIN and tact_lv >= TACTICIAN_LVL_MIN) then
             set_selectable_perk_npc(dude_obj, TACTICIAN_NAME, 1, TACTICIAN_IMAGE, TACTICIAN_DESC);
+      end
+
+      if (has_fake_perk_npc(dude_obj, BRUTE_FORCE_NAME) == 0) then begin
+         variable bf_lv := get_pc_stat(PCSTAT_level);
+         if (bf_lv >= BRUTE_FORCE_LVL_MIN) then
+            set_selectable_perk_npc(dude_obj, BRUTE_FORCE_NAME, 1, BRUTE_FORCE_IMAGE, BRUTE_FORCE_DESC);
       end
    end
 end

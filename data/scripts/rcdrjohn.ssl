@@ -1351,8 +1351,6 @@ procedure NodeSelectTarget begin
       NOption(obj_name(MacRae_Ptr), NodeSlotMacRae, 004);
    if (Lenny_In_Party) then
       NOption(obj_name(Lenny_Ptr), NodeSlotLenny, 004);
-   if (Cyberdog_In_Party) then
-      NOption(obj_name(Cyberdog_Ptr), NodeSlotCyberdog, 004);
    if (Doc_In_Party) then
       NOption(obj_name(Doc_Ptr), NodeSlotDoc, 004);
    if (Goris_In_Party) then
@@ -1363,8 +1361,6 @@ procedure NodeSelectTarget begin
       NOption(obj_name(Miria_Ptr), NodeSlotMiria, 004);
    if (Dogmeat_In_Party) then
       NOption(obj_name(Dogmeat_Ptr), NodeSlotDogmeat, 004);
-   if (K9_In_Party) then
-      NOption(obj_name(K9_Ptr), NodeSlotK9, 004);
    if (Kitsune_In_Party) then
       NOption(obj_name(Kitsune_Ptr), NodeSlotKitsune, 004);
    if (Dex_In_Party) then

@@ -2,7 +2,8 @@
 #include "SFALL.H"
 #include "define_extra.h"
 
-#define TACTICIAN_NAME  "Tactician"
+#define TACTICIAN_NAME   "Tactician"
+#define BRUTE_FORCE_NAME "Brute Force"
 
 procedure start;
 
@@ -14,15 +15,27 @@ begin
    variable attacker := get_sfall_arg;   // arg1: attacker critter
    variable dmg      := get_sfall_arg;   // arg2: damage to target
 
+   // Brute Force: player's non-critical hits deal 30% more damage
+   if (attacker == dude_obj and has_fake_perk_npc(dude_obj, BRUTE_FORCE_NAME) != 0) then begin
+      variable flags := get_sfall_arg_at(4);
+      if ((flags bwand DAM_CRITICAL) == 0) then begin
+         variable new_dmg := dmg * 13 / 10;
+         display_msg(sfall_func3("string_format", "BF: %d -> %d", dmg, new_dmg));
+         set_sfall_return(new_dmg);
+      end else begin
+         display_msg(sfall_func2("string_format", "BF: crit %d (no change)", dmg));
+      end
+      return;
+   end
+
+   // Tactician: companions deal 10% more / take 10% less damage
    if (has_fake_perk_npc(dude_obj, TACTICIAN_NAME) == 0) then return;
 
-   // Companion dealing damage: +10%
    if (attacker != dude_obj and obj_in_party(attacker)) then begin
       set_sfall_return(dmg * 11 / 10);
       return;
    end
 
-   // Companion receiving damage: -10%
    if (target != dude_obj and obj_in_party(target)) then
       set_sfall_return(dmg * 9 / 10);
 end
