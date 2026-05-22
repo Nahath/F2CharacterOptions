@@ -1,0 +1,49 @@
+#include "DEFINE.H"
+#include "SFALL.H"
+#include "define_extra.h"
+
+procedure start;
+
+procedure start
+begin
+   if game_loaded then return;
+
+   variable cur_min  := get_sfall_arg;   // arg0: default min damage
+   variable cur_max  := get_sfall_arg;   // arg1: default max damage
+   variable weapon   := get_sfall_arg;   // arg2: weapon object (0 if unarmed)
+   variable attacker := get_sfall_arg;   // arg3: attacker critter
+   get_sfall_arg;                         // arg4: attack type (unused)
+   variable is_melee := get_sfall_arg;   // arg5: non-zero if melee weapon
+
+   if (attacker != dude_obj) then return;
+
+   variable rank  := 0;
+   variable bonus := 0;
+   variable pyro  := 0;
+
+   if (weapon == 0 or is_melee != 0) then begin
+      rank := has_trait(TRAIT_PERK, dude_obj, PERK_bonus_hth_damage);
+      if (rank != 0) then
+         bonus := rank * 2;
+   end else begin
+      rank := has_trait(TRAIT_PERK, dude_obj, PERK_bonus_ranged_damage);
+      if (rank != 0) then
+         bonus := rank;
+   end
+
+   if (weapon != 0 and weapon_dmg_type(weapon) == DMG_fire) then
+      pyro := has_trait(TRAIT_PERK, dude_obj, PERK_pyromaniac_perk);
+
+   if (bonus == 0 and pyro == 0) then return;
+
+   cur_min := cur_min + bonus;
+   cur_max := cur_max + bonus;
+
+   if (pyro != 0) then begin
+      cur_min := cur_min * 14 / 10;
+      cur_max := cur_max * 14 / 10;
+   end
+
+   set_sfall_return(cur_min);
+   set_sfall_return(cur_max);
+end

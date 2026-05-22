@@ -41,6 +41,7 @@ DAT_SCRIPTS = {
     r"scripts\hs_useskill.int":          r"data\scripts\hs_useskill.int",
     r"scripts\hs_calcapcost.int":         r"data\scripts\hs_calcapcost.int",
     r"scripts\hs_combatdamage.int":      r"data\scripts\hs_combatdamage.int",
+    r"scripts\hs_itemdamage.int":        r"data\scripts\hs_itemdamage.int",
     r"scripts\hs_steal.int":             r"data\scripts\hs_steal.int",
     r"scripts\dynamitemk2.int":          r"data\scripts\dynamitemk2.int",
     r"scripts\vcandy.int":               r"data\scripts\vcandy.int",
@@ -77,6 +78,9 @@ DIALOG_MSG_PATCHES = {
         (244, "They already have as many implants as I can give them."),
     ],
     r"text\english\game\perk.msg": [
+        (1103, "Experience in unarmed combat has given you the edge when it comes to damage.  You cause +4 points of damage with hand-to-hand and melee attacks for each level of this Perk."),
+        (1105, "Your training in firearms and other ranged weapons has made you more deadly in ranged combat.  For each level of this Perk, you do +3 points of damage with ranged weapons."),
+        (1202, "You do A LOT of extra damage with fire-based weapons, and enemies always seem to die in the most painful fiery fashion."),
         (1206, "An expert thief, you can steal items that no other person could steal or loot. Also provides a one-time bonus of +10% to your Sneak, Lockpick, Steal, and Traps skills."),
     ],
 }
