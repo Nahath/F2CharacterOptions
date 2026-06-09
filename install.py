@@ -47,6 +47,8 @@ DAT_SCRIPTS = {
     r"scripts\vcandy.int":               r"data\scripts\vcandy.int",
     r"scripts\rcdrjohn.int":             r"data\scripts\rcdrjohn.int",
     r"scripts\fcdrfung.int":             r"data\scripts\fcdrfung.int",
+    r"scripts\npcSargt.int":             r"data\scripts\npcSargt.int",
+    r"scripts\scenDoor.int":             r"data\scripts\scenDoor.int",
     # Stub for a spatial script that the Arroyo map references by name but
     # whose .int is absent from master.dat and all mod archives.  Without it
     # the engine crashes on "Couldn't open … for read" immediately after the
@@ -77,6 +79,10 @@ DIALOG_MSG_PATCHES = {
         (243, "Actually, I changed my mind."),
         (244, "They already have as many implants as I can give them."),
     ],
+    r"text\english\game\pro_item.msg": [
+        (60100, "Sargeant's Key Card"),
+        (60101, "A security key card."),
+    ],
     r"text\english\game\perk.msg": [
         (1103, "Experience in unarmed combat has given you the edge when it comes to damage.  You cause +4 points of damage with hand-to-hand and melee attacks for each level of this Perk."),
         (1105, "Your training in firearms and other ranged weapons has made you more deadly in ranged combat.  For each level of this Perk, you do +3 points of damage with ranged weapons."),
@@ -93,6 +99,12 @@ OFFSET_PID       = 0   # uint32 BE
 OFFSET_TEXT_ID   = 4   # uint32 BE
 OFFSET_SCRIPT_ID = 28  # int32  BE  (-1 = no script)
 OFFSET_COST      = 48  # uint32 BE
+
+# Proto constants for key card (proto 601 is based on proto 140, Access Card)
+KEYCARD_SRC_PROTO_ID = 140
+KEYCARD_PROTO_ID     = 601
+KEYCARD_MSG_NAME     = KEYCARD_PROTO_ID * 100      # 60100
+KEYCARD_MSG_DESC     = KEYCARD_PROTO_ID * 100 + 1  # 60101
 
 # pro_item.msg message IDs for proto 600 (convention: proto_id * 100)
 MSG_ID_NAME = DST_PROTO_ID * 100      # 60000
@@ -308,6 +320,31 @@ def build_proto_600(game_root, script_id, inven_fid):
     struct.pack_into(">I", data, OFFSET_INVEN_FID, inven_fid)
     return bytes(data)
 
+
+def build_proto_601(game_root):
+    """Return patched proto-601 bytes (key card), derived from proto 140 (Access Card)."""
+    src_filename = f"{KEYCARD_SRC_PROTO_ID:08d}.pro"
+
+    src_disk = os.path.join(game_root, "data", "proto", "items", src_filename)
+    if os.path.isfile(src_disk):
+        with open(src_disk, "rb") as fh:
+            data = bytearray(fh.read())
+        print(f"  Keycard proto source: {src_disk}")
+    else:
+        dat_path = os.path.join(game_root, "master.dat")
+        if not os.path.isfile(dat_path):
+            abort("master.dat not found.")
+        raw = read_file_from_dat(dat_path, "proto\\items\\" + src_filename)
+        if raw is None:
+            abort(f"{src_filename!r} not found in master.dat.")
+        data = bytearray(raw)
+        print(f"  Keycard proto source: {src_filename} (from master.dat)")
+
+    struct.pack_into(">I", data, OFFSET_PID,     KEYCARD_PROTO_ID)
+    struct.pack_into(">I", data, OFFSET_TEXT_ID, KEYCARD_MSG_NAME)
+    return bytes(data)
+
+
 # ── Steps ────────────────────────────────────────────────────────────────────
 
 def step_cleanup_loose(game_root):
@@ -368,8 +405,14 @@ def step_build_and_install_dat(game_root):
     if not scripts_lst.endswith((b"\n", b"\r\n")):
         scripts_lst += b"\n"
     scripts_lst += b"dynamitemk2\n"
+    scripts_lst += b"DYNMK2ON\n"
+    scripts_lst += b"npcSargt\n"
+    scripts_lst += b"scenDoor\n"
     file_map[r"scripts\scripts.lst"] = scripts_lst
     print(f"  Appended dynamitemk2 to scripts.lst at index {script_id}")
+    print(f"  Appended DYNMK2ON to scripts.lst at index {script_id + 1}")
+    print(f"  Appended npcSargt to scripts.lst at index {script_id + 2}")
+    print(f"  Appended scenDoor to scripts.lst at index {script_id + 3}")
 
     dynmk2_frm, ext_inven_lst, dynmk2_idx = build_inven_art(game_root)
     file_map[DST_INVEN_FRM] = dynmk2_frm
@@ -408,6 +451,9 @@ def step_build_and_install_dat(game_root):
 
     proto_key = f"proto\\items\\{DST_PROTO_ID:08d}.pro"
     file_map[proto_key] = build_proto_600(game_root, script_id, inven_fid)
+
+    keycard_proto_key = f"proto\\items\\{KEYCARD_PROTO_ID:08d}.pro"
+    file_map[keycard_proto_key] = build_proto_601(game_root)
 
     dat_bytes = build_dat2(file_map)
 

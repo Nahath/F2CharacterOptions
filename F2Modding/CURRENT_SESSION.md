@@ -1,25 +1,43 @@
 # Current Session
 
 ## Task
-Added Mass Lobber perk (requires ST 5 + Level 9, reduces throw AP cost by 2). Both Mass Lobber and Fast Reload are working.
+Key card door system — Sargeant NPC carries a key card; a custom door can only be opened with it.
 
 ## Progress
-- gl_fastreload.ssl: registers both Fast Reload and Mass Lobber as fake selectable perks via sfall
-- hs_calcapcost.ssl: HOOK_CALCAPCOST hook applies AP reductions for both perks
-- mcp/docs/debugging-facts.md: updated with Fake Selectable Perks and HOOK_CALCAPCOST facts
-- All scripts compiled and installed via install.py
-- Committed.
+- Created `data/scripts/scenDoor.ssl` — door script with `map_enter_p_proc` (lock on enter),
+  `use_p_proc` (show "locked" message), `use_obj_on_p_proc` (unlock if PID 601 key card used).
+- Updated `data/scripts/npcSargt.ssl` — gives key card (PID 601) on first map enter via
+  `create_object_sid` + `add_mult_objs_to_inven`, guarded by `LVAR_gave_keycard`.
+- Created custom item proto 601 in install.py (`build_proto_601`) based on Access Card (proto 140).
+  PID patched to 601, TextID to 60100 ("Sargeant's Key Card" / "A security key card.").
+- Added pro_item.msg entries 60100/60101 to DIALOG_MSG_PATCHES.
+- Added scenDoor.int to DAT_SCRIPTS; appended `scenDoor` to scripts.lst at index 1306.
+- Copied scenDoor.int and npcSargt.int to loose game scripts folder (for mapper).
+- Appended `scenDoor.int` to loose scripts.lst (index 1306, no trailing newline).
+- Rebuilt f2mod.dat — 26 files, scenDoor at index 1306 confirmed by verify_f2mod.
 
 ## Next Step
-None — session complete. Next work involves additional perks.
+**Assign the door script in BIS mapper:**
+1. Open the map containing the door in BIS mapper.
+2. Select the door object (right-click → Properties or use the object picker).
+3. In the Script field, pick `scenDoor` (index 1306).
+4. Save the map.
+5. Run install.py to rebuild f2mod.dat with the updated map.
 
 ## Open Questions / Decisions
-None.
+- The door currently uses the stock "door is locked" text. If you want a custom message
+  (e.g. "Security access required"), edit the `display_msg` string in scenDoor.ssl and recompile.
+- The key card stays in the player's inventory after use (not consumed). Let me know if it
+  should be removed on first use.
 
 ## Context
-Key bugs fixed this session:
-1. perk_add_mode must be a direct opcode call, not sfall_func1 metarule
-2. ADD_PERK_MODE_REMOVE (flag 4) causes crash on perk selection — use ADD_PERK_MODE_PERK (2) only
-3. HOOK_CALCAPCOST arg4 (weapon) can be garbage (e.g. 5) — always use critter_inven_obj instead
-4. PROTO_FLAG_EXT (offset 24) stores packed attack modes; lower nibble = primary, upper = secondary
-5. Hook fires multiple times per action — read vanilla AP cost from proto, not hook arg, to avoid compounding
+Key card PID: 601
+Door script index: 1306
+Sargeant script index: 1305
+
+Proto 601 based on Access Card (140):
+- Same inventory art (card graphic, FrmID 41)
+- Same misc item type, weight 1, size 1
+
+`create_object` (vanilla) = not a built-in in sfall compiler 4.4.10 — must use
+`create_object_sid(pid, 0, 0, -1)` instead (from define.h: `create_object(X,Y,Z) = create_object_sid(X,Y,Z,-1)`).

@@ -1303,3 +1303,5 @@ niBisHDr.int    ; New Reno Bishop Hard Locked Door              # local_vars=6
 ntRicRom.int    ; New Reno Richard Wright Room Spacial          # local_vars=1
 DYNMK2.int      ; Super Dynamite (inert)                        # local_vars=0
 DYNMK2ON.int    ; Super Dynamite (active)                       # local_vars=0
+npcSargt.int    ; Generic NPC rename — Sargeant                  # local_vars=0
+scenDoor.int    ; Key card door                              # local_vars=1

@@ -1,0 +1,20 @@
+#include "sfall.h"
+
+#define PID_SARGT_KEYCARD  (601)
+#define LVAR_gave_keycard  (0)
+
+procedure start;
+procedure map_enter_p_proc;
+
+procedure start begin
+end
+
+procedure map_enter_p_proc begin
+  variable keycard;
+  sfall_func1("set_scr_name", "Sargeant");
+  if (local_var(LVAR_gave_keycard) == 0) then begin
+    set_local_var(LVAR_gave_keycard, 1);
+    keycard := create_object_sid(PID_SARGT_KEYCARD, 0, 0, -1);
+    add_mult_objs_to_inven(self_obj, keycard, 1);
+  end
+end
